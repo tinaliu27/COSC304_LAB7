@@ -35,18 +35,21 @@ catch (java.lang.ClassNotFoundException e)
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
 String uid = "sa";
 String pw = "304#sa#pw";
-out.println("All products");
+out.println("<h2>All Products</h2>");
 
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();)
 	  {	
-		String sql = "SELECT productName, productPrice FROM product";
+		String sql = "SELECT productName, productPrice, productId FROM product";
 		ResultSet rst = stmt.executeQuery(sql);
 		out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
 		while(rst.next()) {
 			String pname = rst.getString(1);
 			Double price = rst.getDouble(2); 
-			out.println("<tr><td>"+ "</td>"+ "<td>" + pname +"</td>" + "<td>"+ price +"</td></tr>");
+			Double id = rst.getDouble(3);
+			String nav = "http://localhost/shop/" + "addcart.jsp?id=" + id + "&name=" + pname + "&price=" + price;
+			String link = "<a href=" + nav + ">Add to Cart</a>";
+			out.println("<tr><td>"+ link + "</td>"+ "<td>" + pname +"</td>" + "<td>$"+ price +"</td></tr>");
 
 		}
 		rst.close(); 
