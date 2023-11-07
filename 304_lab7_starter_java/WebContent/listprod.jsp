@@ -50,7 +50,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         Double price = rst.getDouble(2); 
         String price2 = currency.format(price);
         Double id = rst.getDouble(3);
-        String nav = "http://localhost/shop/addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
+        String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
         String link = "<a href='" + nav + "'>Add to Cart</a>";
         out.println("<tr><td>"+ link + "</td><td>" + pname +"</td><td>"+ price2 +"</td></tr>");
     }
