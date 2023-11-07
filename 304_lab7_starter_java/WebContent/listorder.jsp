@@ -5,9 +5,12 @@
 <html>
 <head>
 <title>YOUR NAME Grocery Order List</title>
+<style>
+table, th, td {
+  		border: 1px solid black;
+	}</style> 
 </head>
 <body>
-
 <h1>Order List</h1>
 
 <%
@@ -45,24 +48,23 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	out.println("<table><tr><th>Order Id</th><th>Order Date</th><th>Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
 	while(rst.next()) {
 		int orderid = rst.getInt(1); 
-		out.println("<tr><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td>"+"<td>"+"$"+rst.getString(6)+"</td>"+"</tr>");
+		out.println("<tr><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
 		pstmt.setInt(1, orderid); 
 		ResultSet rst2 = pstmt.executeQuery(); 
 		int count = 0; 
 
 		if(rst2.next()) {
-			out.println("<tr><table><tr><th>Product Id</th><th>Quantity</th><th>Price</th></tr></tr>");
+			out.println("<tr><th></th><th></th><th>Product Id</th><th>Quantity Price</th></tr>");
 			do {
-					out.println("<tr><td><td>" + rst2.getInt(1)+"</td><td>"+ rst2.getInt(2)+"</td><td>"+rst2.getString(3)+"</td></tr>");
+					out.println("<tr><td></td><td></td><td>" + rst2.getInt(1)+"</td><td>"+ rst2.getInt(2)+"$"+rst2.getString(3)+"</td></tr>");
 			} while (rst2.next()); 
 			
-			out.println("</table>");
+			out.println();
 
 		}
 	}	
 	out.println("</table>");
-	rst.close();
-	
+	rst.close();	
 } catch (SQLException ex) {
 	out.println("SQLException: " + ex);
 }
