@@ -36,6 +36,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();)
 	  {
 	// first select 
+	PreparedStatement pstmt = con.prepareStatement("SELECT productId, quantity, price FROM orderproduct WHERE orderId = ?");
 	String sql = "SELECT O.orderId, O.orderDate, C.customerId, C.firstName, C.lastname, O.totalAmount FROM ordersummary as O INNER JOIN customer as C ON O.customerId = C.customerId";
 	ResultSet rst = stmt.executeQuery(sql); 
 	// second select 
@@ -43,9 +44,22 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	// ResultSet rst2 = stmt.executeQuery(sql2); 
 	out.println("<table><tr><th>Order Id</th><th>Order Date</th><th>Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
 	while(rst.next()) {
-		out.println("<tr><td>" + rst.getInt(1)+"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td>"+"<td>"+"$"+rst.getString(6)+"</td>"+"</tr>");
-		// out.println("<tr><td>"+ rst2.getInt(1)+"</td>"+"</tr>");
-	}
+		int orderid = rst.getInt(1); 
+		out.println("<tr><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td>"+"<td>"+"$"+rst.getString(6)+"</td>"+"</tr>");
+		pstmt.setInt(1, orderid); 
+		ResultSet rst2 = pstmt.executeQuery(); 
+		int count = 0; 
+
+		if(rst2.next()) {
+			out.println("<tr><table><tr><th>Product Id</th><th>Quantity</th><th>Price</th></tr></tr>");
+			do {
+					out.println("<tr><td><td>" + rst2.getInt(1)+"</td><td>"+ rst2.getInt(2)+"</td><td>"+rst2.getString(3)+"</td></tr>");
+			} while (rst2.next()); 
+			
+			out.println("</table>");
+
+		}
+	}	
 	out.println("</table>");
 	rst.close();
 	
