@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*,java.net.URLEncoder" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,14 +44,16 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	  {	
 		String sql = "SELECT productName, productPrice, productId FROM product";
 		ResultSet rst = stmt.executeQuery(sql);
+		NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
 		out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
 		while(rst.next()) {
 			String pname = rst.getString(1);
 			Double price = rst.getDouble(2); 
+			String price2 = currency.format(price);
 			Double id = rst.getDouble(3);
 			String nav = "http://localhost/shop/" + "addcart.jsp?id=" + id + "&name=" + pname + "&price=" + price;
 			String link = "<a href=" + nav + ">Add to Cart</a>";
-			out.println("<tr><td>"+ link + "</td>"+ "<td>" + pname +"</td>" + "<td>$"+ price +"</td></tr>");
+			out.println("<tr><td>"+ link + "</td>"+ "<td>" + pname +"</td>" + "<td>"+ price2 +"</td></tr>");
 
 		}
 		rst.close(); 
