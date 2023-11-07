@@ -52,16 +52,18 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		pstmt.setInt(1, orderid); 
 		ResultSet rst2 = pstmt.executeQuery(); 
 		int count = 0; 
-
+		double total = 0; 
 		if(rst2.next()) {
-			out.println("<tr><th></th><th></th><th>Product Id</th><th>Quantity Price</th></tr>");
+			out.println("<tr><th>Product Id</th><th>Quantity</th><th>Price</th></tr>");
 			do {
-					out.println("<tr><td></td><td></td><td>" + rst2.getInt(1)+"</td><td>"+ rst2.getInt(2)+"$"+rst2.getString(3)+"</td></tr>");
+					String value = rst2.getString(3); 
+					int quantity = rst2.getInt(2); 
+					out.println("<tr><td>" + rst2.getInt(1)+"</td><td>"+ rst2.getInt(2)+"</td><td>$"+rst2.getString(3)+"</td></tr>");
+					total+=(quantity*Double.parseDouble(value)); 
 			} while (rst2.next()); 
-			
-			out.println();
-
 		}
+		out.println("<tr><td><h4>Total</h4></td><td></td><td>$"+total+"</td></tr>");
+			total = 0; 
 	}	
 	out.println("</table>");
 	rst.close();
