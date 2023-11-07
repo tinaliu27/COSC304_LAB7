@@ -64,7 +64,9 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		}
 	}	
 	out.println("</table>");
-	rst.close();	
+	rst.close();
+	stmt.close();
+	con.close(); 
 } catch (SQLException ex) {
 	out.println("SQLException: " + ex);
 }
