@@ -47,7 +47,7 @@
 
 <% // Get product name to search for
 String name = request.getParameter("productName");
-String categoryselected = request.getParameter("categoryName");
+String category = request.getParameter("categoryName");
 		
 //Note: Forces loading of SQL Server driver
 try
@@ -67,21 +67,26 @@ String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustS
 String uid = "sa";
 String pw = "304#sa#pw";
 out.println("<h2>All Products</h2>");
+out.println(category); 
+String sql = ""; 
+    if(category == null || category.equals("All")) {
+        sql = "SELECT productName, productPrice, productId FROM product as P WHERE productName LIKE ?"; 
+    } else {
+        sql = "SELECT P.productName, P.productPrice, P.productId FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
 
+    }
 try (Connection con = DriverManager.getConnection(url, uid, pw);
-    PreparedStatement pstmt = con.prepareStatement("SELECT productName, productPrice, productId FROM product as P WHERE productName LIKE ?");) {
-    pstmt.setString(1, "%" + name + "%");
+    PreparedStatement pstmt = con.prepareStatement(sql);) {
+    if(category != null && !category.equals("All")) {
+        pstmt.setString(1, category);
+        pstmt.setString(2, "%" + name + "%");
+    } else {
+        pstmt.setString(1, "%" + name + "%");
+
+    }
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
     out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
-
-    String sql = "SELECT P.productName, P.productPrice, P.productId FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
-    PreparedStatement pstmt2 = con.prepareStatement(sql); 
-    pstmt2.setString(1, categoryselected);
-    pstmt2.setString(2, "%" + name + "%");
-    ResultSet rst2 = pstmt2.executeQuery(); 
-    // for categories
-    if(categoryselected.equals("All")) {
         while(rst.next()) {
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 
@@ -92,18 +97,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String link = "<a href='" + nav + "'>Add to Cart</a>";
             out.println("<tr><td>"+ link + "</td><td>" + pname +"</td><td>"+ price2 +"</td></tr>");
         }
-    } else {
-       
-        while(rst2.next()) {
-            String pname2 = rst2.getString(1); 
-            Double price2 = rst2.getDouble(2); 
-            String priceedited2 = currency.format(price2);
-            Double id2 = rst2.getDouble(3); 
-            String nav = "addcart.jsp?id=" + id2 + "&name=" + URLEncoder.encode(pname2, "UTF-8") + "&price=" + price2;
-            String link = "<a href='" + nav + "'>Add to Cart</a>";
-            out.println("<tr><td>"+ link + "</td><td>" + pname2 +"</td><td>"+ priceedited2 +"</td></tr>");
-        }
-    }
+    
     rst.close();
 } catch (SQLException ex) {
     out.println("SQLException: " + ex.getMessage());
