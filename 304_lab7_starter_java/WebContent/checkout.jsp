@@ -9,6 +9,7 @@
 
 <form method="get" action="order.jsp">
 <input type="text" name="customerId" size="50">
+<input type="password" name="password" size="50">
 <input type="submit" name="submit" value="Submit">
 <input type="reset" value="Reset">
 </form>

@@ -36,7 +36,7 @@
     <option value = "Confections">Confections</option> 
     <option value = "Dairy Products">Dairy Products</option> 
     <option value = "Grains/Cereals">Grains/Cereals</option> 
-    <option value = "Meat/Poulty">Meat/Poultry</option> 
+    <option value = "Meat/Poultry">Meat/Poultry</option> 
     <option value = "Produce">Produce</option> 
     <option value = "Seafood">Seafood</option> 
 </select>
