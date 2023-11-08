@@ -78,9 +78,9 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     if(category.equals("All")) {
         continue; 
     } else{
-        String sql = "SELECT productName, productPrice, productId FROM product as P (SELECT categoryId FROM category WHERE categoryName = ?) C ON C.categoryId = P.categoryId";
-        PreparedStatement pstmt2 = con.preapreStatement(sql); 
-        pstmt.setString(1, category);
+        // String sql = "SELECT productName, productPrice, productId FROM product as P (SELECT categoryId FROM category WHERE categoryName = ?) C ON C.categoryId = P.categoryId";
+       //  PreparedStatement pstmt2 = con.preapreStatement(sql); 
+        // pstmt.setString(1, category);
 }
     out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
     while(rst.next()) {
