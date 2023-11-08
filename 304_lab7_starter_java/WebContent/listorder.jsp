@@ -1,6 +1,7 @@
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, java.net.URLEncoder" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,6 +80,8 @@ catch (java.lang.ClassNotFoundException e)
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
 String uid = "sa";
 String pw = "304#sa#pw";
+NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+
 
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
@@ -107,9 +110,10 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 					quantitytotal += quantity; 
 					total+=(quantity*Double.parseDouble(value)); 
 			} while (rst2.next()); 
-			
 		}
-		out.println("<tr><td><h4>Total:</h4></td><td>"+quantitytotal+"</td><td>$"+total+"</td></table></td></tr>");
+		String total2 = currency.format(total);
+
+		out.println("<tr><td><h4>Total:</h4></td><td>"+quantitytotal+"</td><td>"+total2+"</td></table></td></tr>");
 		total = 0;
 
 
