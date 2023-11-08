@@ -15,6 +15,11 @@
 <% 
 // Get customer id
 String custId = request.getParameter("customerId");
+int count = 0;
+if (request.getParameter("submit") != null){
+	count++; 
+	session.setAttribute("clickCount", count);
+}
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
@@ -30,7 +35,6 @@ String uid = "sa";
 String pw = "304#sa#pw";
 
 String sql = "SELECT customerId, firstName, lastName FROM customer WHERE customerId = ?";
-
 // Save order information to database
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
@@ -40,15 +44,24 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		pstmt.setInt(1, Integer.parseInt(custId)); 
 		ResultSet rst = pstmt.executeQuery();
 		
+		int invalid = 0; 
 		while(rst.next()) {
-			out.println("<h2>Shipping to customer: "+rst.getInt(1)+"Name: "rst.getString(2)+" "+rst.getString(3)+"</h2>");
+				out.println("<h1>Your Order Summary</h1>");
+				out.println("<h2>Order completed. Will be shipped soon...</h2>");
+				out.println("<h2>Your order reference number is: </h2>"+ count);
+			 	out.println("<h2>Shipping to customer: "+rst.getInt(1)+"</h2>\n<h2>Name: "+rst.getString(2)+" "+rst.getString(3)+"</h2>");
+				++invalid; 
 		}
+		if (invalid==0) {
+		out.println("<h1>Invalid customer id. Go back to the previous page and try again.</h1>");
+		}
+
     
 	stmt.close();
 	con.close(); 
 	rst.close();
 	  } catch (SQLException ex) {
-	out.println("SQLException: " + ex);
+			out.println("SQLException: " + ex);
 }
 
 	/*
