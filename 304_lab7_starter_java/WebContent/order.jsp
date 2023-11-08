@@ -45,16 +45,65 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		ResultSet rst = pstmt.executeQuery();
 		
 		int invalid = 0; 
-		while(rst.next()) {
+		if (productList.isEmpty())
+			invalid = 2;
+		while(rst.next() && invalid != 2) {
 				out.println("<h1>Your Order Summary</h1>");
-				out.println("<h2>Order completed. Will be shipped soon...</h2>");
-				out.println("<h2>Your order reference number is: </h2>"+ count);
-			 	out.println("<h2>Shipping to customer: "+rst.getInt(1)+"</h2>\n<h2>Name: "+rst.getString(2)+" "+rst.getString(3)+"</h2>");
+				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
+				double total = 0;		
+	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+	while (iterator.hasNext()) 
+	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+		ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+		if (product.size() < 4)
+		{
+			out.println("Expected product with four entries. Got: "+product);
+			continue;
+		}
+		url = "addcart.jsp?removeId=" + product.get(0);
+		out.print("<tr><td>"+product.get(0)+"</td>");
+		out.print("<td>"+product.get(1)+"</td>");
+		out.print("<td align=\"center\">" + product.get(3)+ "</td>");
+		Object price = product.get(2);
+		Object itemqty = product.get(3);
+		double pr = 0;
+		int qty = 0;
+		
+		try
+		{
+			pr = Double.parseDouble(price.toString());
+		}
+		catch (Exception e)
+		{
+			out.println("Invalid price for product: "+product.get(0)+" price: "+price);
+		}
+		try
+		{
+			qty = Integer.parseInt(itemqty.toString());
+		}
+		catch (Exception e)
+		{
+			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
+		}		
+		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
+		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
+		out.println("</tr>");
+		total = total +pr*qty;
+	}
+	out.println("</table>");
+				out.println("<h1>Order completed. Will be shipped soon...</h1>");
+				out.println("<h1>Your order reference number is: "+ count + "</h1>");
+			 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+"</h1>\n<h1>Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>");
+				out.println("<h2><a href='shop.html'>Back to Main Page</a></h2>");
 				++invalid; 
 		}
 		if (invalid==0) {
 		out.println("<h1>Invalid customer id. Go back to the previous page and try again.</h1>");
 		}
+		if (invalid == 2)
+			out.println("<h1>Invalid customer id. Go back to the previous page and try again.</h1>");
 
     
 	stmt.close();
@@ -99,4 +148,3 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 %>
 </BODY>
 </HTML>
-

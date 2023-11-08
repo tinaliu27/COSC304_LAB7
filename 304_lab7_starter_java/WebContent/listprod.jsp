@@ -122,14 +122,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     }
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
-    /*if(category.equals("All")) {
-        continue; 
-    } else{
-        String sql = "SELECT productName, productPrice, productId FROM product as P (SELECT categoryId FROM category WHERE categoryName = ?) C ON C.categoryId = P.categoryId";
-        PreparedStatement pstmt2 = con.prepareStatement(sql); 
-        pstmt2.setString(1, category);
-}*/
-    out.println("<table><tr><th></th><th>Product Name</th><th>Category</th><th>Price</th></tr>");
+    out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
         while(rst.next()) {
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 

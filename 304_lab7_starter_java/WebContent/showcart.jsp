@@ -65,7 +65,6 @@ else
 		}		
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
 		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
-		out.print("<td><a href='" + url + "'> Remove Item from Cart</a>");
 		out.print("<td><a href ='addcart.jsp?updateId='><button>Update Quantity</button></a></tr>");
 		out.println("</tr>");
 		total = total +pr*qty;
