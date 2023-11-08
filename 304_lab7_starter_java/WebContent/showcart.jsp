@@ -38,7 +38,7 @@ else
 			out.println("Expected product with four entries. Got: "+product);
 			continue;
 		}
-		String url = "showcart.jsp?delete=" + product.get(0);
+		String url = "addcart.jsp?removeId=" + product.get(0);
 		out.print("<tr><td>"+product.get(0)+"</td>");
 		out.print("<td>"+product.get(1)+"</td>");
 		out.print("<td align=\"center\"><input type='text' id='quantity' size='2' value="+product.get(3)+"></label></td>");
@@ -66,7 +66,7 @@ else
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
 		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
 		out.print("<td><a href='" + url + "'> Remove Item from Cart</a>");
-		out.print("<td><button>Update Quantity</button></tr>");
+		out.print("<td><a href ='addcart.jsp?updateId='><button>Update Quantity</button></a></tr>");
 		out.println("</tr>");
 		total = total +pr*qty;
 	}
@@ -77,7 +77,7 @@ else
 	out.println("<h2><a href=\"checkout.jsp\">Check Out</a></h2>");
 }
 %>
-<h2><a href="listprod.jsp">Continue Shopping</a></h2>
+<h2><a href="listprod.jsp?productName=">Continue Shopping</a></h2>
 </body>
 </html> 
 
