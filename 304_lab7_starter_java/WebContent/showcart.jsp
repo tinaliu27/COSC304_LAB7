@@ -28,7 +28,7 @@ else
 	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
 
-	double total =0;
+	double total = 0;
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 	while (iterator.hasNext()) 
 	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
@@ -38,7 +38,6 @@ else
 			out.println("Expected product with four entries. Got: "+product);
 			continue;
 		}
-		
 		String url = "showcart.jsp?delete=" + product.get(0);
 		out.print("<tr><td>"+product.get(0)+"</td>");
 		out.print("<td>"+product.get(1)+"</td>");
@@ -66,7 +65,8 @@ else
 		}		
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
 		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
-		out.print("<td><a href='" + url + "'> Remove Item from Cart</a></tr>");
+		out.print("<td><a href='" + url + "'> Remove Item from Cart</a>");
+		out.print("<td><button>Update Quantity</button></tr>");
 		out.println("</tr>");
 		total = total +pr*qty;
 	}
