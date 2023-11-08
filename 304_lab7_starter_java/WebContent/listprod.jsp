@@ -48,15 +48,15 @@
 <% // Get product name to search for
 String name = request.getParameter("productName");
 String category = request.getParameter("categoryName");
-		
+        
 //Note: Forces loading of SQL Server driver
 try
-{	// Load driver class
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+{   // Load driver class
+    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 }
 catch (java.lang.ClassNotFoundException e)
 {
-	out.println("ClassNotFoundException: " +e);
+    out.println("ClassNotFoundException: " +e);
 }
 
 // Variable name now contains the search string the user entered
@@ -67,7 +67,6 @@ String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustS
 String uid = "sa";
 String pw = "304#sa#pw";
 out.println("<h2>All Products</h2>");
-out.println(category); 
 String sql = ""; 
     if(category == null || category.equals("All")) {
         sql = "SELECT productName, productPrice, productId FROM product as P WHERE productName LIKE ?"; 
@@ -112,7 +111,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
 
 // Useful code for formatting currency values:
 // NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-// out.println(currFormat.format(5.0));	// Prints $5.00
+// out.println(currFormat.format(5.0)); // Prints $5.00
 %>
 </body>
 </html>
