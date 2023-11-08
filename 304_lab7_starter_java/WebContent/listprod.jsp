@@ -8,10 +8,47 @@
 <head>
 <title>YOUR NAME Grocery</title>
 <style>
-.header{
+header{
     display: flex; 
     position: sticky; 
     text-align: center; 
+}
+form{
+    font-size: 20px; 
+}
+table, th, td{
+    border: .5px solid black; 
+    text-align: left; 
+    padding-left: 5px; 
+    width: 80%;
+}
+table .links{
+    width: 30%; 
+}
+.table1 tr:nth-child(even) {
+    background: #F0F0F0;
+}
+
+.table1 tr:nth-child(odd) {
+    background: #FFF;
+}
+tr{
+   width: 1px;
+   word-wrap: break-word;
+   padding-left: 0;
+   padding-right: 0;
+   max-width: 180px;
+   min-width: 1px; 
+}
+.link{
+    width: 20px; 
+    word-break: break-all;
+}
+form .Beverages {
+    color: red; 
+}
+h4{
+    color: red; 
 }
 </style>
 </head>
@@ -69,9 +106,9 @@ String pw = "304#sa#pw";
 out.println("<h2>All Products</h2>");
 String sql = ""; 
     if(category == null || category.equals("All")) {
-        sql = "SELECT productName, productPrice, productId FROM product as P WHERE productName LIKE ?"; 
+        sql = "SELECT productName, productPrice, productId, categoryName FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE productName LIKE ?"; 
     } else {
-        sql = "SELECT P.productName, P.productPrice, P.productId FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
+        sql = "SELECT P.productName, P.productPrice, P.productId, categoryName FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
 
     }
 try (Connection con = DriverManager.getConnection(url, uid, pw);
@@ -85,8 +122,6 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     }
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
-<<<<<<< Updated upstream
-=======
     /*if(category.equals("All")) {
         continue; 
     } else{
@@ -94,17 +129,17 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         PreparedStatement pstmt2 = con.prepareStatement(sql); 
         pstmt2.setString(1, category);
 }*/
->>>>>>> Stashed changes
-    out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
+    out.println("<table><tr><th></th><th>Product Name</th><th>Category</th><th>Price</th></tr>");
         while(rst.next()) {
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 
             String price2 = currency.format(price);
             Double id = rst.getDouble(3);
+            String category1 = rst.getString(4); 
             // out.println("<tr><td>"+rst.getString); 
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
             String link = "<a href='" + nav + "'>Add to Cart</a>";
-            out.println("<tr><td>"+ link + "</td><td>" + pname +"</td><td>"+ price2 +"</td></tr>");
+            out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + pname +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
         }
     
     rst.close();
