@@ -92,6 +92,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("</tr>");
 		total = total +pr*qty;
 	}
+	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
 				out.println("<h1>Order completed. Will be shipped soon...</h1>");
 				out.println("<h1>Your order reference number is: "+ count + "</h1>");
