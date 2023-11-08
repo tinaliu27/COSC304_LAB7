@@ -8,7 +8,9 @@
 <style>
 
 table, th, td {
-  		border: 1px solid black;
+  		border: 2px solid black;
+		text-align: left;
+		padding-left: 5px; 
 	}
 h1{ 
 	color: 	black;
@@ -20,8 +22,8 @@ h2{
 }
 h3{
 	color: 	rgb(255,105,180);
-	font-size: 12px; 
-	padding: 5px; 
+	font-size: 14px; 
+	padding-left: 5px; 
 }
 h4 { 
     padding: 5px;
@@ -48,8 +50,9 @@ table td{
 .person{ 
 	background-color: rgb(255,105,180);
 }
-.insidetable{
-	width: 50%; 
+.table2{
+	width: 100%; 
+	padding-left: 5px; 
 
 }
 	</style> 
@@ -96,7 +99,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		double total = 0; 
 		int quantitytotal = 0; 
 		if(rst2.next()) {
-			out.println("<tr class = 'insidetable'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th>");
+			out.println("<tr align='center'><td colspan='5'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th>");
 			do {
 					String value = rst2.getString(3); 
 					int quantity = rst2.getInt(2); 
@@ -106,8 +109,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			} while (rst2.next()); 
 			
 		}
-		out.println("<tr = 'insidetable'><td><h4>Total:</h4></td><td>"+quantitytotal+"</td><td>$"+total+"</td></tr><tr><td></td></tr></tr>");
-		total = 0; 
+		out.println("<tr><td><h4>Total:</h4></td><td>"+quantitytotal+"</td><td>$"+total+"</td></table></td></tr>");
+		total = 0;
 
 
 	}	
