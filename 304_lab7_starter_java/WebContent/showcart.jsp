@@ -26,7 +26,7 @@ else
 
 	out.println("<h1>Your Shopping Cart</h1>");
 	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	out.println("<th>Price</th><th>Subtotal</th></tr>");
+	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
 
 	double total =0;
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
@@ -39,10 +39,10 @@ else
 			continue;
 		}
 		
+		String url = "showcart.jsp?delete=" + product.get(0);
 		out.print("<tr><td>"+product.get(0)+"</td>");
 		out.print("<td>"+product.get(1)+"</td>");
-
-		out.print("<td align=\"center\">"+product.get(3)+"</td>");
+		out.print("<td align=\"center\"><input type='text' id='quantity' size='2' value="+product.get(3)+"></label></td>");
 		Object price = product.get(2);
 		Object itemqty = product.get(3);
 		double pr = 0;
@@ -64,9 +64,9 @@ else
 		{
 			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
 		}		
-
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
+		out.print("<td><a href='" + url + "'> Remove Item from Cart</a></tr>");
 		out.println("</tr>");
 		total = total +pr*qty;
 	}
