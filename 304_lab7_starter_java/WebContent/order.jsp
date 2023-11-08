@@ -19,13 +19,37 @@ String custId = request.getParameter("customerId");
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
 // Determine if valid customer id was entered
+
+
 // Determine if there are products in the shopping cart
 // If either are not true, display an error message
 
 // Make connection
+String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
+String uid = "sa";
+String pw = "304#sa#pw";
+
+String sql = "SELECT customerId, firstName, lastName FROM customer WHERE customerId = ?";
 
 // Save order information to database
+try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
+	Statement stmt = con.createStatement();)
+	  {
+		PreparedStatement pstmt = con.prepareStatement(sql); 
+		pstmt.setInt(1, Integer.parseInt(custId)); 
+		ResultSet rst = pstmt.executeQuery();
+		
+		while(rst.next()) {
+			out.println("<h2>Shipping to customer: "+rst.getInt(1)+"Name: "rst.getString(2)+" "+rst.getString(3)+"</h2>");
+		}
+    
+	stmt.close();
+	con.close(); 
+	rst.close();
+	  } catch (SQLException ex) {
+	out.println("SQLException: " + ex);
+}
 
 	/*
 	// Use retrieval of auto-generated keys.
