@@ -85,6 +85,16 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     }
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+<<<<<<< Updated upstream
+=======
+    /*if(category.equals("All")) {
+        continue; 
+    } else{
+        String sql = "SELECT productName, productPrice, productId FROM product as P (SELECT categoryId FROM category WHERE categoryName = ?) C ON C.categoryId = P.categoryId";
+        PreparedStatement pstmt2 = con.prepareStatement(sql); 
+        pstmt2.setString(1, category);
+}*/
+>>>>>>> Stashed changes
     out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
         while(rst.next()) {
             String pname = rst.getString(1);
