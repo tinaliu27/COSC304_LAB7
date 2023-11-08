@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ray's Grocery CheckOut Line</title>
+<title>Checkout</title>
+<h1>Enter your customer id and password to complete the transaction:</h1>
 </head>
 <body>
 
-<h1>Enter your customer id to complete the transaction:</h1>
-
 <form method="get" action="order.jsp">
-<input type="text" name="customerId" size="50">
-<input type="password" name="password" size="50">
+<p>Customer ID: <input type="text" name="customerId" size="20"></p>
+<p>Password:   <input type="password" name="password" size="20"></p>
 <input type="submit" name="submit" value="Submit">
 <input type="reset" value="Reset">
 </form>
