@@ -96,7 +96,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	out.println("</table>");
 				out.println("<h1>Order completed. Will be shipped soon...</h1>");
 				out.println("<h1>Your order reference number is: "+ count + "</h1>");
-			 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+"</h1>\n<h1>Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>");
+			 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );
 				out.println("<h2><a href='shop.html'>Back to Main Page</a></h2>");
 				++invalid; 
 		}
