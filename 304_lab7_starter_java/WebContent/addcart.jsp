@@ -5,10 +5,10 @@
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
-String removeId = request.getParameter("removeId");
-productList.remove(removeId); // Remove the specific item
-if (removeId == "null")
-	productList = null;
+if (productList == null)
+{	// No products currently in list.  Create a list.
+	productList = new HashMap<String, ArrayList<Object>>();
+}
 
 // Add new product selected
 // Get product information
@@ -25,12 +25,12 @@ product.add(price);
 product.add(quantity);
 
 // Update quantity if add same item to order again
-if (productList!=null && productList.containsKey(id))
+if (productList.containsKey(id))
 {	product = (ArrayList<Object>) productList.get(id);
 	int curAmount = ((Integer) product.get(3)).intValue();
 	product.set(3, new Integer(curAmount+1));
 }
-else if (productList!=null)
+else
 	productList.put(id,product);
 
 session.setAttribute("productList", productList);
