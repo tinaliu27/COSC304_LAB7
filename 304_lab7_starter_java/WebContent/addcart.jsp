@@ -4,10 +4,14 @@
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+boolean remove = false;
 
 if (productList == null)
 {	// No products currently in list.  Create a list.
 	productList = new HashMap<String, ArrayList<Object>>();
+}
+else {
+	productList.remove(request.getParameter("removeId"));
 }
 
 // Add new product selected
@@ -18,11 +22,13 @@ String price = request.getParameter("price");
 Integer quantity = new Integer(1);
 
 // Store product information in an ArrayList
+if (!remove){
 ArrayList<Object> product = new ArrayList<Object>();
 product.add(id);
 product.add(name);
 product.add(price);
 product.add(quantity);
+
 
 // Update quantity if add same item to order again
 if (productList.containsKey(id))
@@ -32,7 +38,7 @@ if (productList.containsKey(id))
 }
 else
 	productList.put(id,product);
-
+}
 session.setAttribute("productList", productList);
 %>
 <jsp:forward page="showcart.jsp" />

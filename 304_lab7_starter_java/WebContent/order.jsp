@@ -43,14 +43,14 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		PreparedStatement pstmt = con.prepareStatement(sql); 
 		pstmt.setInt(1, Integer.parseInt(custId)); 
 		ResultSet rst = pstmt.executeQuery();
-		
+		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 		int invalid = 0; 
 		if (productList.isEmpty())
 			out.println("<h1>Your Cart is empty</h1>");
 		while(rst.next() && invalid != 2) {
 				out.println("<h1>Your Order Summary</h1>");
-				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+				currFormat = NumberFormat.getCurrencyInstance();
+	out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
 				double total = 0;		
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
@@ -77,7 +77,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		}
 		catch (Exception e)
 		{
-			out.println("Invalid price for product: "+product.get(0)+" price: "+price);
+			//out.println("Invalid price for product: "+product.get(0)+" price: "+price);
 		}
 		try
 		{
@@ -92,11 +92,19 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("</tr>");
 		total = total +pr*qty;
 	}
+	if (total == 0.0) {
+	out.println("</table> <script> document.getElementById('table').style.visibility = 'hidden'; </script>");
+    out.println("<h1>Your Cart is empty</h1><!--");
+	}
+	else {
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
 				out.println("<h1>Order completed. Will be shipped soon...</h1>");
 				out.println("<h1>Your order reference number is: "+ count + "</h1>");
 			 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );
+	}
+	if (total == 0.0)
+		out.println("--!>");
 				out.println("<h2><a href='shop.html'>Back to Main Page</a></h2>");
 				++invalid; 
 		}

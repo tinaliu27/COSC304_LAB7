@@ -25,7 +25,7 @@ else
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
 	out.println("<h1>Your Shopping Cart</h1>");
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
 
 	double total = 0;
@@ -53,7 +53,7 @@ else
 		}
 		catch (Exception e)
 		{
-			out.println("Invalid price for product: "+product.get(0)+" price: "+price);
+			//out.println("Invalid price for product: "+product.get(0)+" price: "+price);
 		}
 		try
 		{
@@ -73,7 +73,6 @@ else
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
-
 	out.println("<h2><a href=\"checkout.jsp\">Check Out</a></h2>");
 }
 %>
