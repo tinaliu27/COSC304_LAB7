@@ -2,13 +2,41 @@
 <html>
 <head>
         <title>YOUR NAME Grocery Main Page</title>
+<style>
+h1{
+        color: rgb(255,105,180); 
+}
+a {
+        display: block; 
+        align-items: center; 
+}
+button .shopping{
+        margin-top: 50px;
+}
+button {
+        padding: 0 10px 0 10px; 
+        margin-bottom: 20px; 
+        background-color: white; 
+}
+button:hover{
+        background-color: rgb(255,105,180); 
+        padding: 0 20px 0 20px; 
+}
+</style>
 </head>
 <body>
 <h1 align="center">SQL Spice & Market: Where Flavor Meets Data</h1>
-
-<h2 align="center"><a href="listprod.jsp?productName=">Begin Shopping</a></h2>
-
-<h2 align="center"><a href="listorder.jsp">List All Orders</a></h2>
+<h2 align="center"><i>Spicing up your data</i></h2>
+<a href="listprod.jsp?productName=" align="center" class="shopping">
+        <button id = "shopping">
+                <h2 align="center">Begin Shopping</h2>     
+        </button>
+</a>
+<a href="listprod.jsp?productName=" align="center">
+        <button id = "orders">
+                <h2 align="center">List All Orders</h2>     
+        </button>
+</a>
 
 </body>
 </head>
