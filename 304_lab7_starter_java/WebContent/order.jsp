@@ -10,6 +10,23 @@
 <html>
 <head>
 <title>YOUR NAME Grocery Order Processing</title>
+<style>
+table, th, td {
+  		border: 1px solid black;
+		text-align: left;
+		padding: 5px; 
+	}
+.top{
+	background-color: rgb(255,105,180);
+}
+table tr:nth-child(even) {
+    background: #F0F0F0;
+}
+
+table tr:nth-child(odd) {
+    background: #FFF;
+}
+</style>
 </head>
 <body>
 
@@ -37,6 +54,9 @@ String sql = "SELECT customerId, firstName, lastName FROM customer WHERE custome
 
 // gets last row in customer ddl to retrieve the correct customerid
 String cidsql = "SELECT TOP 1 orderId FROM ordersummary ORDER BY orderId DESC";
+// inserts into orderproduct
+String addintoop = "INSERT INTO orderproduct (productId, quantity, price) VALUES (?,?,?)"; 
+
 
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
@@ -59,8 +79,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		while(rst.next() && invalid != 2) {
 				out.println("<h1>Your Order Summary</h1>");
 				currFormat = NumberFormat.getCurrencyInstance();
-	out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
+	out.print("<table id='table'><tr class = 'top'><th><h4>Product Id</h4></th><th><h4>Product Name</h4></th><th><h4>Quantity</h4></th>");
+	out.println("<th>Price</th><th>Subtotal</th></tr>");
 				double total = 0;		
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 	while (iterator.hasNext()) 
@@ -73,7 +93,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		}
 		url = "addcart.jsp?removeId=" + product.get(0);
 		out.print("<tr><td>"+product.get(0)+"</td>");
-		out.print("<td>"+product.get(1)+"</td>");
+		out.print("<td alig=\"center\">"+product.get(1)+"</td>");
 		out.print("<td align=\"center\">" + product.get(3)+ "</td>");
 		Object price = product.get(2);
 		Object itemqty = product.get(3);
@@ -112,9 +132,12 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	session.setAttribute("productList", null);
 	out.println("<h1>Your order reference number is: "+ (++id) + "</h1>");
 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );    stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
-	String addintoddl = "INSERT INTO ordersummary (totalAmount, customerId) VALUES (?,?)";
-	PreparedStatement pstmt2 = con.prepareStatement(addintoddl, Statement.RETURN_GENERATED_KEYS); 
-	
+	if(productList.isEmpty()) {
+
+	} else {
+	String addintoos = "INSERT INTO ordersummary (totalAmount, customerId) VALUES (?,?)";
+	PreparedStatement pstmt2 = con.prepareStatement(addintoos, Statement.RETURN_GENERATED_KEYS); 
+	//if 
 	try{
 		String totals = total + "";
 		pstmt2.setString(1, totals);
@@ -133,6 +156,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	} catch (SQLException ex) {
 			out.println("SQLException: " + ex);
 	
+	}
 	}
 	}
 	if (total == 0.0)
