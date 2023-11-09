@@ -93,8 +93,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		total = total +pr*qty;
 	}
 	if (total == 0.0) {
-	out.println("</table> <script> document.getElementById('table').style.visibility = 'hidden'; </script>");
-    out.println("<h1>Your Cart is empty</h1><!--");
+	out.println("</table> <script> document.getElementById('table').remove(0); </script>");
+    out.println("<h1>Your Cart is empty!!</h1><!--");
 	}
 	else {
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");

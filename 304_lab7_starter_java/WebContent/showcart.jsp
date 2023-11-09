@@ -39,7 +39,7 @@ else
 			continue;
 		}
 		String url = "addcart.jsp?removeId=" + product.get(0);
-		out.print("<tr><td>"+product.get(0)+"</td>");
+		out.print("<tr id='row'><td>"+product.get(0)+"</td>");
 		out.print("<td>"+product.get(1)+"</td>");
 		out.print("<td align=\"center\"><input type='text' id='quantity' size='2' value="+product.get(3)+"></label></td>");
 		Object price = product.get(2);
@@ -69,7 +69,11 @@ else
 		out.print("<td><a href ='addcart.jsp?updateId='><button>Update Quantity</button></a></tr>");
 		out.println("</tr>");
 		total = total +pr*qty;
+		if (product.get(0) == null)
+			out.println("<script> document.getElementById('row').remove(0);</script>");
 	}
+	if(total == 0)
+		out.println("<script> document.getElementById('table').remove(0);</script>");
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
