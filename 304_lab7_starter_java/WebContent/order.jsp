@@ -109,6 +109,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
 	out.println("<h1>Order completed. Will be shipped soon...</h1>");
+	session.setAttribute("productList", null);
 	out.println("<h1>Your order reference number is: "+ (++id) + "</h1>");
 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );    stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
 	String addintoddl = "INSERT INTO ordersummary (totalAmount, customerId) VALUES (?,?)";
