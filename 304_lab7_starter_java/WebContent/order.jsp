@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +16,8 @@
 <% 
 // Get customer id
 String custId = request.getParameter("customerId");
-int count = 0;
-if (request.getParameter("submit") != null){
-	count++; 
-	session.setAttribute("clickCount", count);
-}
+int id = 0; 
+
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
@@ -36,10 +34,21 @@ String pw = "304#sa#pw";
 
 String sql = "SELECT customerId, firstName, lastName FROM customer WHERE customerId = ?";
 // Save order information to database
+
+// gets last row in customer ddl to retrieve the correct customerid
+String cidsql = "SELECT TOP 1 orderId FROM ordersummary ORDER BY orderId DESC";
+
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
 	Statement stmt = con.createStatement();)
 	  {
+		// first get customerid 
+		ResultSet cidrst = stmt.executeQuery(cidsql); 
+
+		if(cidrst.next()) {
+			id = cidrst.getInt("orderId");
+		}
+		
 		PreparedStatement pstmt = con.prepareStatement(sql); 
 		pstmt.setInt(1, Integer.parseInt(custId)); 
 		ResultSet rst = pstmt.executeQuery();
@@ -99,9 +108,31 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	else {
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
-				out.println("<h1>Order completed. Will be shipped soon...</h1>");
-				out.println("<h1>Your order reference number is: "+ count + "</h1>");
-			 	out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );
+	out.println("<h1>Order completed. Will be shipped soon...</h1>");
+	out.println("<h1>Your order reference number is: "+ (++id) + "</h1>");
+	out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );    stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
+	String addintoddl = "INSERT INTO ordersummary (totalAmount, customerId) VALUES (?,?)";
+	PreparedStatement pstmt2 = con.prepareStatement(addintoddl, Statement.RETURN_GENERATED_KEYS); 
+	
+	try{
+		String totals = total + "";
+		pstmt2.setString(1, totals);
+		pstmt2.setInt(2, Integer.parseInt(custId)); 
+		int rowsAffected = pstmt2.executeUpdate();
+            // Check the result
+        if (rowsAffected > 0) {
+			ResultSet generatedKeys = pstmt2.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				int updatedid = generatedKeys.getInt(1); 
+			}
+            out.println("Row inserted successfully!");
+        } else {
+            	out.println("Failed to insert row.");
+        }
+	} catch (SQLException ex) {
+			out.println("SQLException: " + ex);
+	
+	}
 	}
 	if (total == 0.0)
 		out.println("--!>");
