@@ -46,7 +46,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		
 		int invalid = 0; 
 		if (productList.isEmpty())
-			invalid = 2;
+			out.println("<h1>Your Cart is empty</h1>");
 		while(rst.next() && invalid != 2) {
 				out.println("<h1>Your Order Summary</h1>");
 				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
