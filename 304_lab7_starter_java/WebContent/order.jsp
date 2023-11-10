@@ -156,8 +156,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			// pstmt3.setInt(, Integer.parseInt(product.get(0))); 
 			pstmt3.setInt(1, id);
 			// pstmt
-			int data = Integer.parseInt(productstring);
-			pstmt3.setInt(2, data);
+			double data = Double.parseDouble(productstring);
+			pstmt3.setDouble(2, data);
 			out.println(qty); 
 			pstmt3.setInt(3, qty); 
 			String prices = pr + ""; 
