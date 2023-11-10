@@ -66,6 +66,7 @@ String sql = "SELECT customerId, firstName, lastName FROM customer WHERE custome
 String cidsql = "SELECT TOP 1 orderId FROM ordersummary ORDER BY orderId DESC";
 ArrayList<Object> product;
 int qty = 1; 
+String productstring =""; 
 
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
@@ -107,6 +108,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		Object itemqty = product.get(3);
 		pr = 0;
 		qty = 0;
+		productstring = product.get(0) + "";
 		
 		try
 		{
@@ -143,7 +145,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	if(!productList.isEmpty()) {
 		String addintoddl = "INSERT INTO ordersummary (totalAmount, customerId) VALUES (?,?)";
 		PreparedStatement pstmt2 = con.prepareStatement(addintoddl, Statement.RETURN_GENERATED_KEYS); 
-		String addintoop = "INSERT INTO orderproduct (quantity, price) VALUES (?,?)";
+		String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (?,?,?,?)";
 		PreparedStatement pstmt3 = con.prepareStatement(addintoop, Statement.RETURN_GENERATED_KEYS); 
 		try{
 			String totals = total + "";
@@ -152,9 +154,16 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			int rowsAffected = pstmt2.executeUpdate();
 			// psttm3
 			// pstmt3.setInt(, Integer.parseInt(product.get(0))); 
-			pstmt3.setInt(1, qty); 
+			pstmt3.setInt(1, id);
+			// pstmt
+			int data = Integer.parseInt(productstring);
+			pstmt3.setInt(2, data);
+			out.println(qty); 
+			pstmt3.setInt(3, qty); 
 			String prices = pr + ""; 
-			pstmt3.setString(2, prices); 
+			out.println(prices); 
+
+			pstmt3.setString(4, prices); 
 			int rowsAffected2 = pstmt2.executeUpdate(); 
 			
             // Check the result
