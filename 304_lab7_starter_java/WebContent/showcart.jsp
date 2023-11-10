@@ -8,9 +8,54 @@
 <html>
 <head>
 <title>Your Shopping Cart</title>
+<style>
+header{
+    display: flex; 
+    position: sticky; 
+    text-align: center; 
+}
+form{
+    font-size: 20px; 
+}
+table, th, td{
+    border: .2px solid black; 
+    text-align: left; 
+    padding-left: 5px; 
+    width: 80%;
+}
+table .links{
+    width: 30%; 
+}
+.table1 tr:nth-child(even) {
+    background: #F0F0F0;
+}
+.header{
+    text-align: center; 
+    align-items: center; 
+}
+h1{
+    text-align: center;
+    align-items: center; 
+    color: rgb(255,105,180); 
+}
+.table1 tr:nth-child(odd) {
+    background: #FFF;
+}
+tr{
+   width: 1px;
+   word-wrap: break-word;
+   padding-left: 0;
+   padding-right: 0;
+   max-width: 180px;
+   min-width: 1px; 
+}
+.link{
+    width: 20px; 
+    word-break: break-all;
+}
+</style>
 </head>
 <body>
-
 <%
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
@@ -39,9 +84,9 @@ else
 			continue;
 		}
 		String url = "addcart.jsp?removeId=" + product.get(0);
-		out.print("<tr id='row'><td>"+product.get(0)+"</td>");
+		out.print("<tr id='row'><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+product.get(0)+"</h5></td>");
 		out.print("<td>"+product.get(1)+"</td>");
-		out.print("<td align=\"center\"><input type='text' id='quantity' size='2' value="+product.get(3)+"></label></td>");
+		out.print("<td align=\"center\"><h5 style='width: 200px'><input type='text' id='quantity' size='2' value="+product.get(3)+"></h5></label></td>");
 		Object price = product.get(2);
 		Object itemqty = product.get(3);
 		double pr = 0;
@@ -63,10 +108,10 @@ else
 		{
 			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
 		}		
-		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
-		out.print("<td><a href='" + url + "'> Remove Item from Cart</a>");
-		out.print("<td><a href ='addcart.jsp?updateId='><button>Update Quantity</button></a></tr>");
+		out.print("<td align=\"right\"><h5 style='width: 200px'>"+currFormat.format(pr)+"</h5></td>");
+		out.print("<td align=\"right\"><h5 style='width: 200px'>"+currFormat.format(pr*qty)+"</h5></td>");
+		out.print("<td><h5 style='width: 200px'><a href='" + url + "'> Remove Item from Cart</h5></a>");
+		out.print("<td><h5 style='width: 200px'><a href ='addcart.jsp?updateId='><button>Update Quantity</button></h5></a></tr>");
 		out.println("</tr>");
 		total = total +pr*qty;
 		if (product.get(0) == null)

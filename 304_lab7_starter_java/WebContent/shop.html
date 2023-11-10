@@ -10,9 +10,7 @@ a {
         display: block; 
         align-items: center; 
 }
-button .shopping{
-        margin-top: 50px;
-}
+
 button {
         padding: 0 10px 0 10px; 
         margin-bottom: 20px; 
@@ -22,17 +20,50 @@ button:hover{
         background-color: rgb(255,105,180); 
         padding: 0 20px 0 20px; 
 }
+.userinfo {
+        display: block;  
+        align-items: center; 
+}
+.userinfo h4, h5 {
+        text-align: center; 
+}
+h3{
+        align-items:center; 
+        text-align: center; 
+}
+header {
+        margin: 0; 
+        padding: 0; 
+        height: 10vh; 
+        background-color: white; 
+}
 </style>
 </head>
 <body>
-<h1 align="center">SQL Spice & Market: Where Flavor Meets Data</h1>
+        
+<header>
+        <h1 align="center">SQL Spice & Market: Where Flavor Meets Data</h1>
+        <hr> 
+</header>
 <h2 align="center"><i>Spicing up your data</i></h2>
+<div class = "userinfo">
+        <h3>Created by</h3>
+        <div class = "tina">
+                <h4>Tina Liu</h4>
+                <h5>29490737</h5>
+        </div>
+        <div class = "noah">
+                <h4>Noah Stasuik</h4>
+                <h5>44083343</h5>
+        </div>
+
+</div>
 <a href="listprod.jsp?productName=" align="center" class="shopping">
         <button id = "shopping">
                 <h2 align="center">Begin Shopping</h2>     
         </button>
 </a>
-<a href="listprod.jsp?productName=" align="center">
+<a href="listorder.jsp?productName=" align="center">
         <button id = "orders">
                 <h2 align="center">List All Orders</h2>     
         </button>

@@ -8,6 +8,7 @@
 <head>
 <title>YOUR NAME Grocery</title>
 <style>
+
 header{
     display: flex; 
     position: sticky; 
@@ -28,7 +29,15 @@ table .links{
 .table1 tr:nth-child(even) {
     background: #F0F0F0;
 }
-
+.header{
+    text-align: center; 
+    align-items: center; 
+}
+h1{
+    text-align: center;
+    align-items: center; 
+    color: rgb(255,105,180); 
+}
 .table1 tr:nth-child(odd) {
     background: #FFF;
 }
@@ -44,38 +53,37 @@ tr{
     width: 20px; 
     word-break: break-all;
 }
-form .Beverages {
+.form .Beverages {
     color: red; 
+
+}
+.form .Condiments {
+    color: blue; 
 }
 h4{
     color: red; 
 }
+
 </style>
 </head>
 <body>
-<div class="header container">
-    <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-        <a class="navbar-brand" href="#">WebSiteName</a>
-        </div>
-        </div>
-    </nav>
-</div>
+<header class = "header">
+        <h1>SQL Spice & Market: Where Flavor Meets Data</h1>
+</header>
 
-<h1>Browse Products By Category and Search by Product Name:
-</h1>
+<h2>Browse Products By Category and Search by Product Name:
+</h2>
 <form method="get" action="listprod.jsp">
 <select size = "1" name="categoryName">
     <option value = "All">All</option> 
-    <option value = "Beverages">Beverages</option> 
-    <option value = "Condiments">Condiments</option> 
-    <option value = "Confections">Confections</option> 
-    <option value = "Dairy Products">Dairy Products</option> 
-    <option value = "Grains/Cereals">Grains/Cereals</option> 
-    <option value = "Meat/Poultry">Meat/Poultry</option> 
-    <option value = "Produce">Produce</option> 
-    <option value = "Seafood">Seafood</option> 
+    <option value = "Beverages" style="color: red;">Beverages</option> 
+    <option value = "Condiments" style="color: pink;">Condiments</option> 
+    <option value = "Confections" style="color: purple;">Confections</option> 
+    <option value = "Dairy Products" style="color: red;">Dairy Products</option> 
+    <option value = "Grains/Cereals" style="color: red;">Grains/Cereals</option> 
+    <option value = "Meat/Poultry" style="color: red;">Meat/Poultry</option> 
+    <option value = "Produce" style="color: red;">Produce</option> 
+    <option value = "Seafood" style="color: red;">Seafood</option> 
 </select>
 <input type="text" name="productName" size="50">
 <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
@@ -85,6 +93,7 @@ h4{
 <% // Get product name to search for
 String name = request.getParameter("productName");
 String category = request.getParameter("categoryName");
+
         
 //Note: Forces loading of SQL Server driver
 try
@@ -122,7 +131,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     }
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
-    out.println("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
+    out.println("<table class = 'table1'><tr><th></th><th>Product Name</th><th>Categories</th><th>Price</th></tr>");
         while(rst.next()) {
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 
@@ -134,7 +143,6 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String link = "<a href='" + nav + "'>Add to Cart</a>";
             out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + pname +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
         }
-    
     rst.close();
 } catch (SQLException ex) {
     out.println("SQLException: " + ex.getMessage());
