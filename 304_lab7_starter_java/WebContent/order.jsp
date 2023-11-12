@@ -148,6 +148,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		String prices = pr + ""; 
 
 		pstmt3.setString(4, prices); 
+		out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ prices); 
 	}
 	if (total == 0.0) {
 		out.println("</table> <script> document.getElementById('table').remove(0); </script>");
