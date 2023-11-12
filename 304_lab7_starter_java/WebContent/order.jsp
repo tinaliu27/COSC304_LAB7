@@ -139,7 +139,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
 		pstmt3.setInt(1, id);
 			// pstmt
-			
+		out.println("this is the orderid" + id); 
 		double doubleValue = Double.parseDouble(productstring);
 		int intValue = (int) doubleValue;
 		pstmt3.setInt(2, intValue);
@@ -148,6 +148,9 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		String prices = pr + ""; 
 
 		pstmt3.setString(4, prices); 
+		int rowsAffected3 = pstmt3.executeUpdate(); 
+
+ 
 		out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ prices); 
 	}
 	if (total == 0.0) {
@@ -160,11 +163,10 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("<h1>Order completed. Will be shipped soon...</h1>");
 		session.setAttribute("productList", null);
 		out.println("<h1>Your order reference number is: "+ (++id) + "</h1>");
-		out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );    stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
+		out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
+		stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
 	if(!productList.isEmpty()) {
 		String addintoddl = "INSERT INTO ordersummary (orderDate, totalAmount, customerId) VALUES (?,?,?)";
-		String getOrderid = "SELECT SCOPE_IDENTITY() as lastorderId";
-		PreparedStatement pst = con.prepareStatement(getOrderid, Statement.RETURN_GENERATED_KEYS); 
 		PreparedStatement pstmt2 = con.prepareStatement(addintoddl, Statement.RETURN_GENERATED_KEYS); 
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -176,13 +178,6 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			pstmt2.setString(2, totals);
 			pstmt2.setInt(3, Integer.parseInt(custId));
 			int rowsAffected = pstmt2.executeUpdate();
-			
-			ResultSet rst4 = pst.executeQuery(); 
-			int retreiveidcorrect = 0; 
-			if(rst4.next()) {
-				retreiveidcorrect = rst4.getInt("lastorderId"); 
-			}
-			out.println(id); 
 			// psttm3
 			// pstmt3.setInt(, Integer.parseInt(product.get(0))); 
 			/*pstmt3.setInt(1, id);
