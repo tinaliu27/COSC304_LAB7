@@ -68,8 +68,9 @@ h4{
 </head>
 <body>
 <header class = "header">
-        <h1>SQL Spice & Market: Where Flavor Meets Data</h1>
+        <h1><i>SQL Spice & Market: Where Flavor Meets Data</i></h1>
 </header>
+<hr>
 
 <h2>Browse Products By Category and Search by Product Name:
 </h2>

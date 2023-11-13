@@ -44,6 +44,7 @@ header h1{
 <% 
 // Get customer id
 String custId = request.getParameter("customerId");
+String custPassword = request.getParameter("customerPassword");
 double total = 0; 
 double pr = 0;
 
@@ -70,11 +71,27 @@ ArrayList<Object> product;
 int qty = 1; 
 String productstring =""; 
 
-
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
-
 	Statement stmt = con.createStatement();)
 	  {
+		if(productList.isEmpty()){
+			throw new NullPointerException();
+		}
+		if(custId == null){
+			throw new IndexOutOfBoundsException();
+		}
+		String cust = "SELECT customerId, password FROM customer WHERE customerId = ?";
+		PreparedStatement pst22 = con.prepareStatement(cust);
+		pst22.setString(1, custId);
+		ResultSet rst22 = pst22.executeQuery();
+		if(!rst22.next()){
+			throw new IndexOutOfBoundsException();
+		}
+		String pass = rst22.getString("password");
+		if(!pass.equals(custPassword)){
+			throw new IllegalArgumentException();
+		}
+		rst22.close();
 		// first get customerid 
 		ResultSet cidrst = stmt.executeQuery(cidsql); 
 		
@@ -195,7 +212,14 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	stmt.close();
 	con.close(); 
 	rst.close();
-	  } catch (SQLException ex) {
+	  } catch(NullPointerException e) {
+		out.println("<h1>You cannot check out without any items in your cart.</h1>");
+
+	  } catch(IndexOutOfBoundsException e) {
+		out.println("<h1>Enter a valid customer ID</h1>"); 
+	  } catch(IllegalArgumentException e){
+		out.println("<h1>Incorrect Password</h1>");
+	} catch (SQLException ex) {
 			out.println("SQLException: " + ex);
 }
 

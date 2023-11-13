@@ -26,9 +26,6 @@ table, th, td{
 table .links{
     width: 30%; 
 }
-.table1 tr:nth-child(even) {
-    background: #F0F0F0;
-}
 .header{
     text-align: center; 
     align-items: center; 
@@ -37,9 +34,6 @@ h1{
     text-align: center;
     align-items: center; 
     color: rgb(255,105,180); 
-}
-.table1 tr:nth-child(odd) {
-    background: #FFF;
 }
 tr{
    width: 1px;
@@ -56,6 +50,10 @@ tr{
 </style>
 </head>
 <body>
+<header class = "header">
+        <h1><i>SQL Spice & Market: Where Flavor Meets Data</i></h1>
+</header>
+<br>
 <%
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
@@ -70,8 +68,8 @@ else
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
 	out.println("<h1>Your Shopping Cart</h1>");
-	out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	out.println("<th>Price</th><th>Subtotal</th><th></th><th></th></tr>");
+	out.print("<table class='table' width = '800px' align = 'center'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	out.println("<th>Price</th><th>Subtotal</th><th>Remove from Cart</th><th>Update Quantity</th></tr>");
 
 	double total = 0;
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
@@ -122,10 +120,21 @@ else
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 	out.println("</table>");
-	out.println("<h2><a href=\"checkout.jsp\">Check Out</a></h2>");
 }
 %>
-<h2><a href="listprod.jsp?productName=">Continue Shopping</a></h2>
+<br>
+<a href="checkout.jsp" align="left" class="stopshopping">
+        <button id = "shopping2">
+                <h2 align="center">Check out</h2>     
+        </button>
+</a>
+<br>
+<br>
+<a href="listprod.jsp?productName=" align="left" class="shopping">
+        <button id = "shopping">
+                <h2 align="center">Continue Shopping</h2>     
+        </button>
+</a>
 </body>
 </html> 
 
