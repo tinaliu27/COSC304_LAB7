@@ -61,7 +61,7 @@ HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Obje
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
 String uid = "sa";
 String pw = "304#sa#pw";
-
+int invalid = 0;
 String sql = "SELECT customerId, firstName, lastName FROM customer WHERE customerId = ?";
 // Save order information to database
 
@@ -87,7 +87,6 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		pstmt.setInt(1, Integer.parseInt(custId)); 
 		ResultSet rst = pstmt.executeQuery();
 		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-		int invalid = 0; 
 		if (productList.isEmpty())
 			out.println("<h1>Your Cart is empty</h1>");
 		while(rst.next() && invalid != 2) {

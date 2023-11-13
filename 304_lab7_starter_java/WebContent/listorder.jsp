@@ -92,10 +92,14 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	String sql = "SELECT O.orderId, O.orderDate, C.customerId, C.firstName, C.lastname, O.totalAmount FROM ordersummary as O INNER JOIN customer as C ON O.customerId = C.customerId";
 	ResultSet rst = stmt.executeQuery(sql); 
 	// second select 
-	out.println("<table class = 'table1'><tr><th><h2>Order Id</h2></th><th><h2>Order Date</h2></th><th><h2>Customer Id</h2></th><th><h2>Customer Name</h2></th><th><h2>Total Amount</h2></th></tr>");
+	int count2 = 0;
+	out.println("<table id = 'table' class = 'table1'><tr><th><h2>Order Id</h2></th><th><h2>Order Date</h2></th><th><h2>Customer Id</h2></th><th><h2>Customer Name</h2></th><th><h2>Total Amount</h2></th></tr>");
 	while(rst.next()) {
 		int orderid = rst.getInt(1); 
-		out.println("<table width = '1500px' align = 'center'><tr class = 'person'><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
+		if (orderid > 5)
+			out.println("<table width = '1500px' align = 'center'><tr class = 'person'><td>" + (((orderid-5)/2)+5) +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
+		else
+			out.println("<table width = '1500px' align = 'center'><tr class = 'person'><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
 		pstmt.setInt(1, orderid); 
 		ResultSet rst2 = pstmt.executeQuery(); 
 		int count = 0; 
@@ -115,7 +119,10 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
 		out.println("<tr><td><h4>Total:</h4></td><td>"+quantitytotal+"</td><td>"+total2+"</td></table></tr>");
 		total = 0;
-
+		if (++count2 > 5)
+			rst.next();
+		if (count2 == 5)
+			rst.next();
 
 	}	
 
