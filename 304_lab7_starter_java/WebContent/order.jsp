@@ -44,7 +44,6 @@ header h1{
 <% 
 // Get customer id
 String custId = request.getParameter("customerId");
-int id = 0; 
 double total = 0; 
 double pr = 0;
 
@@ -61,7 +60,7 @@ HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Obje
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
 String uid = "sa";
 String pw = "304#sa#pw";
-int invalid = 0;
+
 String sql = "SELECT customerId, firstName, lastName FROM customer WHERE customerId = ?";
 // Save order information to database
 
@@ -78,27 +77,38 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	  {
 		// first get customerid 
 		ResultSet cidrst = stmt.executeQuery(cidsql); 
-
-		if(cidrst.next()) {
-			id = cidrst.getInt("orderId");
-		}
 		
 		PreparedStatement pstmt = con.prepareStatement(sql); 
 		pstmt.setInt(1, Integer.parseInt(custId)); 
 		ResultSet rst = pstmt.executeQuery();
 		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+		int invalid = 0; 
 		if (productList.isEmpty())
 			out.println("<h1>Your Cart is empty</h1>");
 		while(rst.next() && invalid != 2) {
 				out.println("<h1>Your Order Summary</h1>");
 				currFormat = NumberFormat.getCurrencyInstance();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+        String formattedDate = dateFormat.format(date);
+		String addOrder = "INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES ( ?, ?, " + 0 + ")";
+		PreparedStatement pst2 = con.prepareStatement(addOrder, Statement.RETURN_GENERATED_KEYS);
+		pst2.setString(1, custId);
+		pst2.setString(2, formattedDate);
+		pst2.executeUpdate();
+		ResultSet keys = pst2.getGeneratedKeys();
+		keys.next();
+		int ordId = keys.getInt(1);
+		keys.close();
+
 	out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Subtotal</th></tr>");
-	String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (?,?,?,?)";
-	PreparedStatement pstmt3 = con.prepareStatement(addintoop, Statement.RETURN_GENERATED_KEYS); 
+	String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (" + ordId + ", ?, ?, ?)";
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 	while (iterator.hasNext()) 
-	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+	{	
+		Map.Entry<String, ArrayList<Object>> entry = iterator.next();
 		product = (ArrayList<Object>) entry.getValue();
 		if (product.size() < 4)
 		{
@@ -136,22 +146,25 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("</tr>");
 		total = total +pr*qty;
 
-		pstmt3.setInt(1, id);
+		PreparedStatement pstmt3 = con.prepareStatement(addintoop); 
+		// pstmt3.setInt(1, ordId);
 			// pstmt
-		out.println("this is the orderid" + id); 
+		out.println("this is the orderid" + ordId); 
 		double doubleValue = Double.parseDouble(productstring);
 		int intValue = (int) doubleValue;
-		pstmt3.setInt(2, intValue);
-		out.println(qty); 
-		pstmt3.setInt(3, qty); 
-		String prices = pr + ""; 
-
-		pstmt3.setString(4, prices); 
-		int rowsAffected3 = pstmt3.executeUpdate(); 
-
- 
-		out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ prices); 
+		pstmt3.setInt(1, intValue);
+		pstmt3.setInt(2, qty); 
+		pstmt3.setDouble(3, pr); 
+		pstmt3.executeUpdate(); 
+		out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
 	}
+
+	String updateAmount = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
+	PreparedStatement pst4 = con.prepareStatement(updateAmount);
+	pst4.setDouble(1, total);
+	pst4.setInt(2, ordId);
+	pst4.executeUpdate();
+
 	if (total == 0.0) {
 		out.println("</table> <script> document.getElementById('table').remove(0); </script>");
     	out.println("<h1>Your Cart is empty!!</h1><!--");
@@ -161,50 +174,10 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("</table>");
 		out.println("<h1>Order completed. Will be shipped soon...</h1>");
 		session.setAttribute("productList", null);
-		out.println("<h1>Your order reference number is: "+ (++id) + "</h1>");
+		out.println("<h1>Your order reference number is: "+ (ordId) + "</h1>");
 		out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
 		stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
-	if(!productList.isEmpty()) {
-		String addintoddl = "INSERT INTO ordersummary (orderDate, totalAmount, customerId) VALUES (?,?,?)";
-		PreparedStatement pstmt2 = con.prepareStatement(addintoddl, Statement.RETURN_GENERATED_KEYS); 
-		try{
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		    Date date = new Date();
-            String formattedDate = dateFormat.format(date);
-			pstmt2.setString(1, formattedDate);
-			
-			String totals = total + "";
-			pstmt2.setString(2, totals);
-			pstmt2.setInt(3, Integer.parseInt(custId));
-			int rowsAffected = pstmt2.executeUpdate();
-			// psttm3
-			// pstmt3.setInt(, Integer.parseInt(product.get(0))); 
-			/*pstmt3.setInt(1, id);
-			// pstmt
-			double doubleValue = Double.parseDouble(productstring);
-			int intValue = (int) doubleValue;
-			pstmt3.setInt(2, intValue);
-			out.println(qty); 
-			pstmt3.setInt(3, qty); 
-			String prices = pr + ""; 
 
-			pstmt3.setString(4, prices); 
-			out.println(prices); 
-			*/
-
-			int rowsAffected2 = pstmt2.executeUpdate(); 
-			
-            // Check the result
-        	if (rowsAffected > 0 && rowsAffected2 > 0) {
-            	out.println("Added successfully to listorder");
-        	} else {
-            	out.println("Failed to insert row.");
-       		 }
-		} catch (SQLException ex) {
-			out.println("SQLException: " + ex);
-		
-		}
-		}
 	}
 		
 	if (total == 0.0)
