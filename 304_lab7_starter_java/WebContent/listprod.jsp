@@ -141,8 +141,10 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String category1 = rst.getString(4); 
             // out.println("<tr><td>"+rst.getString); 
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
+            String pnav = "product.jsp?id=" + id; 
             String link = "<a href='" + nav + "'>Add to Cart</a>";
-            out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + pname +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
+            String product = "<a href='" + pnav + "'>"+pname+"</a>";
+            out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
         }
     rst.close();
 } catch (SQLException ex) {
