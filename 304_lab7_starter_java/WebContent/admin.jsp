@@ -28,6 +28,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 } catch (SQLException ex) {
 	out.println("SQLException: " + ex);
 }
+out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 %>
 </body>
 </html>
