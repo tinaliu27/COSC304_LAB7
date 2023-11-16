@@ -199,7 +199,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		
 	if (total == 0.0)
 		out.println("--!>");
-				out.println("<h2><a href='shop.html'>Back to Main Page</a></h2>");
+				out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 				++invalid; 
 		}
 		if (invalid==0) {
