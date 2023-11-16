@@ -15,7 +15,6 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<%@ include file="displayImage.jsp" %>
 
 <%
 try {
@@ -34,7 +33,9 @@ NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
 // Get product name to search for
 // TODO: Retrieve and display info for the product
 
-String pname, imageurl, binaryurl, imgSrc, image1 = "", url1 = ""; // Initialize url1
+String pname, imageurl, binaryurl, imgSrc;
+String image1 = "";
+String url1 = ""; // Initialize url1
 String pid = request.getParameter("id");
 double doublevalue = Double.parseDouble(pid);
 int intValue = (int) doublevalue;
@@ -53,7 +54,8 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
                 image1 = ""; 
         } else {
             url1 = "displayImage.jsp?id=" + intValue;
-            out.print("<img src='" + url1 + "' alt='Product Image'>");
+            out.print("<img src='" + url1 + "'>");
+            out.println("<img src='" + image1 + "'>"); 
 
         }
         out.println("<h1>" + pname + "</h1>");
