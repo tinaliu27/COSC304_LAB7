@@ -8,7 +8,6 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Base64" %>
 
-
 <html>
 <head>
     <title>Ray's Grocery - Product Information</title>
@@ -16,6 +15,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<%@ include file="displayImage.jsp" %>
 
 <%
 try {
@@ -34,41 +34,42 @@ NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
 // Get product name to search for
 // TODO: Retrieve and display info for the product
 
-String pname, imageurl, binaryurl, imgSrc, image;
-String productId = request.getParameter("id");
-double doublevalue = Double.parseDouble(productId); 
-int intValue = (int) doublevalue; 
-String sql = "SELECT productName, productPrice, productImageURL, productImage FROM product WHERE productId = ?";
+String pname, imageurl, binaryurl, imgSrc, image1 = "", url1 = ""; // Initialize url1
+String pid = request.getParameter("id");
+double doublevalue = Double.parseDouble(pid);
+int intValue = (int) doublevalue;
+String sql1 = "SELECT productName, productPrice, productImageURL FROM product WHERE productId = ?";
 try (Connection con = DriverManager.getConnection(url, uid, pw);
-    PreparedStatement pst = con.prepareStatement(sql)) {
+    PreparedStatement pst = con.prepareStatement(sql1)) {
+
     pst.setInt(1, intValue);
     ResultSet rst = pst.executeQuery();
 
     if (rst.next()) {
         pname = rst.getString("productName");
         double price = rst.getDouble("productPrice");
-        byte[] img = rst.getBytes("productImage");
-         if (img != null && img.length > 0) {
-            image = Base64.getEncoder().encodeToString(img);
-            imgSrc = "data:image/jpeg;base64," + image;
-            out.println("<img src="+imgSrc+">");
-         }
-            out.println("<h1>" + pname + "</h1>");
-            out.println("<h4>ID: " + intValue + "</h4>");
-            out.println("<h4>Price: " + currency.format(price) + "</h4>");
-        
+        image1 = rst.getString("productImageURL");
+        if(image1.equals(null) || image1.length() <= 0) {
+                image1 = ""; 
+        } else {
+            url1 = "displayImage.jsp?id=" + intValue;
+            out.print("<img src='" + url1 + "' alt='Product Image'>");
 
-        // TODO: If there is a productImageURL, display using IMG tag
+        }
+        out.println("<h1>" + pname + "</h1>");
+        out.println("<h4>ID: " + intValue + "</h4>");
+        out.println("<h4>Price: " + currency.format(price) + "</h4>");
+    }
+    // TODO: If there is a productImageURL, display using IMG tag
         // TODO: Retrieve any image stored directly in the database.
         // Note: Call displayImage.jsp with product id as a parameter.
-    } 
 
     rst.close();
 } catch (SQLException ex) {
     out.println("SQLException: " + ex);
 }
 
-// TODO: Add links to Add to Cart and Continue Shopping
+// TODO: add links to Add to Cart and Continue Shopping
 
 %>
 <br> 
