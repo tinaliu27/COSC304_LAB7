@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.Locale" %>
 <%@ include file="jdbc.jsp" %>
 <!DOCTYPE html>
 <html>
