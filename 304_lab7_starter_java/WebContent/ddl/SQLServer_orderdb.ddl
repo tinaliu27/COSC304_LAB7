@@ -174,12 +174,12 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Buil
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Build Your Own Rock - Classic Edition',7,'Build your own pet rock in your own home! Includes 3 rocks, 5 different shades of paint, 8 google eyes, one mustache, one top hat, and one bowtie.',50.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Bowtie',8,'A small bowtie for a pet rock',5.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Top Hat',8,'A top hat for a pet rock',9.00);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Mustache',8,'A mustache for a pet rock',5.00);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Mustache',8,'A mustache for a pet rock',5.00); 
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Rock paint',8,'Paint for a pet rock',15.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Pet Rock Stand',8,'A stand for your pet rock',20.23);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Snoop Dogg',2,'An infamous ex-stoner',24.20);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Cat',4,'32 - 1 kg pkgs.',14.00);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Ladybug',4,'32 - 8 oz bottles',21.05);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Snoop Rockk',2,'An infamous ex-stoner',24.20);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Cat',4,'A simple rock disguised as a cat ',14.00);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Ladybug',4,'A rock but make it a ladybug,21.05);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Family Rock Bundle',7,'A collection of various different pet rocks (8 rocks)',100.00);
 
 INSERT INTO warehouse(warehouseName) VALUES ('Rock Warehouse');
@@ -233,35 +233,35 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId,
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 20, 3, 150);
 
 -- New SQL DDL for lab 8
-UPDATE Product SET productImageURL = 'img/1.jpg' WHERE ProductId = 1;
-UPDATE Product SET productImageURL = 'img/2.jpg' WHERE ProductId = 2;
-UPDATE Product SET productImageURL = 'img/3.jpg' WHERE ProductId = 3;
-UPDATE Product SET productImageURL = 'img/4.jpg' WHERE ProductId = 4;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 5;
+UPDATE Product SET productImageURL = 'img/TheRock.jpg' WHERE ProductId = 1;
+UPDATE Product SET productImageURL = 'img/classic.jpg' WHERE ProductId = 2;
+UPDATE Product SET productImageURL = 'img/bowtie.jpg' WHERE ProductId = 3;
+UPDATE Product SET productImageURL = 'img/garfield.jpeg' WHERE ProductId = 4;
+UPDATE Product SET productImageURL = 'img/AbrahamLincoln.jpg' WHERE ProductId = 5;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 6;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 7;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 8;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 9;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 10;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 11;
+UPDATE Product SET productImageURL = 'img/Santa.jpg' WHERE ProductId = 7;
+UPDATE Product SET productImageURL = 'img/Micheymouse.jpg' WHERE ProductId = 8;
+UPDATE Product SET productImageURL = 'img/panda.jpg' WHERE ProductId = 9;
+UPDATE Product SET productImageURL = 'img/alien.jpg' WHERE ProductId = 10;
+UPDATE Product SET productImageURL = 'img/oneye.jpg' WHERE ProductId = 11;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 12;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 13;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 14;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 15;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 16;
+UPDATE Product SET productImageURL = 'img/EEAAO.jpg' WHERE ProductId = 15;
+UPDATE Product SET productImageURL = 'img/Cactus.jpg' WHERE ProductId = 16;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 17;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 18;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 19;
+UPDATE Product SET productImageURL = 'img/classicpetrock.jpg' WHERE ProductId = 19;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 20;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 21;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 22;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 23;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 24;
+UPDATE Product SET productImageURL = 'img/ba.jpg' WHERE ProductId = 21;
+UPDATE Product SET productImageURL = 'img/tophat.jpg' WHERE ProductId = 22;
+UPDATE Product SET productImageURL = 'img/mustache.jpg' WHERE ProductId = 23;
+UPDATE Product SET productImageURL = 'img/paint.jpg' WHERE ProductId = 24;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 25;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 26;
+UPDATE Product SET productImageURL = 'img/SnoopDogg.jpg' WHERE ProductId = 26;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 27;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 28;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 29;
+UPDATE Product SET productImageURL = 'img/ladybug.jpg' WHERE ProductId = 28;
+UPDATE Product SET productImageURL = 'img/family.jpg' WHERE ProductId = 29;
 
 
 
