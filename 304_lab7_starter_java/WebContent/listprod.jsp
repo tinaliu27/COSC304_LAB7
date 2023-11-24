@@ -77,14 +77,14 @@ h4{
 <form method="get" action="listprod.jsp">
 <select size = "1" name="categoryName">
     <option value = "All">All</option> 
-    <option value = "Beverages" style="color: red;">Beverages</option> 
-    <option value = "Condiments" style="color: pink;">Condiments</option> 
-    <option value = "Confections" style="color: purple;">Confections</option> 
-    <option value = "Dairy Products" style="color: red;">Dairy Products</option> 
-    <option value = "Grains/Cereals" style="color: red;">Grains/Cereals</option> 
-    <option value = "Meat/Poultry" style="color: red;">Meat/Poultry</option> 
-    <option value = "Produce" style="color: red;">Produce</option> 
-    <option value = "Seafood" style="color: red;">Seafood</option> 
+    <option value = "Classic Pet Rocks" style="color: red;">Classic Pet Rocks</option> 
+    <option value = "Celebrity Lookalikes" style="color: pink;">Celebrity Lookalikes</option> 
+    <option value = "Uniocular Rocks" style="color: purple;">Uniocular Rocks</option> 
+    <option value = "Animal Lookalikes" style="color: red;">Animal Lookalikes</option> 
+    <option value = "Professor Lookalikes" style="color: red;">Professor Lookalikes</option> 
+    <option value = "Unique Pet Rocks" style="color: red;">Unique Pet Rocks</option> 
+    <option value = "Build your own pet rock kit" style="color: red;">Build your own pet rock kit</option> 
+    <option value = "Accessories" style="color: red;">Accessories</option> 
 </select>
 <input type="text" name="productName" size="50">
 <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)

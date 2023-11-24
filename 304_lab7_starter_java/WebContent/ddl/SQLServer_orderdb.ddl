@@ -157,7 +157,7 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The 
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Bowtie',1,'The Classic Rock with a bowtie (red) ',20.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Garfield',4,'Furry pet rock that resembles Garfield',27.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Abraham Lincoln',2,'16th president of The United States of America but as a rock',18.65);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Average Computer Science Student',1,'The average computer science student but as a rock',20.23);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Harry Potter',1,'Harry Potter but make it a rock',20.23);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Santa',1,'Its that time of the year',30.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Mickey Mouse',2,'The infamous mouse!',22.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Panda',4,'Kung Fu Panda but make it a rock',25.00);
@@ -179,7 +179,7 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Rock
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Pet Rock Stand',8,'A stand for your pet rock',20.23);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Snoop Rockk',2,'An infamous ex-stoner',24.20);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Cat',4,'A simple rock disguised as a cat ',14.00);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Ladybug',4,'A rock but make it a ladybug,21.05);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Ladybug',4,'A rock but make it a ladybug',21.05);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Family Rock Bundle',7,'A collection of various different pet rocks (8 rocks)',100.00);
 
 INSERT INTO warehouse(warehouseName) VALUES ('Rock Warehouse');
@@ -238,13 +238,13 @@ UPDATE Product SET productImageURL = 'img/classic.jpg' WHERE ProductId = 2;
 UPDATE Product SET productImageURL = 'img/bowtie.jpg' WHERE ProductId = 3;
 UPDATE Product SET productImageURL = 'img/garfield.jpeg' WHERE ProductId = 4;
 UPDATE Product SET productImageURL = 'img/AbrahamLincoln.jpg' WHERE ProductId = 5;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 6;
+UPDATE Product SET productImageURL = 'img/harrypotter.jpg' WHERE ProductId = 6;
 UPDATE Product SET productImageURL = 'img/Santa.jpg' WHERE ProductId = 7;
 UPDATE Product SET productImageURL = 'img/Micheymouse.jpg' WHERE ProductId = 8;
 UPDATE Product SET productImageURL = 'img/panda.jpg' WHERE ProductId = 9;
 UPDATE Product SET productImageURL = 'img/alien.jpg' WHERE ProductId = 10;
 UPDATE Product SET productImageURL = 'img/oneye.jpg' WHERE ProductId = 11;
-UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 12;
+UPDATE Product SET productImageURL = 'img/drlawrence.jpg' WHERE ProductId = 12;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 13;
 UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 14;
 UPDATE Product SET productImageURL = 'img/EEAAO.jpg' WHERE ProductId = 15;

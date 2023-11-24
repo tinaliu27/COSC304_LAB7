@@ -33,13 +33,13 @@ NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
 // Get product name to search for
 // TODO: Retrieve and display info for the product
 
-String pname, imageurl, binaryurl, imgSrc;
+String pname, imageurl, binaryurl, imgSrc, description;
 String image1 = "";
 String url1 = ""; // Initialize url1
 String pid = request.getParameter("id");
 double doublevalue = Double.parseDouble(pid);
 int intValue = (int) doublevalue;
-String sql1 = "SELECT productName, productPrice, productImageURL FROM product WHERE productId = ?";
+String sql1 = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = ?";
 try (Connection con = DriverManager.getConnection(url, uid, pw);
     PreparedStatement pst = con.prepareStatement(sql1)) {
 
@@ -50,17 +50,21 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         pname = rst.getString("productName");
         double price = rst.getDouble("productPrice");
         image1 = rst.getString("productImageURL");
+        description = rst.getString("productDesc");
         if(image1.equals(null) || image1.length() <= 0) {
                 image1 = ""; 
         } else {
             url1 = "displayImage.jsp?id=" + intValue;
-            out.print("<img src='" + url1 + "'>");
+            if(intValue > 2) {
+                out.print("<img src='" + url1 + "'>");
+            }
             out.println("<img src='" + image1 + "'>"); 
 
         }
         out.println("<h1>" + pname + "</h1>");
+        out.println("<h4>" + description + "</h4>");
         out.println("<h4>ID: " + intValue + "</h4>");
-        out.println("<h4>Price: " + currency.format(price) + "</h4>");
+        out.println("<h4>" + currency.format(price) + "</h4>");
     }
     // TODO: If there is a productImageURL, display using IMG tag
         // TODO: Retrieve any image stored directly in the database.
