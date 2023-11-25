@@ -31,8 +31,14 @@ if (session.getAttribute("loginMessage") != null)
 <input class="submit" type="submit" name="Submit2" value="Log In">
 </form>
 
+<%
+// Add a signup redirect
+out.println("<p><a href=\"signup.jsp\">Sign Up</a></p>");
+%>
+
 </div>
 
 </body>
 </html>
+
 
