@@ -1,6 +1,25 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%
+String updateId = request.getParameter("updateId");
+String newQty = request.getParameter("newQty");
+
+if (updateId != null && newQty != null) {
+    // Get the cart from the session
+    HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
+
+    // Check if the cart is null
+    if (cart == null) {
+        // Initialize the cart
+        cart = new HashMap<String, Integer>();
+    }
+
+    // Update the quantity of the product in the cart
+    cart.put(updateId, Integer.parseInt(newQty));
+
+    // Save the updated cart back to the session
+    session.setAttribute("cart", cart);
+}
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");

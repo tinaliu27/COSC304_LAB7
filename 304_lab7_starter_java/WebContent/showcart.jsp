@@ -55,6 +55,40 @@ tr{
 </header>
 <br>
 <%
+String updateId = request.getParameter("updateId");
+String newQty = request.getParameter("newQty");
+
+if (updateId != null && newQty != null) {
+    // Parse the new quantity
+    int parsedNewQty = Integer.parseInt(newQty);
+
+    // Check if the new quantity is negative
+    if (parsedNewQty < 0) {
+        // Set the new quantity to zero or ignore the update
+        parsedNewQty = 0;
+    }
+
+    // Get the productList from the session
+    HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+
+    // Check if the productList is null
+    if (productList == null) {
+        // Initialize the productList
+        productList = new HashMap<String, ArrayList<Object>>();
+    }
+
+    // Get the product from the productList
+    ArrayList<Object> product = productList.get(updateId);
+
+    // Check if the product exists in the productList
+    if (product != null) {
+        // Update the quantity of the product in the productList
+        product.set(3, parsedNewQty);
+    }
+
+    // Save the updated productList back to the session
+    session.setAttribute("productList", productList);
+}
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
@@ -84,7 +118,7 @@ else
 		String url = "addcart.jsp?removeId=" + product.get(0);
 		out.print("<tr id='row'><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+product.get(0)+"</h5></td>");
 		out.print("<td>"+product.get(1)+"</td>");
-		out.print("<td align=\"center\"><h5 style='width: 200px'><input type='text' id='quantity' size='2' value="+product.get(3)+"></h5></label></td>");
+		out.print("<td>" + product.get(3)+ "</td>");
 		Object price = product.get(2);
 		Object itemqty = product.get(3);
 		double pr = 0;
@@ -109,7 +143,7 @@ else
 		out.print("<td align=\"right\"><h5 style='width: 200px'>"+currFormat.format(pr)+"</h5></td>");
 		out.print("<td align=\"right\"><h5 style='width: 200px'>"+currFormat.format(pr*qty)+"</h5></td>");
 		out.print("<td><h5 style='width: 200px'><a href='" + url + "'> Remove Item from Cart</h5></a>");
-		out.print("<td><h5 style='width: 200px'><a href ='addcart.jsp?updateId='><button>Update Quantity</button></h5></a></tr>");
+		out.print("<td><h5 style='width: 200px'><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></h5></td>");
 		out.println("</tr>");
 		total = total +pr*qty;
 		if (product.get(0) == null)
