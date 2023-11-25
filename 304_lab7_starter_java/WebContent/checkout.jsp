@@ -59,6 +59,15 @@ p{
 <form method="get" action="order.jsp">
 <p>Customer ID: <input type="text" name="customerId" size="40"></p>
 <p>Password:   <input type="password" name="customerPassword" size="40"></p>
+<h2>Enter your shipping address:</h2>
+<p>Street: <input type="text" name="street" size="40"></p>
+<p>City:   <input type="text" name="city" size="40"></p>
+<p>State:  <input type="text" name="state" size="40"></p>
+<p>Zip:    <input type="text" name="zip" size="40"></p>
+<h2>Enter your credit card information:</h2>
+<p>Card Number: <input type="text" name="cardNumber" size="40"></p>
+<p>Expiration Date: <input type="text" name="expirationDate" size="40"></p>
+<p>Security Code: <input type="text" name="securityCode" size="40"></p>
 <input type="submit" name="submit" value="Submit" class="submit">
 <input type="reset" value="Reset" class="reset">
 </form>

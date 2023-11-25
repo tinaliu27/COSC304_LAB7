@@ -48,6 +48,29 @@ String custPassword = request.getParameter("customerPassword");
 double total = 0; 
 double pr = 0;
 
+// Get shipping address + card info from : http://localhost/shop/order.jsp?customerId=1&customerPassword=304Arnold%21&street=&city=&state=&zip=&cardNumber=&expirationDate=&securityCode=&submit=Submit
+String street = request.getParameter("street");
+String city = request.getParameter("city");
+String state = request.getParameter("state");
+String zip = request.getParameter("zip");
+//last 4 digits of card number
+String cardNumber = request.getParameter("cardNumber");
+String expirationDate = request.getParameter("expirationDate");
+String securityCode = request.getParameter("securityCode");
+
+//validate data
+if (street == null || city == null || state == null || zip == null || cardNumber == null || street.equals("") || city.equals("") || state.equals("") || zip.equals("") || street.length() > 50 || city.length() > 50 || state.length() > 50 || zip.length() != 6) {
+    out.println("<h1>Invalid shipping information. Go back to the previous page and try again.</h1>");
+    return;
+}
+
+if (cardNumber.equals("") || cardNumber.length() != 16 || !cardNumber.matches("[0-9]+") || expirationDate.equals("") || expirationDate.length() != 5 || !expirationDate.matches("(0[1-9]|1[0-2])/[0-9]{2}") || securityCode.equals("") || securityCode.length() != 3 || !securityCode.matches("[0-9]+")) {
+	out.println("<h1>Invalid payment information. Go back to the previous page and try again.</h1>");
+	return;
+}
+
+cardNumber = cardNumber = cardNumber.substring(cardNumber.length() - 4);
+
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
@@ -190,6 +213,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 		out.println("</table>");
 		out.println("<h1>Order completed. Will be shipped soon...</h1>");
+		out.println("<h1>Shipping to: "+street+" "+city+" "+state+" "+zip+"</h1>");
+		out.println("<h1>Card Number: **** **** **** "+cardNumber+"</h1>");
 		session.setAttribute("productList", null);
 		out.println("<h1>Your order reference number is: "+ (ordId) + "</h1>");
 		out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
