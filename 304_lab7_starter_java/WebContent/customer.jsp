@@ -31,8 +31,14 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 } catch (SQLException ex) {
 	out.println("SQLException: " + ex);
 }
-out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 // Make sure to close connection
+%>
+<form action="editProfile.jsp" method="post">
+    <input type="hidden" name="username" value="<%= userName %>">
+    <input type="submit" value="Edit Profile">
+</form>
+<%
+out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 %>
 </body>
 </html>
