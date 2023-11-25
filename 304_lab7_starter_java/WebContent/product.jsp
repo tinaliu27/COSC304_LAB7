@@ -33,20 +33,30 @@ NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
 // Get product name to search for
 // TODO: Retrieve and display info for the product
 
-String pname, imageurl, binaryurl, imgSrc, description;
+String pname, imageurl, binaryurl, imgSrc, description, reviewDate, comment;
+int reviewRating, customerId;
 String image1 = "";
 String url1 = ""; // Initialize url1
 String pid = request.getParameter("id");
 double doublevalue = Double.parseDouble(pid);
 int intValue = (int) doublevalue;
 String sql1 = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = ?";
-try (Connection con = DriverManager.getConnection(url, uid, pw);
-    PreparedStatement pst = con.prepareStatement(sql1)) {
+String sql2 = "SELECT reviewRating, reviewDate, customerId, reviewComment FROM review WHERE productId = ?";
 
+try (Connection con = DriverManager.getConnection(url, uid, pw);
+    PreparedStatement pst = con.prepareStatement(sql1); 
+    PreparedStatement pst2 = con.prepareStatement(sql2)) {
+   // first sql 
     pst.setInt(1, intValue);
     ResultSet rst = pst.executeQuery();
 
+    // review sql 
+    pst2.setInt(1, intValue); 
+    ResultSet rst2 = pst2.executeQuery(); 
+    
+
     if (rst.next()) {
+        // product information from sql 
         pname = rst.getString("productName");
         double price = rst.getDouble("productPrice");
         image1 = rst.getString("productImageURL");
@@ -66,11 +76,23 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         out.println("<h4>ID: " + intValue + "</h4>");
         out.println("<h4>" + currency.format(price) + "</h4>");
     }
+    out.println("<h1>Reviews</h1>");
+    if (rst2.next()) {
+         //review product information from sql2 
+        reviewRating = rst2.getInt(1);
+        reviewDate = rst2.getString(2);
+        customerId = rst2.getInt(3); 
+        comment = rst2.getString(4); 
+        out.println("<h2>" + reviewRating +"/ 5</h2>\n");
+        out.println("<h4>"+comment+"</h4>\n");
+        out.println("<h4>"+customerId+"</h4>\n");
+    }
     // TODO: If there is a productImageURL, display using IMG tag
         // TODO: Retrieve any image stored directly in the database.
         // Note: Call displayImage.jsp with product id as a parameter.
 
     rst.close();
+    rst2.close();
 } catch (SQLException ex) {
     out.println("SQLException: " + ex);
 }
