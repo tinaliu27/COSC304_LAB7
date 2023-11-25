@@ -45,7 +45,7 @@
             pstmt.executeUpdate();
 
             // Redirect to the login page
-            session.setAttribute("signupMessage", "Account created successfully. You can now log in.");
+            session.setAttribute("loginMessage", "Account created successfully. You can now log in.");
             response.sendRedirect("login.jsp");
         } catch (SQLException ex) {
             // Handle any errors
