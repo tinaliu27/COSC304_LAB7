@@ -64,6 +64,14 @@
 <br/>
 <input class="submit" type="submit" name="Submit2" value="Sign up">
 </form>
+<%
+    String signupMessage = (String) session.getAttribute("signupMessage");
+    session.removeAttribute("signupMessage"); // remove the attribute after retrieving it
+%>
+
+<% if (signupMessage != null) { %>
+    <p><%= signupMessage %></p>
+<% } %>
 
 </div>
 
