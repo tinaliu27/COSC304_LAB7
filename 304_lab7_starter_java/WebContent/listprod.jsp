@@ -113,6 +113,7 @@ catch (java.lang.ClassNotFoundException e)
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
 String uid = "sa";
 String pw = "304#sa#pw";
+Double id; 
 out.println("<h2>All Products</h2>");
 String sql = ""; 
     if(category == null || category.equals("All")) {
@@ -137,7 +138,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 
             String price2 = currency.format(price);
-            Double id = rst.getDouble(3);
+            id = rst.getDouble(3);
             String category1 = rst.getString(4); 
             // out.println("<tr><td>"+rst.getString); 
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
@@ -146,7 +147,11 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String product = "<a href='" + pnav + "'>"+pname+"</a>";
             out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
         }
+    String rnav = "addingreview.jsp?"; 
+    String link = "<a href='" + rnav + "'>Add Review</a>";
+    out.println(link); 
     rst.close();
+
 } catch (SQLException ex) {
     out.println("SQLException: " + ex.getMessage());
 }

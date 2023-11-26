@@ -246,7 +246,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		out.println("<h1>Incorrect Password</h1>");
 	} catch (SQLException ex) {
 			out.println("SQLException: " + ex);
-}
+		}
 
 	/*
 	// Use retrieval of auto-generated keys.

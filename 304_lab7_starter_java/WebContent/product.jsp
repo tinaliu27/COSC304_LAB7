@@ -83,7 +83,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         reviewDate = rst2.getString(2);
         customerId = rst2.getInt(3); 
         comment = rst2.getString(4); 
-        out.println("<h2>" + reviewRating +"/ 5</h2>\n");
+        out.println("<h2>" + reviewRating +" / 5</h2>\n");
         out.println("<h4>"+comment+"</h4>\n");
         out.println("<h4>"+customerId+"</h4>\n");
     }
@@ -97,9 +97,17 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     out.println("SQLException: " + ex);
 }
 
+String rnav = "addingreview.jsp?id=" + pid; 
+String link = "<a href='" + rnav + "'>Add Review</a>";
+out.println(link);
 // TODO: add links to Add to Cart and Continue Shopping
 
 %>
+<a href="addingreview.jsp?id=" align="left" class="cart">
+        <button id = "review">
+                <h2 align="center">Add a review</h2>     
+        </button>
+</a>
 <br> 
 <a href="addcart.jsp" align="left" class="cart">
         <button id = "shopping2">

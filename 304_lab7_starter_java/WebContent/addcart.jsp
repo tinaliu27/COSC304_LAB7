@@ -59,5 +59,8 @@ else
 	productList.put(id,product);
 }
 session.setAttribute("productList", productList);
+session.setAttribute("productRate", productList);
+
+
 %>
 <jsp:forward page="showcart.jsp" />
