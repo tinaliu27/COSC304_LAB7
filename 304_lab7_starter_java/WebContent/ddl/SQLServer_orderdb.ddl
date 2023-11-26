@@ -151,6 +151,7 @@ INSERT INTO category(categoryName) VALUES ('Professor Lookalikes');
 INSERT INTO category(categoryName) VALUES ('Unique Pet Rocks');
 INSERT INTO category(categoryName) VALUES ('Build your own pet rock kit');
 INSERT INTO category(categoryName) VALUES ('Accessories');
+INSERT INTO category(categoryName) VALUES ('New');
 
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Rock (Dwayne Johnson)', 2, 'The Classic Rock',22.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Classic',1,'Simple 2-eyed rock',19.00);

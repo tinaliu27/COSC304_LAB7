@@ -82,6 +82,20 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 } catch (SQLException ex) {
 	out.println("SQLException: " + ex);
 }
+%>
+
+<h3>Add a Product</h3>
+<form method="post" action="addproduct.jsp">
+    <label for="productName">Product Name:</label><br>
+    <input type="text" id="productName" name="productName"><br>
+    <label for="productPrice">Product Price:</label><br>
+    <input type="text" id="productPrice" name="productPrice"><br>
+    <label for="productDesc">Product Description:</label><br>
+    <textarea id="productDesc" name="productDesc"></textarea><br>
+    <input type="submit" value="Submit">
+</form>
+
+<%
 out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 %>
 </body>
