@@ -84,9 +84,9 @@ CREATE TABLE orderproduct (
     price               DECIMAL(10,2),  
     PRIMARY KEY (orderId, productId),
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE incart (
@@ -96,9 +96,9 @@ CREATE TABLE incart (
     price               DECIMAL(10,2),  
     PRIMARY KEY (orderId, productId),
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE warehouse (

@@ -95,6 +95,26 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
     <input type="submit" value="Submit">
 </form>
 
+<h3>Update a Product</h3>
+<form method="post" action="updateproduct.jsp">
+    <label for="productId">Product ID:</label><br>
+    <input type="text" id="productId" name="productId"><br>
+    <label for="productName">Product Name:</label><br>
+    <input type="text" id="productName" name="productName"><br>
+    <label for="productPrice">Product Price:</label><br>
+    <input type="text" id="productPrice" name="productPrice"><br>
+    <label for="productDesc">Product Description:</label><br>
+    <textarea id="productDesc" name="productDesc"></textarea><br>
+    <input type="submit" value="Update">
+</form>
+
+<h3>Delete a Product</h3>
+<form method="post" action="deleteproduct.jsp">
+    <label for="productId">Product ID:</label><br>
+    <input type="text" id="productId" name="productId"><br>
+    <input type="submit" value="Delete">
+</form>
+
 <%
 out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 %>
