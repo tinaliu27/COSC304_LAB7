@@ -20,6 +20,7 @@
     <header>
         <h1>Left a Review</h1>
     </header> 
+    <%@ include file="jdbc.jsp" %>
     <%
         String pname = request.getParameter("productName");
         String cid = request.getParameter("customerId"); 

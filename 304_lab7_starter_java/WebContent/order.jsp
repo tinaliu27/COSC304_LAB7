@@ -37,10 +37,8 @@ header h1{
 </style>
 </head>
 <body>
-<header>
-        <h1 align="center">SQL Spice & Market: Where Flavor Meets Data</h1>
-        <hr> 
-</header>
+<%@ include file="header.jsp" %>
+
 <% 
 // Get customer id
 String custId = request.getParameter("customerId");

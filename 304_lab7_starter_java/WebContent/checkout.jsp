@@ -48,9 +48,8 @@ p{
 
 }
 </style>
-    <header class = "header">
-        <h1><i>SQL Spice & Market: Where Flavor Meets Data</i></h1>
-    </header>
+   <%@ include file="header.jsp" %>
+
     <hr>
 <h2>Enter your customer id and password to complete the transaction:</h2>
 </head>

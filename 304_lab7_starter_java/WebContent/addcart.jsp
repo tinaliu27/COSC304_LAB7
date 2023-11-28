@@ -1,5 +1,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
+
 <%
 String updateId = request.getParameter("updateId");
 String newQty = request.getParameter("newQty");

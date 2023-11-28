@@ -101,7 +101,6 @@ h3{
     justify-content: center; 
     align-items: center; 
     z-index: 1; 
-    overflow-x: hidden; 
     transition: .5s ease left;
     margin: 0;
     padding: 0;
@@ -130,6 +129,18 @@ h3{
     right: 0; 
     margin: 0 auto;
 }
+.navlist .item button{
+        color: transparent; 
+        border: none; 
+        cursor: pointer;
+}
+.navlist .item button img{
+        height: 50px;
+        width: 50px; 
+        top: 0;
+        right: 0; 
+        margin: 0 auto;
+}
 .navlist .item a h5{
         padding: 0 auto;
         margin: 0 auto; 
@@ -144,8 +155,79 @@ h3{
         width: auto;
         padding: 0 auto; 
         margin: 0 auto; 
-
 }
+.dropdown {
+        position: relative;
+        display: inline-block;
+}
+.dropdown .options {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown .options a{ 
+        text-decoration: ;
+}
+.dropdown:hover .options {
+  display: block;
+}
+
+.dosomething {
+        padding-top: 10px; 
+        text-align: center; 
+        align-items: center;  
+}
+.dosomething .rock {
+        display: inline-block; 
+        margin: 25px; 
+}
+.dosomething .rock img {
+        width: 125px; 
+        height: 125px; 
+        display: block;
+}
+
+.dosomething .rock:hover img{
+        filter: brightness(50%);
+}
+.dosomething .rock .text{ 
+        align-items: center; 
+}
+.dosomething .rock-text{
+        position: relative; 
+}
+.dosomething .rock-text .image{
+        display: block;
+        height: auto;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+}
+.rock-text:hover .overlay {
+  opacity: 1;
+}
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
 
 
 </style>
@@ -182,16 +264,17 @@ h3{
                                     </li>
                                     <li>
                                         <div class="item">
-                                                <a href="customer.jsp?productName=" align="center">
-                                                        <img src="img/profile.png">
-                                                </a>
+                                                <div class = "dropdown">
+                                                        <button class = "customeractions" align="center" onclick="options()">
+                                                                <img src="img/profile.png">
+                                                        </button>
+                                                        <div class = "options">
+                                                                <a href="login.jsp?productName=" align="center" class="shopping"><h2>Login</h2></a>
+                                                                <a href="signup.jsp" align="center" class="customer"><h2>Sign Up</h2></a>
+                                                        </div>
+                                                </div>
+                                                
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                                <a href="logout.jsp?productName=" align="center">
-                                                        <img src="img/logout.png">
-                                                </a>
                                         </div>
                                     </li>
 
@@ -208,37 +291,50 @@ h3{
         <h2 align="center"><i>Your New Best Friend</i></h2>
         <img src="img/rockmain.png" >
 </div>
-<a href="login.jsp?productName=" align="center" class="shopping">
-        <button id = "login">
-                <h2 align="center">Login</h2>     
-        </button>
-</a>
-<a href="listprod.jsp?productName=" align="center">
-        <button id = "orders">
-                <h2 align="center">Begin Shopping</h2>     
-        </button>
-</a>
-<a href="listorder.jsp?productName=" align="center">
-        <button id = "orders">
-                <h2 align="center">List All Orders</h2>     
-        </button>
-</a>
-<a href="customer.jsp?productName=" align="center">
-        <button id = "customer">
-                <h2 align="center">Customer Info</h2>     
-        </button>
-</a>
-<a href="admin.jsp?productName=" align="center">
-        <button id = "admin">
-                <h2 align="center">Administrators</h2>     
-        </button>
-</a>
-<a href="logout.jsp?productName=" align="center">
-        <button id = "logout">
-                <h2 align="center">Log Out</h2>     
-        </button>
-</a>
-<div class = "userinfo">
+<div class = "dosomething">
+        <div class = "rock">
+                <a href="login.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                        <div class="overlay">
+                                <div class="text">Login</div>
+                        </div>
+                </a>
+        </div>
+         <div class = "rock">
+                <a href="listprod.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                           <div class="overlay">
+                                <div class="text">Buy Products</div>
+                        </div>
+                </a>
+        </div>
+         <div class = "rock">
+                <a href="listorder.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                          <div class="overlay">
+                                <div class="text">Past Orders</div>
+                        </div>
+             
+                </a>
+        </div>
+         <div class = "rock">
+                <a href="customer.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                           <div class="overlay">
+                                <div class="text">Customer Info</div>
+                        </div>
+                
+                </a>
+        </div>
+         <div class = "rock">
+                <a href="admin.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                        <div class="overlay">
+                                <div class="text">Admin Login</div>
+                        </div>               
+                </a>
+        </div>
+</div>
         <h3>Created by</h3>
         <div class = "tina">
                 <h4>Tina Liu</h4>
@@ -250,6 +346,12 @@ h3{
         </div>
 
 </div>
+<script>
+        function options() {
+                const login = document.querySelector('.login');
+                login.classList.toggle('active'); 
+        }
+</script>
 </body>
 </head>
 

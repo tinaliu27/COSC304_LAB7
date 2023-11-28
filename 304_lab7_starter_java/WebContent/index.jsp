@@ -43,7 +43,6 @@ h3{
     width: 100%;
     height: auto;  
     text-align: center; 
-    display: flex;
 
 }
 
@@ -101,7 +100,6 @@ h3{
     justify-content: center; 
     align-items: center; 
     z-index: 1; 
-    overflow-x: hidden; 
     transition: .5s ease left;
     margin: 0;
     padding: 0;
@@ -110,11 +108,14 @@ h3{
         margin: 0 10px 0 10px ; 
 }
 .background img{
-    position: fixed; 
+   position: fixed; 
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center;
     top: 0; 
     left: 0; 
     width: 100%; 
-    height: auto; 
+    height: 100%; 
     z-index: -1; 
     object-fit: cover; 
 }
@@ -151,33 +152,150 @@ h3{
 }
 
 .dosomething {
+        padding-top: 10px; 
         text-align: center; 
         align-items: center;  
 }
 .dosomething .rock {
         display: inline-block; 
+        margin: 25px; 
 }
 .dosomething .rock img {
-        width: 100px; 
-        height: 100px; 
-        display: space-between;
+        width: 125px; 
+        height: 125px; 
+        display: block;
 }
 
+.dosomething .rock:hover img{
+        filter: brightness(50%);
+}
+.dosomething .rock .text{ 
+        align-items: center; 
+}
+.dosomething .rock-text{
+        position: relative; 
+}
+.dosomething .rock-text .image{
+        display: block;
+        height: auto;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+}
+.rock-text:hover .overlay {
+  opacity: 1;
+}
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dropdown {
+        position: relative;
+        display: inline-block;
+}
+.dropdown .options {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 0 20px; 
+}
+.dropdown .options a{ 
+        text-decoration: none;
+}
+.dropdown:hover .options {
+  display: block;
+}
+
+.dosomething {
+        padding-top: 10px; 
+        text-align: center; 
+        align-items: center;  
+}
+.dosomething .rock {
+        display: inline-block; 
+        margin: 25px; 
+}
+.dosomething .rock img {
+        width: 125px; 
+        height: 125px; 
+        display: block;
+}
+
+.dosomething .rock:hover img{
+        filter: brightness(50%);
+}
+.dosomething .rock .text{ 
+        align-items: center; 
+}
+.dosomething .rock-text{
+        position: relative; 
+}
+.dosomething .rock-text .image{
+        display: block;
+        height: auto;
+}
+.dropdown img{
+        height: 50px; 
+        width: 50px; 
+}
+#footer {
+        display: block; 
+        width: 100%;
+        height: 21vh;  
+        text-align: center; 
+        bottom: 0; 
+        left: 0; 
+        background-color: black; 
+        margin: 0 auto;
+        padding: 0 auto; 
+}
+#footer .footer {
+        padding; 10px; 
+}
+.footer .companyinfo {
+        display: flex; 
+
+}
+body {
+    margin: 0;
+}
 
 </style>
 </head>
 <body>
+<div class = "page">
+        <div class="background">
+                <img src="img/rockwallpaper1.jpeg">
+        </div>
         <section id = "header">    
                 <div class="header container">
                     <div class="entire-bar">
                         <div class="upperleft">
                             <div class="logo">
-                                <a href="#">
+                                <a href="index.jsp?">
                                     <img src = "img/logo.PNG">
                                 </a>
                             </div>
                             <div class = "bigname" align="center">
-                                <a href = "#"><h1 align="center">RockPalz</h1></a>
+                                <a href = "index.jsp?"><h1 align="center">RockPalz</h1></a>
                             </div>
                         </div>
                         <div class="navlist">
@@ -198,22 +316,26 @@ h3{
                                     </li>
                                     <li>
                                         <div class="item">
-                                                <div class ="user">
-                                                <a href="customer.jsp?productName=">
-                                                        <img src="img/profile.png">
-                                                        <%
+                                                <div class ="dropdown">
+                                                        <button class = "customeractions" align="center" onclick="options()">
+                                                                <img src="img/profile.png">
+                                                        </button>
+                                                         <div class = "options">
+                                                          <%
 	                                                        String userName = (String) session.getAttribute("authenticatedUser");
-	                                                        if (userName != null)
-		                                                out.println("<h3 align=\"center\">Signed in as: "+userName+"</h3>"); %>                                      
+	                                                        if (userName != null) {
+		                                                        out.println("<h3 align=\"center\">Signed in as: "+userName+"</h3>");
+                                                                        out.println("<a href='customer.jsp?productName=' align='center' class='customer'><h2>Check your info</h2></a>");
+                                                                        out.println("<a href='logout.jsp?productName=' align='center' class='shopping'><h2>Log Out</h2></a>");
+                                                                      } else {
+                                                                         out.println("<a href='login.jsp?productName=' align='center' class='shopping'><h2>Log In</h2></a>");
+                                                                        out.println("<a href='signup.jsp?' align='center' class='shopping'><h2>Sign Up</h2></a>");
+                                                                      }
+                                                                      
+                                                                      %>    
+                                                                </div>                                  
                                                 </a>
                                                 </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                                <a href="logout.jsp?productName=" align="center">
-                                                        <img src="img/logout.png">
-                                                </a>
                                         </div>
                                     </li>
 
@@ -223,62 +345,90 @@ h3{
                     </div>
                 </div>
             </section>
-<div class="background">
-        <img src="img/rockwallpaper1.jpeg">
-</div>
-<div class="mainrock">
+      <div class="mainrock">
         <h2 align="center"><i>Your New Best Friend</i></h2>
         <img src="img/rockmain.png" >
-</div>
+        </div>  
+
 <div class = "dosomething">
         <div class = "rock">
-                <a href="login.jsp?productName=" align="center" class="shopping">
-                        <img src="img/rockmain.png">
+                <a href="login.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                        <div class="overlay">
+                                <div class="text">Login</div>
+                        </div>
                 </a>
         </div>
          <div class = "rock">
-                <a href="listprod.jsp?productName=" align="center" class="shopping">
-                        <img src="img/rockmain.png">
+                <a href="listprod.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                           <div class="overlay">
+                                <div class="text">Buy Products</div>
+                        </div>
                 </a>
         </div>
          <div class = "rock">
-                <a href="listorder.jsp?productName=" align="center" class="shopping">
-                        <img src="img/rockmain.png">
+                <a href="listorder.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                          <div class="overlay">
+                                <div class="text">Past Orders</div>
+                        </div>
+             
                 </a>
         </div>
          <div class = "rock">
-                <a href="customer.jsp?productName=" align="center" class="shopping">
-                        <img src="img/rockmain.png">
+                <a href="customer.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                           <div class="overlay">
+                                <div class="text">Customer Info</div>
+                        </div>
+                
                 </a>
         </div>
          <div class = "rock">
-                <a href="admin.jsp?productName=" align="center" class="shopping">
-                        <img src="img/rockmain.png">
+                <a href="admin.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                        <div class="overlay">
+                                <div class="text">Admin Login</div>
+                        </div>               
                 </a>
         </div>
          <div class = "rock">
-                <a href="logout.jsp?productName=" align="center" class="shopping">
-                        <img src="img/rockmain.png">
+                <a href="logout.jsp?productName=" align="center" class="rock-text">
+                        <img src="img/rockmain.png" class="image">
+                           <div class="overlay">
+                                <div class="text">Logout</div>
+                        </div>
+                
                 </a>
         </div>
-</div>
-<div class = "userinfo">
-        <h3>Created by</h3>
-        <div class = "tina">
-                <h4>Tina Liu</h4>
-                <h5>29490737</h5>
-        </div>
-        <div class = "noah">
-                <h4>Noah Stasuik</h4>
-                <h5>44083343</h5>
-        </div>
-
 </div>
 
 
 <h4 align="center"><a href="ship.jsp?orderId=1">Test Ship orderId=1</a></h4>
 
 <h4 align="center"><a href="ship.jsp?orderId=3">Test Ship orderId=3</a></h4>
+<section id="footer">
+        <div class = "footer container">
+                <div class="companyinfo">
+                        <div class="left">
+                                <img src= "img/logo.PNG">
+                                <h3>RockPalz</h3>
+                        </div>
+                </div>
+                <div class = "userinfo">
+                        <h3>Created by</h3>
+                        <div class = "tina">
+                                <h4>Tina Liu</h4>
+                                <h5>29490737</h5>
+                        </div>
+                        <div class = "noah">
+                                <h4>Noah Stasuik</h4>
+                                <h5>44083343</h5>
+                        </div>
+                </div>
+        </div> 
+</section>
 
 </body>
 </head>

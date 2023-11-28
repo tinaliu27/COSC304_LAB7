@@ -63,13 +63,29 @@ tr{
 h4{
     color: red; 
 }
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 30%; 
+  display: block; 
+}
 
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.product-container {
+  padding: 2px 16px;
+}
+.card-container {
+    display: flex; 
+    flex-wrap: wrap;
+}
 </style>
 </head>
 <body>
-<header class = "header">
-        <h1><i>SQL Spice & Market: Where Flavor Meets Data</i></h1>
-</header>
+<%@ include file="header.jsp" %>
+
 <hr>
 
 <h2>Browse Products By Category and Search by Product Name:
@@ -85,6 +101,7 @@ h4{
     <option value = "Unique Pet Rocks" style="color: red;">Unique Pet Rocks</option> 
     <option value = "Build your own pet rock kit" style="color: red;">Build your own pet rock kit</option> 
     <option value = "Accessories" style="color: red;">Accessories</option> 
+    <option value = "New">New</option>
 </select>
 <input type="text" name="productName" size="50">
 <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
@@ -117,9 +134,9 @@ Double id;
 out.println("<h2>All Products</h2>");
 String sql = ""; 
     if(category == null || category.equals("All")) {
-        sql = "SELECT productName, productPrice, productId, categoryName FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE productName LIKE ?"; 
+        sql = "SELECT productName, productPrice, productId, categoryName, productImageURL, productDesc FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE productName LIKE ?"; 
     } else {
-        sql = "SELECT P.productName, P.productPrice, P.productId, categoryName FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
+        sql = "SELECT P.productName, P.productPrice, P.productId, categoryName, productImageURL, productDesc FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
 
     }
 try (Connection con = DriverManager.getConnection(url, uid, pw);
@@ -139,14 +156,19 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             Double price = rst.getDouble(2); 
             String price2 = currency.format(price);
             id = rst.getDouble(3);
-            String category1 = rst.getString(4); 
+            String category1 = rst.getString(4);
+            String imageurl = rst.getString(5); 
+            String pdesc = rst.getString(6); 
             // out.println("<tr><td>"+rst.getString); 
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
             String pnav = "product.jsp?id=" + id; 
             String link = "<a href='" + nav + "'>Add to Cart</a>";
             String product = "<a href='" + pnav + "'>"+pname+"</a>";
             out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
+            out.println("<div class='card-container'>");
+            out.println("<div class='card'><img src='"+ imageurl + "'><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"</<h4><h5>"+category1+"</h5><p>"+pdesc+"</p></div></div></div>");
         }
+        out.println("</div>");
     String rnav = "addingreview.jsp?"; 
     String link = "<a href='" + rnav + "'>Add Review</a>";
     out.println(link); 

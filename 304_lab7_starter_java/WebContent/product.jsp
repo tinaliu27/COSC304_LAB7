@@ -65,7 +65,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
                 image1 = ""; 
         } else {
             url1 = "displayImage.jsp?id=" + intValue;
-            if(intValue > 2) {
+            if(intValue == 0 ) {
                 out.print("<img src='" + url1 + "'>");
             }
             out.println("<img src='" + image1 + "'>"); 
@@ -77,7 +77,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         out.println("<h4>" + currency.format(price) + "</h4>");
     }
     out.println("<h1>Reviews</h1>");
-    if (rst2.next()) {
+    while (rst2.next()) {
          //review product information from sql2 
         reviewRating = rst2.getInt(1);
         reviewDate = rst2.getString(2);
@@ -98,16 +98,11 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
 }
 
 String rnav = "addingreview.jsp?id=" + pid; 
-String link = "<a href='" + rnav + "'>Add Review</a>";
+String link = "<a href='" + rnav + "' class='reviewbutton'>Add Review</a>";
 out.println(link);
 // TODO: add links to Add to Cart and Continue Shopping
 
 %>
-<a href="addingreview.jsp?id=" align="left" class="cart">
-        <button id = "review">
-                <h2 align="center">Add a review</h2>     
-        </button>
-</a>
 <br> 
 <a href="addcart.jsp" align="left" class="cart">
         <button id = "shopping2">

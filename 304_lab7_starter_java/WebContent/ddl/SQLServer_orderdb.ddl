@@ -241,6 +241,10 @@ INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComme
 INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (5, '2023-08-17 10:30:45', 3, 8, 'I was skeptical at first, but my pet rock has brought so much peace into my life. It is the ultimate anti-stress companion.') 
 INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (3, '2022-05-03 05:15:30', 2, 9, 'My new best friend. Needed a substitute for my coding duck and got this new rock instead. Would absolutely recommend.') 
 INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (4, '2023-04-15 14:23:00', 3, 10, 'My pet rock is the king of stoicism. It never complains and never demands attention. A rock-solid friend, literally!');
+INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (5, '2020-01-20 09:45:30', 5, 2, 'Absolutely love it! This rock brings so much joy to my desk. It is the perfect addition to my workspace.');
+INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (3, '2020-05-12 18:15:10', 1, 12, 'It is okay, not bad. The rock is nice, but I expected a bit more. Decent purchase overall.');
+INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (2, '2021-08-05 14:20:45', 4, 2, 'Disappointed. Thought this would be cooler, but it is just a rock. Not worth the hype.');
+
 
 -- New SQL DDL for lab 8
 UPDATE Product SET productImageURL = 'img/TheRock.jpg' WHERE ProductId = 1;

@@ -50,9 +50,7 @@ tr{
 </style>
 </head>
 <body>
-<header class = "header">
-        <h1><i>SQL Spice & Market: Where Flavor Meets Data</i></h1>
-</header>
+<%@ include file="header.jsp" %>
 <br>
 <%
 String updateId = request.getParameter("updateId");

@@ -13,9 +13,8 @@
 </style>
 </head>
 <body>
-<%
+<%@ include file="jdbc.jsp" %>
 
-    %>
     <form method="get" action="review.jsp">
         <select size = "1" name="productName">
             <option value = "The Rock (Dwayne Johnson)">The Rock (Dwayne Johnson)</option> 
