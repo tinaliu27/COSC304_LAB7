@@ -67,7 +67,19 @@ h4{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 30%; 
-  display: block; 
+  height: fit-content;
+
+ 
+}
+.card .image{
+    height: fit-content; 
+    width: 100%; 
+}
+.card img{
+    height: 100%;
+    width: 100%; 
+    object-fit: cover;
+   
 }
 
 .card:hover {
@@ -76,10 +88,10 @@ h4{
 
 .product-container {
   padding: 2px 16px;
+  height: fit-content; 
 }
 .card-container {
     display: flex; 
-    flex-wrap: wrap;
 }
 </style>
 </head>
@@ -151,6 +163,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
     out.println("<table class = 'table1'><tr><th></th><th>Product Name</th><th>Categories</th><th>Price</th></tr>");
+        out.println("<div class = 'card-container'>");
         while(rst.next()) {
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 
@@ -165,8 +178,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String link = "<a href='" + nav + "'>Add to Cart</a>";
             String product = "<a href='" + pnav + "'>"+pname+"</a>";
             out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
-            out.println("<div class='card-container'>");
-            out.println("<div class='card'><img src='"+ imageurl + "'><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"</<h4><h5>"+category1+"</h5><p>"+pdesc+"</p></div></div></div>");
+            out.println("<div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"</<h4><h5>"+category1+"</h5><p>"+pdesc+"</p></div></div>");
         }
         out.println("</div>");
     String rnav = "addingreview.jsp?"; 

@@ -152,7 +152,6 @@ h3{
 }
 
 .dosomething {
-        padding-top: 10px; 
         text-align: center; 
         align-items: center;  
 }
@@ -225,7 +224,6 @@ h3{
 }
 
 .dosomething {
-        padding-top: 10px; 
         text-align: center; 
         align-items: center;  
 }
@@ -283,7 +281,7 @@ body {
 <body>
 <div class = "page">
         <div class="background">
-                <img src="img/rockwallpaper1.jpeg">
+                <img src="img/wallpaper.png">
         </div>
         <section id = "header">    
                 <div class="header container">
@@ -346,8 +344,8 @@ body {
                 </div>
             </section>
       <div class="mainrock">
-        <h2 align="center"><i>Your New Best Friend</i></h2>
         <img src="img/rockmain.png" >
+                <h3 align="center"><i>Your New Best Friend</i></h3>
         </div>  
 
 <div class = "dosomething">
@@ -389,7 +387,7 @@ body {
                 <a href="admin.jsp?productName=" align="center" class="rock-text">
                         <img src="img/rockmain.png" class="image">
                         <div class="overlay">
-                                <div class="text">Admin Login</div>
+                                <div class="text">Admin Features</div>
                         </div>               
                 </a>
         </div>
@@ -404,31 +402,7 @@ body {
         </div>
 </div>
 
-
-<h4 align="center"><a href="ship.jsp?orderId=1">Test Ship orderId=1</a></h4>
-
-<h4 align="center"><a href="ship.jsp?orderId=3">Test Ship orderId=3</a></h4>
-<section id="footer">
-        <div class = "footer container">
-                <div class="companyinfo">
-                        <div class="left">
-                                <img src= "img/logo.PNG">
-                                <h3>RockPalz</h3>
-                        </div>
-                </div>
-                <div class = "userinfo">
-                        <h3>Created by</h3>
-                        <div class = "tina">
-                                <h4>Tina Liu</h4>
-                                <h5>29490737</h5>
-                        </div>
-                        <div class = "noah">
-                                <h4>Noah Stasuik</h4>
-                                <h5>44083343</h5>
-                        </div>
-                </div>
-        </div> 
-</section>
+<%@ include file="footer.jsp" %>
 
 </body>
 </head>
