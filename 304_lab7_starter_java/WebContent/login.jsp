@@ -11,6 +11,7 @@ a {
 body {
   background:  url("img/wallpaper.png");
   background-repeat: no-repeat;
+  background-size: cover; 
 }
 
 #header .header {

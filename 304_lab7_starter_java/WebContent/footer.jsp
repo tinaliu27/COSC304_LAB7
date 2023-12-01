@@ -10,7 +10,8 @@ html{
         background-color: #D0D3C7; 
         margin: 0 auto;
         padding: 20px 30px; 
-        position: sticky-bottom; 
+        position: fixed;
+        bottom: 0;
         text-align: left; 
         overflow: hidden;
 }

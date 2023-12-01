@@ -12,9 +12,9 @@
 
 body{
     background: url("img/textured.png");
-    position: relative; 
+    position: absolute; 
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: repeat; 
     top: 0; 
     left: 0;  
     z-index: -1; 
@@ -66,11 +66,11 @@ h4{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 100%; 
-  height: 500px;
+  height: 550px;
   display: block; 
   text-align: left; 
   align-items: center; 
-  margin: 20px 0;
+  margin-bottom: 20px; 
   background-color: white;
 }
 .column {
@@ -150,34 +150,144 @@ input[type="search"]:focus {
     background-color: white; 
     opacity: .7; 
 }
+.searching{
+    display: inline-block; 
+    flex: 1;
+}
+.reset {
+    background-color: #FFFFFF; 
+    border: 2px solid black; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 20px; 
+    margin: 0;
+    opacity: .5; 
+    text-align: center; 
+    padding: 7px 40px; 
+}
+.reset:hover{
+    opacity: 1; 
+}
+.searchings {
+    margin-top: 10px; 
+    display: flex; 
+    width: 100%; 
+    flex-direction: row; 
+    margin-top: 10px; 
+    justify-content: space-between; 
+}
+.searchings .searching1 {
+    display: flex; 
+        margin: 0;
+
+
+}
+.searchings .searching2 {
+    display: flex; 
+        margin: 0;
+
+
+
+}
+.top{
+    width: fit-content;
+    height: fit-content; 
+    align-items: center; 
+    display: block; 
+    justify-content: center;
+}
+.top-container{
+    width: 100%;
+    align-items: center; 
+    justify-content: center;
+    display: flex;
+}
+.dropdown {
+    font-size: 1.2em;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+}
+.dropdown option{
+    padding: 10px;
+
+}
+.adding {
+    text-align: center; 
+    align-items: center; 
+}
+.adding button{
+    padding: 12px 60px; 
+    background-color: black; 
+    color: white; 
+    border-radius: 16px; 
+    box-sizing: border-box; 
+    font-size: 30px; 
+    margin: 0; 
+    border: 1px solid black; 
+}
+.adding button:hover{
+    background-color: white; 
+    color: black; 
+}
+.product {
+    text-align: center; 
+    align-items: center; 
+    margin-top: 0 auto; 
+    padding-top: 0 auto; 
+}
+
+.product a{
+      margin-top: 0 auto; 
+    padding-top: 0 auto; 
+    color: inherit; 
+}
+
+.product:hover a{
+  text-decoration-color: rgba(255, 255, 255, 1);
+}
+
 </style>
 </head>
 <body>
 <%@ include file="headertransparent.jsp" %>
-
-<h2 style="text-align: center; padding-top: 30px; padding-bottom: 10px;">Browse Our Products</h2>
+<!-- https://css-irl.info/animating-underlines/ --> 
+<h2 style="text-align: center; padding-top: 90px; padding-bottom: 10px;">Browse Our Products</h2>
 <p style="text-align: center; font-size: 1.2em; padding-bottom: 10px; "><i>Leave blank for all products</i></p>
 <!--https://codepen.io/huange/pen/bGqMqM -->
 </h2>
 <form method="get" action="listprod.jsp" align="center">
-    <div class="searchbar" style="width: fit-content; height: fit-content; border: 1px solid black;" >
-        <input type="text" name="productName" size="50" placeholder="Enter Product Name...">
-        <button type="submit" value="Submit">Search</button>
+    <div class = "top-container">
+    <div class = "top">
+        <div class = "searchings">
+            <div class="searchbar" style="width: fit-content; height: fit-content; border: 1px solid black;" >
+                <input type="text" name="productName" size="50" placeholder="Enter Product Name...">
+                <button type="submit" value="Submit">Search</button>
+            </div>
+        </div>
+        <div class = "searchings">
+            <div class = "searching1">
+                <select size = "1" name="categoryName" style="font-size: 1.2em;" class="dropdown">
+                    <option value = "All">All</option> 
+                    <option value = "Classic Pet Rocks"">Classic Pet Rocks</option> 
+                    <option value = "Celebrity Lookalikes" ">Celebrity Lookalikes</option> 
+                    <option value = "Uniocular Rocks"">Uniocular Rocks</option> 
+                    <option value = "Animal Lookalikes"">Animal Lookalikes</option> 
+                    <option value = "Professor Lookalikes"">Professor Lookalikes</option> 
+                    <option value = "Unique Pet Rocks"">Unique Pet Rocks</option> 
+                    <option value = "Build your own pet rock kit"">Build your own pet rock kit</option> 
+                    <option value = "Accessories">Accessories</option> 
+                    <option value = "New">New</option>
+                </select>
+            </div>
+            <div class = "searching2">
+                <button type="reset" value="reset" class="reset">Reset</button>
+            </div> 
+        </div>
     </div>
-<br>
-<select size = "1" name="categoryName" style="font-size: 1.2em;">
-    <option value = "All">All</option> 
-    <option value = "Classic Pet Rocks" style="color: red;">Classic Pet Rocks</option> 
-    <option value = "Celebrity Lookalikes" style="color: pink;">Celebrity Lookalikes</option> 
-    <option value = "Uniocular Rocks" style="color: purple;">Uniocular Rocks</option> 
-    <option value = "Animal Lookalikes" style="color: red;">Animal Lookalikes</option> 
-    <option value = "Professor Lookalikes" style="color: red;">Professor Lookalikes</option> 
-    <option value = "Unique Pet Rocks" style="color: red;">Unique Pet Rocks</option> 
-    <option value = "Build your own pet rock kit" style="color: red;">Build your own pet rock kit</option> 
-    <option value = "Accessories" style="color: red;">Accessories</option> 
-    <option value = "New">New</option>
-</select>
-<button type="reset" value="reset">Reset</button>
+    </div>
 </form>
 
 
@@ -210,9 +320,11 @@ String sql = "";
     } else {
         sql = "SELECT P.productName, P.productPrice, P.productId, categoryName, productImageURL, productDesc FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
     }
+String rnav = "addingreview.jsp?"; 
+    String links = "<a href='" + rnav + "'>Add Review</a>";
 if(category == null) {
 } else {
-out.println("<h2 align='left'>"+category+"</h2>");
+out.println("<h2 align='left' style='margin-left: 20px; margin-bottom: 0px; padding-bottom: 0px; text-align: center;'>"+category+"</h2>");
 }
 
 try (Connection con = DriverManager.getConnection(url, uid, pw);
@@ -239,15 +351,12 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             // out.println("<tr><td>"+rst.getString); 
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
             String pnav = "product.jsp?id=" + id; 
-            String link = "<a href='" + nav + "'><button type='button'>Add to Cart</button></a>";
-            String product = "<a href='" + pnav + "'><button type='button'>"+pname+"</button></a>";
+            String link = "<div class = 'adding'><a href='" + nav + "'><button type='button'>Add to Cart</button></a></div>";
+            String product = "<div class = 'product'><a href='" + pnav + "'>"+pname+"</a></div>";
             // out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
-            out.println("<div class='column'><div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"0</<h4><p>"+pdesc+"</p><p>"+product+link+"</p></div></div></div>");
+            out.println("<div class='column'><div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"0</<h4><p>"+pdesc+"</p><p>"+link+"\n"+product+"</p></div></div></div>");
         }
         out.println("</div>");
-    String rnav = "addingreview.jsp?"; 
-    String link = "<a href='" + rnav + "'>Add Review</a>";
-    out.println(link); 
     rst.close();
 
 } catch (SQLException ex) {

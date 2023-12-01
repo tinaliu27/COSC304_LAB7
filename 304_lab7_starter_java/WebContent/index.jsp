@@ -138,6 +138,12 @@ h3{
         padding: 0 auto;
         margin: 0 auto; 
 }
+.item button{
+        background-color: transparent; 
+        border: none; 
+        padding: 0 auto;
+        margin: 0 auto; 
+}
 .mainrock{
         text-align: center; 
         padding: 0 auto; 
@@ -298,10 +304,17 @@ body {
                         </div>
                         <div class="navlist">
                                 <ul>
+                                <li>
+                                        <div class="item">
+                                                <a href="addingreview.jsp?" align="center">
+                                                        <img src="img/review.png">
+                                                </a>
+                                        </div>
+                                </li>
                                     <li>
                                         <div class="item">
                                                 <a href="listprod.jsp?productName=" align="center">
-                                                        <img src="img/cart.png">
+                                                        <img src="img/shopping-cart.png">
                                                 </a>
                                         </div>
                                     </li>
@@ -316,7 +329,7 @@ body {
                                         <div class="item">
                                                 <div class ="dropdown">
                                                         <button class = "customeractions" align="center" onclick="options()">
-                                                                <img src="img/profile.png">
+                                                                <img src="img/user.png">
                                                         </button>
                                                          <div class = "options">
                                                           <%

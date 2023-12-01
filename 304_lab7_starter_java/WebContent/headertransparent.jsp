@@ -1,24 +1,22 @@
 <style>
 #header {
     display: flex; 
-    position: sticky;
+    position: fixed;
     background-color: transparent; 
-    left: 0; 
     top: 0; 
-    z-index: 9999;
+    left: 0;
     width: 100%;
-    height: auto;  
+    min-height: 8vh;  
     text-align: center; 
     display: flex;
-    margin: 0 auto;  
-
+    transition: 0.6s;
+    padding: 0 auto; 
+    transition: background-color 0.4s ease-in-out; 
 }
 
 #header .header {
     background-color: transparent;
-    min-height: 8vh; 
     width: 100%;
- 
 }
 
 #header .entire-bar{
@@ -30,8 +28,7 @@
     padding: 0 12px;
 }
 #header .entire-bar .upperleft{
-    padding: 2px; 
-    padding-left: 20px;
+    margin-left: 20px;
     display: flex;
     justify-content: center; 
     text-align: center; 
@@ -56,7 +53,7 @@
 }
 
 #header .navlist {
-    padding: 0 27px; 
+    margin: 0 27px; 
     text-align: center; 
     justify-content: center; 
 }
@@ -114,7 +111,12 @@
 .dropdown:hover .options {
   display: block;
 }
-
+.item button{
+        background-color: transparent; 
+        border: none; 
+        padding: 0 auto;
+        margin: 0 auto; 
+}
 .dosomething {
         padding-top: 10px; 
         text-align: center; 
@@ -147,6 +149,9 @@
         height: 50px; 
         width: 50px; 
 }
+#header.scrolled{ 
+    background-color: white; 
+}
 </style>
 <html>
 <section id="header">
@@ -168,8 +173,15 @@
                 <ul>
                     <li>
                         <div class="item">
+                            <a href="addingreview.jsp?" align="center">
+                                <img src="img/review.png">
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item">
                             <a href="listprod.jsp?productName=" align="center">
-                                <img src="img/cart.png">
+                                <img src="img/shopping-cart.png">
                             </a>
                         </div>
                     </li>
@@ -184,7 +196,7 @@
                         <div class="item">
                             <div class="dropdown">
                                 <button class="customeractions" align="center" onclick="options()">
-                                    <img src="img/profile.png">
+                                    <img src="img/user.png">
                                 </button>
                                 <div class="options">
                                     <% 
@@ -207,6 +219,19 @@
         </div>
     </div>
 </section>
+<script>
+            var viewportWidth  = document.documentElement.clientWidth;
+            var viewportHeight = document.documentElement.clientHeight;
+
+            document.addEventListener('scroll', () => {
+            const header = document.querySelector('#header'); 
+                if(window.scrollY > 0) {
+                    header.classList.add('scrolled'); 
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }); 
+</script> 
 </html> 
 
 
