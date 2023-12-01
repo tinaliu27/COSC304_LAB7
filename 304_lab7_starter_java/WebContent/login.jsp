@@ -34,9 +34,9 @@ label {
   background: #fbfbfb;
   border-radius: 8px;
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
-  height: 410px;
-  margin: 6rem auto 8.1rem auto;
-  width: 329px;
+  height: fit-content;
+  margin: 1.4rem auto 8.1rem auto;
+  width: 400px;
 }
 #card-content {
   padding: 12px 44px;
@@ -44,7 +44,6 @@ label {
 #card-title {
   font-family: "Raleway Thin", sans-serif;
   letter-spacing: 4px;
-  padding-bottom: 23px;
   padding-top: 13px;
   text-align: center;
 }
@@ -244,7 +243,15 @@ label {
 }
 .customeractions img{
 	background-color: transparent; 
-
+}
+#card-title p {
+  width: 100%; 
+  height: 100%; 
+  text-align: center;
+  display: flex; 
+  align-items: center; 
+  font-size: 15px; 
+  color: red; 
 }
 
 </style>
@@ -308,25 +315,26 @@ label {
                     </div>
                 </div>
             </section>
-<%
-// Print prior error login message if present
-if (session.getAttribute("loginMessage") != null)
-	out.println("<p>"+session.getAttribute("loginMessage").toString()+"</p>");
-%>
+
 <div id="card">
     <div id="card-content">
       <div id="card-title">
         <h2>LOGIN</h2>
         <div class="underline-title"></div>
+        <%
+          // Print prior error login message if present
+          if (session.getAttribute("loginMessage") != null)
+            out.println("<p>"+session.getAttribute("loginMessage").toString()+"</p>");
+        %>
       </div>
       <form method="post" class="form" name="MyForm" action="validateLogin.jsp">
 	  <table style="display:inline">
         <label for="user-email" style="padding-top:13px" class="title">
-            Username
+            <b>Username</b>
           </label>
         <input id="user-email" class="form-content" type="text" name="username" maxlength="10" required />
         <div class="form-border"></div>
-        <label for="user-password" style="padding-top:22px" class="title">Password
+        <label for="user-password" style="padding-top:22px" class="title"><b>Password</b>
           </label>
         <input id="user-password" class="form-content" type="password" name="password" required />
         <div class="form-border"></div>

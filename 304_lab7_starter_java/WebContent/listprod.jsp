@@ -9,45 +9,33 @@
 <title>YOUR NAME Grocery</title>
 <style>
 
-header{
-    display: flex; 
-    position: sticky; 
-    text-align: center; 
-}
-form{
-    font-size: 20px; 
-}
-table, th, td{
-    border: .5px solid black; 
-    text-align: left; 
-    padding-left: 5px; 
-    width: 80%;
-}
-table .links{
-    width: 30%; 
-}
-.table1 tr:nth-child(even) {
-    background: #F0F0F0;
-}
-.header{
-    text-align: center; 
-    align-items: center; 
+
+body{
+    background: url("img/textured.png");
+    position: relative; 
+    background-size: cover;
+    background-repeat: no-repeat; 
+    top: 0; 
+    left: 0;  
+    z-index: -1; 
+    object-fit: cover; 
 }
 h1{
     text-align: center;
     align-items: center; 
     color: rgb(255,105,180); 
+    margin: 0 auto;
 }
-.table1 tr:nth-child(odd) {
-    background: #FFF;
+h2{
+    font-size: 2.2em; 
+    margin: 10px 0px;
 }
-tr{
-   width: 1px;
-   word-wrap: break-word;
-   padding-left: 0;
-   padding-right: 0;
-   max-width: 180px;
-   min-width: 1px; 
+h4{
+    margin: 0 auto; 
+    font-size: 1.0em; 
+}
+p {
+    font-size: 0.7em; 
 }
 .link{
     width: 20px; 
@@ -61,25 +49,45 @@ tr{
     color: blue; 
 }
 h4{
-    color: red; 
+    font-size: 2em; 
+}
+.card-container {
+    width: 100%;
+    margin: 50px auto; 
+    padding: 50px auto;
+}
+.card-container:after {
+  content: "";
+  display: table;
+  clear: both;
+
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 30%; 
-  height: fit-content;
-
- 
+  width: 100%; 
+  height: 500px;
+  display: block; 
+  text-align: left; 
+  align-items: center; 
+  margin: 20px 0;
+  background-color: white;
+}
+.column {
+  float: left;
+  width: 30%;
+  padding: 0 20px;
 }
 .card .image{
     height: fit-content; 
     width: 100%; 
+    margin: 0 auto;
+    padding: 0 auto;
 }
 .card img{
-    height: 100%;
+    height: 200px;
     width: 100%; 
     object-fit: cover;
-   
 }
 
 .card:hover {
@@ -87,23 +95,77 @@ h4{
 }
 
 .product-container {
-  padding: 2px 16px;
+  padding: 0px 20px; 
   height: fit-content; 
+  margin: 0 auto; 
 }
-.card-container {
+.product-container h4{
+    font-size: 1.5em; 
+}
+input[type=text] {
+  padding: 10px;
+  font-size: 2.0rem;
+  border: 1px solid black;
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: inherit;
+}
+button[type="submit"] {
+  text-indent: -999px;
+  overflow: hidden;
+  width: 40px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+  cursor: pointer;
+  opacity: 0.7;
+}
+button[type="submit"]:hover {
+  opacity: 1;
+  transition: 0.5s ease transform; 
+  transform: scale(1.2);
+}
+
+
+button[type="submit"]:focus,
+input[type="search"]:focus {
+  box-shadow: 0 0 3px 0 #1183d6;
+  border-color: #1183d6;
+  outline: none;
+}
+.searchbar{
+    align-items: center; 
+    text-align: center; 
     display: flex; 
+    justify-content: center;
+    margin: 0 auto; 
+}
+.searchbar:hover {
+    box-shadow: 2px 3px 3px 2px gray; 
+    background-color: white; 
+    opacity: .7; 
 }
 </style>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="headertransparent.jsp" %>
 
-<hr>
-
-<h2>Browse Products By Category and Search by Product Name:
+<h2 style="text-align: center; padding-top: 30px; padding-bottom: 10px;">Browse Our Products</h2>
+<p style="text-align: center; font-size: 1.2em; padding-bottom: 10px; "><i>Leave blank for all products</i></p>
+<!--https://codepen.io/huange/pen/bGqMqM -->
 </h2>
-<form method="get" action="listprod.jsp">
-<select size = "1" name="categoryName">
+<form method="get" action="listprod.jsp" align="center">
+    <div class="searchbar" style="width: fit-content; height: fit-content; border: 1px solid black;" >
+        <input type="text" name="productName" size="50" placeholder="Enter Product Name...">
+        <button type="submit" value="Submit">Search</button>
+    </div>
+<br>
+<select size = "1" name="categoryName" style="font-size: 1.2em;">
     <option value = "All">All</option> 
     <option value = "Classic Pet Rocks" style="color: red;">Classic Pet Rocks</option> 
     <option value = "Celebrity Lookalikes" style="color: pink;">Celebrity Lookalikes</option> 
@@ -115,8 +177,7 @@ h4{
     <option value = "Accessories" style="color: red;">Accessories</option> 
     <option value = "New">New</option>
 </select>
-<input type="text" name="productName" size="50">
-<input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
+<button type="reset" value="reset">Reset</button>
 </form>
 
 
@@ -143,14 +204,17 @@ String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustS
 String uid = "sa";
 String pw = "304#sa#pw";
 Double id; 
-out.println("<h2>All Products</h2>");
 String sql = ""; 
     if(category == null || category.equals("All")) {
         sql = "SELECT productName, productPrice, productId, categoryName, productImageURL, productDesc FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE productName LIKE ?"; 
     } else {
         sql = "SELECT P.productName, P.productPrice, P.productId, categoryName, productImageURL, productDesc FROM product AS P JOIN category AS C ON P.categoryId = C.categoryId WHERE C.categoryName = ? AND P.productName LIKE ?";
-
     }
+if(category == null) {
+} else {
+out.println("<h2 align='left'>"+category+"</h2>");
+}
+
 try (Connection con = DriverManager.getConnection(url, uid, pw);
     PreparedStatement pstmt = con.prepareStatement(sql);) {
     if(category != null && !category.equals("All")) {
@@ -162,7 +226,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     }
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
-    out.println("<table class = 'table1'><tr><th></th><th>Product Name</th><th>Categories</th><th>Price</th></tr>");
+    // out.println("<table class = 'table1'><tr><th></th><th>Product Name</th><th>Categories</th><th>Price</th></tr>");
         out.println("<div class = 'card-container'>");
         while(rst.next()) {
             String pname = rst.getString(1);
@@ -175,10 +239,10 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             // out.println("<tr><td>"+rst.getString); 
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
             String pnav = "product.jsp?id=" + id; 
-            String link = "<a href='" + nav + "'>Add to Cart</a>";
-            String product = "<a href='" + pnav + "'>"+pname+"</a>";
-            out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
-            out.println("<div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"</<h4><h5>"+category1+"</h5><p>"+pdesc+"</p></div></div>");
+            String link = "<a href='" + nav + "'><button type='button'>Add to Cart</button></a>";
+            String product = "<a href='" + pnav + "'><button type='button'>"+pname+"</button></a>";
+            // out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
+            out.println("<div class='column'><div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"0</<h4><p>"+pdesc+"</p><p>"+product+link+"</p></div></div></div>");
         }
         out.println("</div>");
     String rnav = "addingreview.jsp?"; 

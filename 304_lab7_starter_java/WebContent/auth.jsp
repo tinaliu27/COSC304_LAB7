@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <%
 	boolean authenticated = session.getAttribute("authenticatedUser") == null ? false : true;
 

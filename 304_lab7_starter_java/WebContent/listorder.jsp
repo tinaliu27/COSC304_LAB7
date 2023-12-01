@@ -64,7 +64,8 @@ table td{
 	</style> 
 </head>
 <body>
-<h1>SQL Spice & Market: Where Flavor Meets Data</h1>
+<%@ include file="header.jsp" %>
+
 <%
 //Note: Forces loading of SQL Server driver
 try
