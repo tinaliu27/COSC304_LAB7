@@ -3,8 +3,20 @@
 <head>
 <title>Administrator Page</title>
 </head>
+<style>
+body{
+    background: url("img/textured.png");
+    position: absolute; 
+    background-size: cover;
+    background-repeat: repeat; 
+    top: 0; 
+    left: 0;  
+    z-index: -1; 
+    object-fit: cover; 
+}
+</style>
 <body>
-
+<%@ include file="headertransparent.jsp" %>
 <%@ include file="auth.jsp" %>
 <%@ include file="jdbc.jsp" %>
 <h3>Administrator Sales Report by Day</h3>

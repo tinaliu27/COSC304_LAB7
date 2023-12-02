@@ -36,7 +36,7 @@ label {
   border-radius: 8px;
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
   height: fit-content;
-  margin: 1.4rem auto 8.1rem auto;
+  margin: 13rem auto 8.1rem auto;
   width: 400px;
 }
 #card-content {
@@ -254,70 +254,9 @@ label {
   font-size: 15px; 
   color: red; 
 }
-
 </style>
- <section id = "header">    
-                <div class="header container">
-                    <div class="entire-bar">
-                        <div class="upperleft">
-                            <div class="logo">
-                                <a href="index.jsp?">
-                                    <img src = "img/logo.PNG">
-                                </a>
-                            </div>
-                            <div class = "bigname" align="center">
-                                <a href = "index.jsp?"><h1 align="center">RockPalz</h1></a>
-                            </div>
-                        </div>
-                        <div class="navlist">
-                                <ul>
-                                    <li>
-                                        <div class="item">
-                                                <a href="listprod.jsp?productName=" align="center">
-                                                        <img src="img/cart.png">
-                                                </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                                <a href="listorder.jsp?productName=" align="center">
-                                                        <img src="img/orders.png">
-                                                </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                                <div class ="dropdown">
-                                                        <button class = "customeractions" align="center" onclick="options()">
-                                                                <img src="img/profile.png">
-                                                        </button>
-                                                         <div class = "options">
-                                                          <%
-	                                                        String userName = (String) session.getAttribute("authenticatedUser");
-	                                                        if (userName != null) {
-		                                                        out.println("<h3 align=\"center\">Signed in as: "+userName+"</h3>");
-                                                                        out.println("<a href='customer.jsp?productName=' align='center' class='customer'><h2>Check your info</h2></a>");
-                                                                        out.println("<a href='logout.jsp?productName=' align='center' class='shopping'><h2>Log Out</h2></a>");
-                                                                      } else {
-                                                                         out.println("<a href='login.jsp?productName=' align='center' class='shopping'><h2>Log In</h2></a>");
-                                                                        out.println("<a href='signup.jsp?' align='center' class='shopping'><h2>Sign Up</h2></a>");
-                                                                      }
-                                                                      
-                                                                      %>    
-                                                                </div>                                  
-                                                </a>
-                                                </div>
-                                        </div>
-                                    </li>
-
-
-                                </ul> 
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-<div id="card">
+<%@ include file="headertransparent.jsp" %>
+<div id="card" class="entire-card">
     <div id="card-content">
       <div id="card-title">
         <h2>LOGIN</h2>

@@ -167,7 +167,7 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The 
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Dr. Ramon Lawrence',5,'The man, the myth, the legend',30.04);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Dr. Yves Lucet',5,'COSC222 Professor',22.22);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Dr. Yong Gao',5,'COSC221 Professor',22.21);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The EEAOT',2,'The rock from the iconic movie Everything Everywhere All At Once',20.22);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The EEAAT',2,'The rock from the iconic movie Everything Everywhere All At Once',20.22);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Cactus',6,'20 - 1 kg tins',39.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Albert Einsten',2,'16 kg pkg.',62.50);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('The Mozart',2,'10 boxes x 12 pieces',9.20);

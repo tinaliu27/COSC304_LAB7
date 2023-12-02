@@ -236,17 +236,23 @@ input[type="search"]:focus {
     text-align: center; 
     align-items: center; 
     margin-top: 0 auto; 
-    padding-top: 0 auto; 
+    padding-top: 5px ; 
 }
 
 .product a{
       margin-top: 0 auto; 
     padding-top: 0 auto; 
     color: inherit; 
+    font-size: 20px; 
 }
-
 .product:hover a{
   text-decoration-color: rgba(255, 255, 255, 1);
+}
+.footer{
+    bottom: 0;
+    position: relative; 
+    width:100%; 
+    display: block; 
 }
 
 </style>
@@ -273,7 +279,6 @@ input[type="search"]:focus {
                     <option value = "All">All</option> 
                     <option value = "Classic Pet Rocks"">Classic Pet Rocks</option> 
                     <option value = "Celebrity Lookalikes" ">Celebrity Lookalikes</option> 
-                    <option value = "Uniocular Rocks"">Uniocular Rocks</option> 
                     <option value = "Animal Lookalikes"">Animal Lookalikes</option> 
                     <option value = "Professor Lookalikes"">Professor Lookalikes</option> 
                     <option value = "Unique Pet Rocks"">Unique Pet Rocks</option> 
@@ -352,9 +357,9 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
             String pnav = "product.jsp?id=" + id; 
             String link = "<div class = 'adding'><a href='" + nav + "'><button type='button'>Add to Cart</button></a></div>";
-            String product = "<div class = 'product'><a href='" + pnav + "'>"+pname+"</a></div>";
+            String product = "<div class = 'product'><a href='" + pnav + "'>Product Info</a></div>";
             // out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
-            out.println("<div class='column'><div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"0</<h4><p>"+pdesc+"</p><p>"+link+"\n"+product+"</p></div></div></div>");
+            out.println("<div class='column'><div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"0</<h4><p>"+pdesc+"</p></div><div class='footer'><p>"+link+"\n"+product+"</p></div></div></div>");
         }
         out.println("</div>");
     rst.close();
