@@ -3,14 +3,13 @@
 <head>
 <title>Checkout</title>
 <style>
-.header{
+body{
+    background: url("img/textured.png");
+    background-size: cover; 
+    background-repeat: no-repeat; 
     text-align: center; 
-    align-items: center; 
-}
-h1{
-    text-align: center;
-    align-items: center; 
-    color: rgb(255,105,180); 
+    align-items: center;
+    margin-top: 100px; 
 }
 p{
     font-size: 25px;
@@ -27,50 +26,74 @@ p{
             border-radius: 5px;
             cursor: pointer;
 }
-.submit:hover{
-    background-color: #357a38;
-}
-.reset{
-            background-color: #f44336; /* Red */
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px; 
-}
-.reset:hover{ 
-    background-color: #d2190b; /* Red */
 
+.form{
+    display: flex; 
+    flex-wrap: wrap;
+    margin: 0 auto;
+
+}
+.form-container{
+    display: flex; 
+    margin: 0 auto;
+}
+.form-container .item{
+    flex: 1;
+    display: inline-block; 
+    align-items: center;
+    text-align: left; 
+    justify-content: space-evenly;
+    padding: 20px; 
+    padding-top: 0px;
+    margin: 20px; 
+    vertical-align:top;
+    background-color: white;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+ 
+    
+}
+.form-container .item h2{
+    font-size: 1.3em; 
+    color: #6d6e70;
 }
 </style>
-   <%@ include file="header.jsp" %>
+   <%@ include file="headertransparent.jsp" %>
 
     <hr>
-<h2>Enter your customer id and password to complete the transaction:</h2>
 </head>
 <body>
-
-<form method="get" action="order.jsp">
-<p>Customer ID: <input type="text" name="customerId" size="40"></p>
-<p>Password:   <input type="password" name="customerPassword" size="40"></p>
-<h2>Enter your shipping address:</h2>
-<p>Street: <input type="text" name="street" size="40"></p>
-<p>City:   <input type="text" name="city" size="40"></p>
-<p>State:  <input type="text" name="state" size="40"></p>
-<p>Zip:    <input type="text" name="zip" size="40"></p>
-<h2>Enter your credit card information:</h2>
-<p>Card Number: <input type="text" name="cardNumber" size="40"></p>
-<p>Expiration Date: <input type="text" name="expirationDate" size="40"></p>
-<p>Security Code: <input type="text" name="securityCode" size="40"></p>
-<input type="submit" name="submit" value="Submit" class="submit">
-<input type="reset" value="Reset" class="reset">
-</form>
-
+<div class = "form">
+<div class = "form-container">
+    <form method="get" action="order.jsp">
+    <div class= "item">
+        <div class = "signin">
+            <h2> 1. Enter your customer id and <br>password to complete the transaction:</h2>
+            <p>Customer ID: <br><input type="text" name="customerId" size="30" required></p>
+            <p>Password:  <br><input type="password" name="customerPassword" size="30" required></p>
+        </div>
+    </div>
+    <div class= "item">
+        <div class = "shipping">
+            <h2>2. Enter your shipping address:</h2>
+            <p>Street: <br><input type="text" name="street" size="40"></p>
+            <p>City:   <br><input type="text" name="city" size="40"></p>
+            <p>State:  <br><input type="text" name="state" size="40"></p>
+            <p>Zip:    <br><input type="text" name="zip" size="40"></p>
+        </div>
+    </div>
+    <div class= "item">
+        <div class = "credit-card">
+            <h2>3. Enter your credit card information:</h2>
+            <p>Card Number: <br><input type="text" name="cardNumber" size="40"></p>
+            <p>Expiration Date: <br><input type="text" name="expirationDate" size="40"></p>
+            <p>Security Code: <br><input type="text" name="securityCode" size="40"></p>
+            <input type="submit" name="submit" value="Complete Order" class="submit">
+            <input type="reset" value="Reset" class="reset">
+        </div>
+    </div>
+    </form>
+</div>
+</div>
 </body>
 </html>
 

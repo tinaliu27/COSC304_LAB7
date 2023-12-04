@@ -297,43 +297,7 @@ out.println("<div class=\"item-30\"><div class=\"empty\"></div><div class=\"tota
 <br>
 <br>
 <br>
-<!--
-<div class = "cart-container">
-	<div class="item-70">
-		<div class = "card">
-			<div class = "card-item">
-				<div class = "image" style="width: 30%">
-					<img src = "img/ba.png" style="width: 100%">
-				</div>
-				<div class = "content" style="display: flex; width: 70%;">
-					<h1>Hi</h1>
-				</div> 
-			</div>
-			<div class = "card-item"></div>
-		</div>
-		<div class = "bottom" style="width: 100%;">
-			<a href="listprod.jsp?productName=" align="left" class="shopping">
-        		<button id = "shopping">
-                	<h2 align="center">Continue Shopping</h2>     
-        		</button>
-			</a>
-		</div>
 
-	</div>
-	<div class="item-30">
-		<div class = "empty"></div>
-		<div class = "total">
-			<h1><b>Subtotal: </b></h1>
-			<br>
-			<a href="checkout.jsp" align="center" class="stopshopping" style="text-decoration: none; margin: 0px; ">
-        		<button id = "shopping2" style="padding: 0px 30px; border-radius: 50px; margin: 0px; text-align: center;" align="center">
-                	<h2 align="center">Checkout</h2>     
-       			</button>
-			</a>
-		</div>
-	</div>
-</div>
---> 
 </div>
 </body>
 </html> 

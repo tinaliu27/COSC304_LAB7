@@ -27,12 +27,17 @@ body {
     padding: 20px; 
     height: fit-content; 
     justify-content: space-around; 
+    background-color: white; 
+    margin: 0 auto;
+    padding: 0 auto; 
 }
 .product-container .product-items{
     display: block; 
     align-items: center;
     text-align: center; 
-
+}
+.product-container .product-info a {
+    text-decoration: none; 
 }
 .product-container .product-items .product-image{
     display: flex; 
@@ -139,7 +144,8 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
         out.println("<div class = 'product-items'><div class = 'product-info'><h1>"+pname+"</h1><h4>"+description+"<br>ID: "+intValue+"</h4><h5>"+currency.format(price)+"</h5><br><div style='display: flex; justify-content: space-between;'><a href='addcart.jsp' align='left' class='cart'><button id='shopping2'><h2 align='center'>Add to Cart</h2></button></a><a href='listprod.jsp?productName=' align='left' class='shopping'><button id='shopping'><h2 align='center'>Continue Shopping</h2></button></a></div></div>");
     }
     out.println("</div></div>");
-    out.println("<h1 align='center'>Reviews</h1>");
+    out.println("<h1>Reviews</h1>");
+
      if(!rst2.next()){
         out.println("<h3 align='center'>No reviews yet!</h3>");
     }
