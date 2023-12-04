@@ -24,12 +24,6 @@ header{
 form{
     font-size: 20px; 
 }
-table, th, td{
-    border: .2px solid black; 
-    text-align: left; 
-    padding-left: 5px; 
-    width: 80%;
-}
 table .links{
     width: 30%; 
 }
@@ -107,8 +101,10 @@ tr{
 	min-height: 20vh; 
 	max-height: fit-content;
 	display: flex;
-	border: 2px solid purple;
-	background-color: white;  
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.5);
+	background-color: white; 
+	padding: 0 auto;
+	margin: 0 auto;  
 
 }
 .card-item .image{
@@ -125,38 +121,68 @@ tr{
 	
 }
 .card-item .content-left{
-	padding: 5px;  
-	padding-top: 0px; 
-	padding-left: 10px;
-	width: 70%; 
-	display: block;
+	width: 70%;
+	display: flex;  
+	flex-direction: column; 
+	justify-content: space-between; 
 	align-items: left; 
 	text-align: left; 
-
+	margin: 0 auto;
+	padding-left: 10px; 
 }
+
 .card-item .content-left h1{
 	font-size: 1.5rem; 
 }
 .card-item .content-left p{
 	margin-bottom: auto; 
 }
+.card-item .content-left .quantitychange{
+	padding-bottom: 10px; 
+}
 .card-item .content-left form{
-	margin-top: auto; 
+	margin: 0 auto; 
+	padding: 0 auto; 
 }
 .card-item .content-right{
 	width: 30%;
-	padding-top: 0px; 
-	margin-top: 0px; 
+	display: flex;  
+	flex-direction: column; 
+	justify-content: space-between; 
+	align-items: flex-end; 
+	margin: 0 auto;
+	padding:0 auto; 
+}
+.card-item .content-right .pricing{
+	display: block;
+	padding-right: 5px; 
+}
+.card-item .content-right .pricing h2{
+	margin: 0 auto;
+	padding-top: 10px; 
 	text-align: right; 
-	padding: 0; 
-	margin: 0; 
+	font-weight: normal;
+}
+
+.content-right .pricing h3{
+	font-weight: normal; 
+	margin: 0 auto;
+	padding-top: 5px; 
+	text-align: right; 
+
 
 }
-.card-item .content-right img{
-	width: 50px;
-	height: 50px; 
-	display: flex; 
 
+.card-item .content-right img{
+	width: 30px;
+	height: 30px; 
+	background: transparent; 
+	margin: 0 auto; 
+	padding: 0 auto;
+}
+.card-item .content-right .trash{
+	padding-right: 5px; 
+	padding-bottom: 5px; 
 }
 .item-70 .bottom {
 	align-items: right; 
@@ -275,7 +301,7 @@ else
 		// out.print("<td><h5 style='width: 200px'><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></h5></td>");
 		// out.println("</tr>");
 		total = total +pr*qty;
-		out.println("<div class = 'card-item' id = 'card-item' style='margin-bottom: 30px;'><div class = 'image' style='width: 30%; margin: 0 auto; padding: 0 auto;'><img src='"+urlimage+"'></div><div class='content-left' style='display: block; width: 70%;'><h1>"+product.get(1)+"</h1><p>"+product.get(4)+"<br><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></p></div><div class = 'content-right'><h2>Subtotal: "+currFormat.format(pr*qty)+"</h2><h3 style='margin: 0 auto; padding: 0 auto;'>Price Per item: "+currFormat.format(pr)+"</h3><p><a href='" + url + "'><img src = 'img/trash.png'></a></p></div></div>");
+		out.println("<div class = 'card-item' id = 'card-item' style='margin-bottom: 30px;'><div class = 'image' style='width: 30%; margin: 0 auto; padding: 0 auto;'><img src='"+urlimage+"'></div><div class='content-left' style='width: 70%;'><div class ='all-content'><h1>"+product.get(1)+"</h1><p>"+product.get(4)+"<br><h3>Quantity: "+qty+"</h3></p></div><div class = 'quantitychange'><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></div></div><div class = 'content-right'><div class='pricing'><h2>Subtotal: <b>"+currFormat.format(pr*qty)+"</b></h2><h3 style='margin: 0 auto; padding: 0 auto;'>Price Per item: "+currFormat.format(pr)+"</h3></div><div class = 'trash'><a href='" + url + "'><img src = 'img/trash.png'></a></div></div></div>");
 
 		if (product.get(0) == null)
 			out.println("<script> document.getElementById('card-item').remove();</script>");
