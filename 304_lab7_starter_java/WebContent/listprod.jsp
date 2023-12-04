@@ -9,7 +9,6 @@
 <title>YOUR NAME Grocery</title>
 <style>
 
-
 body{
     background: url("img/textured.png");
     position: absolute; 
@@ -202,7 +201,7 @@ input[type="search"]:focus {
     justify-content: center;
     display: flex;
 }
-.dropdown {
+.searching1 .dropdown {
     font-size: 1.2em;
     padding: 8px;
     border: 1px solid black;
@@ -210,7 +209,7 @@ input[type="search"]:focus {
     background-color: #fff;
     color: #333;
 }
-.dropdown option{
+.searching1 .dropdown option{
     padding: 10px;
 
 }
@@ -354,7 +353,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String imageurl = rst.getString(5); 
             String pdesc = rst.getString(6); 
             // out.println("<tr><td>"+rst.getString); 
-            String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price;
+            String nav = "addcart.jsp?id=" + id + "&name=" + URLEncoder.encode(pname, "UTF-8") + "&price=" + price + "&desc=" + pdesc + "&image=" + imageurl;
             String pnav = "product.jsp?id=" + id; 
             String link = "<div class = 'adding'><a href='" + nav + "'><button type='button'>Add to Cart</button></a></div>";
             String product = "<div class = 'product'><a href='" + pnav + "'>Product Info</a></div>";

@@ -39,6 +39,8 @@ else {
 String id = request.getParameter("id");
 String name = request.getParameter("name");
 String price = request.getParameter("price");
+String description = request.getParameter("desc");
+String image = request.getParameter("image"); 
 Integer quantity = new Integer(1);
 
 // Store product information in an ArrayList
@@ -48,6 +50,8 @@ product.add(id);
 product.add(name);
 product.add(price);
 product.add(quantity);
+product.add(description);
+product.add(image); 
 
 
 // Update quantity if add same item to order again

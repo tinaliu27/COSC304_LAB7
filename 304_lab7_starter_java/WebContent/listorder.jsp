@@ -23,7 +23,7 @@ h1{
 }
 h2{
 	color: 	rgb(255,20,147);
-	font-size: 16px;
+	font-size: 25px;
 	padding: 5px; 
 }
 h3{
@@ -50,8 +50,8 @@ table td{
 }
 .table1{
 	align-items: center; 
-	width: 90%; 
-	margin: 0 auto; 
+	width: 80%; 
+	margin: 0 auto;  
 }
 .person{ 
 	background-color: rgb(255,105,180);
@@ -65,7 +65,6 @@ table td{
 </head>
 <body>
 <%@ include file="header.jsp" %>
-
 <%
 //Note: Forces loading of SQL Server driver
 try
@@ -101,14 +100,14 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	out.println("<table id = 'table' class = 'table1'><tr><th><h2>Order Id</h2></th><th><h2>Order Date</h2></th><th><h2>Customer Id</h2></th><th><h2>Customer Name</h2></th><th><h2>Total Amount</h2></th></tr>");
 	while(rst.next()) {
 		int orderid = rst.getInt(1); 
-		out.println("<table width = '800px' align = 'center'><tr class = 'person'><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
+		out.println("<tr class = 'person'><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
 		pstmt.setInt(1, orderid); 
 		ResultSet rst2 = pstmt.executeQuery(); 
 		int count = 0; 
 		double total = 0; 
 		int quantitytotal = 0; 
 		if(rst2.next()) {
-			out.println("<tr align='center'><td colspan='5'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th></td></tr>");
+			out.println("<tr align='center'><td colspan='3'></td><td colspan='2'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th></td></tr>");
 			do {
 					String value = rst2.getString(3); 
 					int quantity = rst2.getInt(2); 
