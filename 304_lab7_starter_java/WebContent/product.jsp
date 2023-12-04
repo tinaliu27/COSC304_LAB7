@@ -10,11 +10,76 @@
 
 <html>
 <head>
-    <title>Ray's Grocery - Product Information</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>RockPalz</title>
 </head>
+<style> 
+body {
+    background: url("img/textured.png");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    text-align: center; 
+    align-items: center;
+    margin-top: 100px;  
+}
+.product-container{
+    width: 100%; 
+    display: flex; 
+    padding: 20px; 
+    height: fit-content; 
+    justify-content: space-around; 
+}
+.product-container .product-items{
+    display: block; 
+    align-items: center;
+    text-align: center; 
+
+}
+.product-container .product-items .product-image{
+    display: flex; 
+    width: 50%;
+}
+.product-image img{
+    width: 300px; 
+    height: fit-content; 
+}
+.product-container .product-items .product-info {
+    display: block; 
+    flex-direction: column; 
+}
+.product-container .product-items .product-info a{
+    display: flex; 
+    margin: 30px; 
+}
+.reviews{
+    width: 100%; 
+    margin: 50px; 
+}
+.reviews:after{
+    content="";
+    display: table; 
+    clear: both; 
+}
+.review-container{
+   padding: 0 20px;
+  justify-content: space-evenly; 
+  display: flex; 
+}
+.review-container .item{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%; 
+  height: fit-content;
+  display: block; 
+  text-align: center; 
+  align-items: center; 
+  background-color: white;
+  margin: 30px; 
+}
+
+</style> 
+
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="headertransparent.jsp" %>
 
 <%
 try {
@@ -42,10 +107,12 @@ double doublevalue = Double.parseDouble(pid);
 int intValue = (int) doublevalue;
 String sql1 = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = ?";
 String sql2 = "SELECT reviewRating, reviewDate, customerId, reviewComment FROM review WHERE productId = ?";
-
+String sql3 = "SELECT firstName, lastName FROM customer WHERE customerId = ?";
+out.println("<div class = 'product-container'>");
 try (Connection con = DriverManager.getConnection(url, uid, pw);
     PreparedStatement pst = con.prepareStatement(sql1); 
-    PreparedStatement pst2 = con.prepareStatement(sql2)) {
+    PreparedStatement pst2 = con.prepareStatement(sql2);
+    PreparedStatement pst3 = con.prepareStatement(sql3)) {
    // first sql 
     pst.setInt(1, intValue);
     ResultSet rst = pst.executeQuery();
@@ -54,6 +121,8 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     pst2.setInt(1, intValue); 
     ResultSet rst2 = pst2.executeQuery(); 
     
+    pst3.setInt(1, intValue); 
+    ResultSet rst3 = pst3.executeQuery(); 
 
     if (rst.next()) {
         // product information from sql 
@@ -65,28 +134,33 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
                 image1 = ""; 
         } else {
             url1 = "displayImage.jsp?id=" + intValue;
+            url1 = "displayImage.jsp?id=" + intValue;
             if(intValue == 0 ) {
                 out.print("<img src='" + url1 + "'>");
             }
-            out.println("<img src='" + image1 + "'>"); 
-
+            out.println("<div class = 'product-items'><div class = 'product-image'><img src='" + image1 + "'></div></div>");
         }
-        out.println("<h1>" + pname + "</h1>");
-        out.println("<h4>" + description + "</h4>");
-        out.println("<h4>ID: " + intValue + "</h4>");
-        out.println("<h4>" + currency.format(price) + "</h4>");
+        
+        out.println("<div class = 'product-items'><div class = 'product-info'><h1>"+pname+"</h1><h4>"+description+"<br>ID: "+intValue+"</h4><h5>"+currency.format(price)+"</h5><br><div style='display: flex; justify-content: space-between;'><a href='addcart.jsp' align='left' class='cart'><button id='shopping2'><h2 align='center'>Add to Cart</h2></button></a><a href='listprod.jsp?productName=' align='left' class='shopping'><button id='shopping'><h2 align='center'>Continue Shopping</h2></button></a></div></div>");
     }
-    out.println("<h1>Reviews</h1>");
+    out.println("</div></div>");
+    out.println("<h1 align='center'>Reviews</h1>");
+    out.println("<div class = 'reviews'><div class = 'review-container'>");
     while (rst2.next()) {
          //review product information from sql2 
         reviewRating = rst2.getInt(1);
         reviewDate = rst2.getString(2);
         customerId = rst2.getInt(3); 
         comment = rst2.getString(4); 
-        out.println("<h2>" + reviewRating +" / 5</h2>\n");
-        out.println("<h4>"+comment+"</h4>\n");
-        out.println("<h4>"+customerId+"</h4>\n");
+        out.println("<div class = 'item'>");
+        String customerName = "";
+        if(rst3.next()) {
+            customerName = rst3.getString(1) + " " + rst3.getString(2);
+            out.println("<h2>"+customerName+"</h2>");
+        }
+        out.println("<h3>"+reviewRating+"</h3><p>"+comment+"</p></div>");
     }
+    out.println("</div></div>");
     // TODO: If there is a productImageURL, display using IMG tag
         // TODO: Retrieve any image stored directly in the database.
         // Note: Call displayImage.jsp with product id as a parameter.
@@ -99,23 +173,13 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
 
 String rnav = "addingreview.jsp?id=" + pid; 
 String link = "<a href='" + rnav + "' class='reviewbutton'>Add Review</a>";
-out.println(link);
 // TODO: add links to Add to Cart and Continue Shopping
 
 %>
 <br> 
-<a href="addcart.jsp" align="left" class="cart">
-        <button id = "shopping2">
-                <h2 align="center">Add to Cart</h2>     
-        </button>
-</a>
-<br>
-<br>
-<a href="listprod.jsp?productName=" align="left" class="shopping">
-        <button id = "shopping">
-                <h2 align="center">Continue Shopping</h2>     
-        </button>
-</a>
-
 </body>
 </html>
+<div class = 'card-container'>
+    <div class = 'item'>
+    </div>
+</div>
