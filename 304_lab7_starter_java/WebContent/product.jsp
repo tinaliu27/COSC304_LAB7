@@ -52,22 +52,17 @@ body {
 }
 .reviews{
     width: 100%; 
-    margin: 50px; 
-}
-.reviews:after{
-    content="";
-    display: table; 
-    clear: both; 
 }
 .review-container{
-   padding: 0 20px;
+  padding: 0 20px;
   justify-content: space-evenly; 
   display: flex; 
 }
 .review-container .item{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 100%; 
+  flex: 1 1 0px;
+  padding: 20px; 
   height: fit-content;
   display: block; 
   text-align: center; 
@@ -145,6 +140,9 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     }
     out.println("</div></div>");
     out.println("<h1 align='center'>Reviews</h1>");
+     if(!rst2.next()){
+        out.println("<h3 align='center'>No reviews yet!</h3>");
+    }
     out.println("<div class = 'reviews'><div class = 'review-container'>");
     while (rst2.next()) {
          //review product information from sql2 

@@ -99,7 +99,7 @@ h1{
 <hr style="width: 50%; border-top: 2px solid black;">
 <div class = "form-container">
     <form method="get" action="review.jsp">
-        <select size = "1" name="productName" align="center" class="dropdown">
+        <select size = "1" name="productName" align="center" class="dropdown" name="rock">
             <option value = "The Rock (Dwayne Johnson)">The Rock (Dwayne Johnson)</option> 
             <option value = "The Classic">The Classic</option> 
             <option value = "The Bowtie">The Bowtie</option> 
@@ -126,21 +126,19 @@ h1{
             <option value = "The Cat">The Cat</option> 
             <option value = "The Ladybug">The Ladybug</option> 
             <option value = "Family Rock Bundle">Family Rock Bundle</option> 
-
-            
         </select>
         <p>Customer ID: <br><input type="text" name="customerId" size="40" required></p>
         <!-- https://www.w3schools.com/tags/att_input_type_radio.asp -->
         <div class = "rating">
-            <input type="radio" id="javascript" name="fav_language" value="1">
+            <input type="radio" id="star" name="star" value=1>
             <label for="star">1</label>
-            <input type="radio" id="javascript" name="fav_language" value="2">
+            <input type="radio" id="star" name="star" value=2>
             <label for="star">2</label>
-            <input type="radio" id="javascript" name="fav_language" value="3">
+            <input type="radio" id="star" name="star" value=3>
             <label for="star">3</label>
-            <input type="radio" id="javascript" name="fav_language" value="4">
+            <input type="radio" id="star" name="star" value=4>
             <label for="star">4</label>        
-            <input type="radio" id="javascript" name="fav_language" value="5">
+            <input type="radio" id="star" name="star" value=5>
             <label for="star">5</label> 
         </div>   
         <br><textarea name="comments" cols="70" rows="5" placeholder="Insert your comment here..." required></textarea><br><br>

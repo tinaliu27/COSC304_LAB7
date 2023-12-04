@@ -22,6 +22,7 @@ html{
 #footer .footer-container {
         padding; 0px; 
         display: flex; 
+        justify-content: space-evenly; 
 
 }
 .footer-container .item {

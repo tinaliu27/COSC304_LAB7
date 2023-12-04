@@ -13,6 +13,7 @@ body{
     left: 0;  
     z-index: -1; 
     object-fit: cover; 
+	margin-top: 100px; 
 }
 </style>
 <body>
