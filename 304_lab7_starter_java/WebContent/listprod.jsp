@@ -258,7 +258,6 @@ input[type="search"]:focus {
 </head>
 <body>
 <%@ include file="headertransparent.jsp" %>
-<!-- https://css-irl.info/animating-underlines/ --> 
 <h2 style="text-align: center; padding-top: 90px; padding-bottom: 10px;">Browse Our Products</h2>
 <p style="text-align: center; font-size: 1.2em; padding-bottom: 10px; "><i>Leave blank for all products</i></p>
 <!--https://codepen.io/huange/pen/bGqMqM -->

@@ -239,6 +239,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		// out.println("<h1>Order completed. Will be shipped soon...</h1>");
 		// out.println("<h1>Shipping to: "+street+" "+city+" "+state+" "+zip+"</h1>");
 		// out.println("<h1>Card Number: **** **** **** "+cardNumber+"</h1>");
+		// add this back
 		// session.setAttribute("productList", null);
 		// out.println("<h1>Your order reference number is: "+ (ordId) + "</h1>");
 		// out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
