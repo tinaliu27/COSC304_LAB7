@@ -15,6 +15,7 @@ body {
     background-repeat: no-repeat; 
     text-align: center; 
     align-items: center; 
+	margin-top: 50px; 
 }
 header{
     display: flex; 

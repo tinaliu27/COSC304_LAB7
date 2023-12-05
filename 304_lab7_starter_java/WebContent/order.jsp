@@ -14,30 +14,45 @@
 <head>
 <title>YOUR NAME Grocery Order Processing</title>
 <style>
-table, th, td {
-       border: 1px solid black;
-       text-align: left;
-       padding: 5px;
-   }
-.top{
-   background-color: rgb(255,105,180);
+table {
+	border-collapse: collapse; 
+	border: none; 
+	width: 100%; 
 }
-table tr:nth-child(even) {
-   background: #F0F0F0;
+tr{
+	border: 1px solid black; 
+	width: 100%; 
 }
-
-
-table tr:nth-child(odd) {
-   background: #FFF;
+.entireorder{
+	width: 100%; 
+	height: fit-content; 
+	background-color: #D9D9D9;
+	padding: 10px; 
 }
-header h1{ 
-    color: rgb(255,105,180); 
-
+.entireorder .order-items{
+	display: flex; 
+	width: 100%; 
+}
+.order-items .image{
+	display: flex; 
+	width: 40%; 
+}
+.order-items .pricing{
+	display: inline-block; 
+}
+.image img{
+	width: 100%; 
+}
+.order-items .info{
+	width: 60%;
+	display: flex; 
+	flex-direction: row; 
+	justify-content: space-around;
 }
 </style>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="headertransparent.jsp" %>
 
 <% 
 // Get customer id
@@ -91,7 +106,7 @@ String cidsql = "SELECT TOP 1 orderId FROM ordersummary ORDER BY orderId DESC";
 ArrayList<Object> product;
 int qty = 1; 
 String productstring =""; 
-
+out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1>Thanks for your order! </h1><div class = 'orderid' style='display: flex; border: 2px solid black; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'>");
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();)
 	  {
@@ -124,28 +139,27 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		if (productList.isEmpty())
 			out.println("<h1>Your Cart is empty</h1>");
 		while(rst.next() && invalid != 2) {
-				out.println("<h1>Your Order Summary</h1>");
+				// out.println("<h1>Your Order Summary</h1>");
 				currFormat = NumberFormat.getCurrencyInstance();
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-        String formattedDate = dateFormat.format(date);
-		String addOrder = "INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES ( ?, ?, " + 0 + ")";
-		PreparedStatement pst2 = con.prepareStatement(addOrder, Statement.RETURN_GENERATED_KEYS);
-		pst2.setString(1, custId);
-		pst2.setString(2, formattedDate);
-		pst2.executeUpdate();
-		ResultSet keys = pst2.getGeneratedKeys();
-		keys.next();
-		int ordId = keys.getInt(1);
-		keys.close();
-
-	out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	out.println("<th>Price</th><th>Subtotal</th></tr>");
-	String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (" + ordId + ", ?, ?, ?)";
-	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
-	while (iterator.hasNext()) 
-	{	
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date = new Date();
+				String formattedDate = dateFormat.format(date);
+				String addOrder = "INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES ( ?, ?, " + 0 + ")";
+				PreparedStatement pst2 = con.prepareStatement(addOrder, Statement.RETURN_GENERATED_KEYS);
+				pst2.setString(1, custId);
+				pst2.setString(2, formattedDate);
+				pst2.executeUpdate();
+				ResultSet keys = pst2.getGeneratedKeys();
+				keys.next();
+				int ordId = keys.getInt(1);
+				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 10px;'> OrderID: "+ordId+"</h2></div></div> ");
+				keys.close();
+	// out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	// out.println("<th>Price</th><th>Subtotal</th></tr>");
+		String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (" + ordId + ", ?, ?, ?)";
+		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+		while (iterator.hasNext()) {	
 		Map.Entry<String, ArrayList<Object>> entry = iterator.next();
 		product = (ArrayList<Object>) entry.getValue();
 		if (product.size() < 4)
@@ -179,22 +193,21 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		{
 			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
 		}		
-		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
-		out.println("</tr>");
+		// out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
+		// out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
+		// out.println("</tr>");
 		total = total +pr*qty;
 
 		PreparedStatement pstmt3 = con.prepareStatement(addintoop); 
 		// pstmt3.setInt(1, ordId);
 			// pstmt
-		out.println("this is the orderid" + ordId); 
 		double doubleValue = Double.parseDouble(productstring);
 		int intValue = (int) doubleValue;
 		pstmt3.setInt(1, intValue);
 		pstmt3.setInt(2, qty); 
 		pstmt3.setDouble(3, pr); 
 		pstmt3.executeUpdate(); 
-		out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
+		// out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
 	}
 
 	String updateAmount = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
@@ -208,8 +221,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
     	out.println("<h1>Your Cart is empty!!</h1><!--");
 	}
 	else {
-		out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
-		out.println("</table>");
+		// out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
+		// out.println("</table>");
 		out.println("<h1>Order completed. Will be shipped soon...</h1>");
 		out.println("<h1>Shipping to: "+street+" "+city+" "+state+" "+zip+"</h1>");
 		out.println("<h1>Card Number: **** **** **** "+cardNumber+"</h1>");
@@ -245,7 +258,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	} catch (SQLException ex) {
 			out.println("SQLException: " + ex);
 		}
-
+	out.println("</div>");
 	/*
 	// Use retrieval of auto-generated keys.
 	PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
@@ -279,5 +292,65 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
 // Clear cart if order placed successfully
 %>
-</BODY>
-</HTML>
+<!--
+<div class = "order-container">
+	<div class = "orderblocks" style="width: 100%; ">
+		<h1>Thanks for your order!</h1>
+		<div class = "orderid" style="display: flex; border: 2px solid black; align-items: center; text-align: center; width: fit-content;">
+			<img src = "img/reviewyes.png" style="width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent; ">
+			<h2 style="display: inline-block; margin: 0 auto; padding-left: 10px; "> OrderID </h2> 
+		</div>
+	</div>
+	<div class = "orderblocks" style="width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;">
+		<div class = "orderblocks1" style="width: 50%; display: block; padding: 10px;">
+			<div class = "top">
+				<h2> Order Details: </h2>
+				<h4> Order Successfully completed. Will be shipped in 5-8 business days </h4>
+			</div>
+			<div class = "bottom" style="">
+				<table>
+					<tr> 
+						<td> Name </td>
+						<td> Arnold Anderson </td> 
+					</tr>
+					<tr> 
+						<td> Shipping Address  </td>
+						<td> Street  </td> 
+					</tr>
+					<tr>
+						<td> Payment Info </td> 
+						<td> Card </td> 
+					</tr> 
+				</table>
+			</div>
+		</div>
+		<div class = "orderblocks1" style="width: 50%; display: flex; margin: 0 auto; padding: 10px;  ">
+			<div class = "entireorder">
+				<h2>Your Order: </h2> 
+				<div class = "order-items">
+					<div class = "image"><img src = "img/ba.jpg"></div>
+					<div class = "info">
+						<div class = "info-name"><h1>This is a Rock</h1></div> 
+						<div class = "pricing"><h2>1</h2><h2>$1233</h2></div>
+					</div>
+				</div>
+				<div class = "order-items">
+					<div class = "summary">
+						<h3>Subtotal</h3>
+						<h3>Taxes</h3>
+						<h4>Costs</h4>
+						<h4>Costs2</h4>
+					</div>
+					<br> 
+					<div class = "Summary">
+						<h3>Total: </h3>
+						<h4>Total Cost</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+--> 
+</body>
+</html>

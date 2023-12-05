@@ -123,7 +123,7 @@ body{
 
     button.addEventListener('click', () => {
         jsConfetti.addConfetti({
-            emojis: ['🪨', '🪨', '🗿'],
+            emojis: ['🪨', '🗿','🌋'],
         }).then(() => jsConfetti.addConfetti())
     });
  </script> 

@@ -76,10 +76,10 @@ p{
     <div class= "item">
         <div class = "shipping">
             <h2>2. Enter your shipping address:</h2>
-            <p>Street: <br><input type="text" name="street" size="40"></p>
-            <p>City:   <br><input type="text" name="city" size="40"></p>
-            <p>State:  <br><input type="text" name="state" size="40"></p>
-            <p>Zip:    <br><input type="text" name="zip" size="40"></p>
+            <p>Street: <br><input type="text" name="street" size="40" placeholder="e.g. 103 AnyWhere Street"></p>
+            <p>City:   <br><input type="text" name="city" size="40" placeholder="e.g. Winnipeg"></p>
+            <p>State:  <br><input type="text" name="state" size="40" placeholder="e.g. MB"></p>
+            <p>Zip:    <br><input type="text" name="zip" size="40" placeholder="e.g. R3X45T"></p>
         </div>
     </div>
     <div class= "item">
