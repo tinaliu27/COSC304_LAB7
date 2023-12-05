@@ -203,6 +203,7 @@ tr{
 <%@ include file="headertransparent.jsp" %>
 <br>
 <%
+double total = 0;
 String updateId = request.getParameter("updateId");
 String newQty = request.getParameter("newQty");
 if (updateId != null && newQty != null) {
@@ -239,9 +240,10 @@ if (updateId != null && newQty != null) {
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
-if (productList == null)
+boolean isCartEmpty = (productList == null || productList.isEmpty());
+if (isCartEmpty)
 {	out.println("<h1>Your shopping cart is empty!</h1>");
-	productList = new HashMap<String, ArrayList<Object>>();
+    productList = new HashMap<String, ArrayList<Object>>();
 }
 else
 {
@@ -251,7 +253,6 @@ else
 	// out.print("<table class='table' width = '800px' align = 'center'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	// out.println("<th>Price</th><th>Subtotal</th><th>Remove from Cart</th><th>Update Quantity</th></tr>");
 	out.println("<div class = 'cart-container'><div class='item-70'><div class = 'card' id='card'>"); // 3 close 
-	double total = 0;
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 	while (iterator.hasNext()) 
 	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
@@ -286,7 +287,7 @@ else
 		}
 		catch (Exception e)
 		{
-			out.println("<h2 align='left'>Empty Cart!</h2>");
+		
 		}
 		try
 		{
@@ -313,6 +314,9 @@ out.println("<div class=\"item-30\"><div class=\"empty\"></div><div class=\"tota
 	
 	if(total == 0)
 		out.println("<script> document.getElementById('card').parentNode.removeChild(document.getElementById('card-item'));</script>");
+
+	if (total < 1)
+		out.println("<h2>Your cart is empty!</h2>");
 	
 	/* out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
@@ -321,6 +325,12 @@ out.println("<div class=\"item-30\"><div class=\"empty\"></div><div class=\"tota
 	
 }
 %>
+<script>
+    var total = <%= total %>;
+    if (total < 1) {
+        document.getElementById("shopping2").disabled = true;
+    }
+</script>
 <br>
 <br>
 <br>

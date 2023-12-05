@@ -112,7 +112,6 @@ String cidsql = "SELECT TOP 1 orderId FROM ordersummary ORDER BY orderId DESC";
 ArrayList<Object> product;
 int qty = 1; 
 String productstring =""; 
-out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1>Thanks for your order! </h1><div class = 'orderid' style='display: flex; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'>");
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();)
 	  {
@@ -134,6 +133,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			throw new IllegalArgumentException();
 		}
 		rst22.close();
+		out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1>Thanks for your order! </h1><div class = 'orderid' style='display: flex; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'>");
 		// first get customerid 
 		ResultSet cidrst = stmt.executeQuery(cidsql); 
 		
