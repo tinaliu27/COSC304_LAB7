@@ -107,7 +107,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		double total = 0; 
 		int quantitytotal = 0; 
 		if(rst2.next()) {
-			out.println("<tr align='center'><td colspan='3'></td><td colspan='2'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th></td></tr>");
+			out.println("<tr align='center'><td colspan='6'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th></td></tr>");
 			do {
 					String value = rst2.getString(3); 
 					int quantity = rst2.getInt(2); 
