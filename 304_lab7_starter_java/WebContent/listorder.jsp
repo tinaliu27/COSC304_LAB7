@@ -97,17 +97,17 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	String sql = "SELECT O.orderId, O.orderDate, C.customerId, C.firstName, C.lastname, O.totalAmount FROM ordersummary as O INNER JOIN customer as C ON O.customerId = C.customerId";
 	ResultSet rst = stmt.executeQuery(sql); 
 	// second select 
-	out.println("<table id = 'table' class = 'table1'><tr><th><h2>Order Id</h2></th><th><h2>Order Date</h2></th><th><h2>Customer Id</h2></th><th><h2>Customer Name</h2></th><th><h2>Total Amount</h2></th></tr>");
+    out.println("<table id='table' class='table1'><tr><th><h2>Order Id</h2></th><th><h2>Order Date</h2></th><th><h2>Customer Id</h2></th><th><h2>Customer Name</h2></th><th><h2>Total Amount</h2></th></tr>");
 	while(rst.next()) {
 		int orderid = rst.getInt(1); 
-		out.println("<tr class = 'person'><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
+		out.println("<table width = '80%' align = 'center'><tr class = 'person'><td>" + orderid +"</td><td>"+ rst.getString(2)+"</td><td>"+rst.getInt(3)+"</td>"+"<td>"+rst.getString(4)+" "+rst.getString(5)+"</td><td>$"+rst.getString(6)+"</td></tr>");
 		pstmt.setInt(1, orderid); 
 		ResultSet rst2 = pstmt.executeQuery(); 
 		int count = 0; 
 		double total = 0; 
 		int quantitytotal = 0; 
 		if(rst2.next()) {
-			out.println("<tr align='center'><td colspan='6'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th></td></tr>");
+			out.println("<tr align='center'><td colspan='5'><table class='table2'><th><h3>Product Id</h3></th><th><h3>Quantity</h3></th><th><h3>Price</h3></th></td></tr>");
 			do {
 					String value = rst2.getString(3); 
 					int quantity = rst2.getInt(2); 
@@ -147,4 +147,3 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 
 </body>
 </html>
-

@@ -14,6 +14,9 @@
 <head>
 <title>YOUR NAME Grocery Order Processing</title>
 <style>
+body{
+	margin-top: 100px; 
+}
 table {
 	border-collapse: collapse; 
 	border: none; 
@@ -21,13 +24,15 @@ table {
 }
 tr{
 	border: 1px solid black; 
-	width: 100%; 
+	width: 100%;
+	padding: 10px; 
 }
 .entireorder{
 	width: 100%; 
 	height: fit-content; 
 	background-color: #D9D9D9;
 	padding: 10px; 
+	border: 2px; 
 }
 .entireorder .order-items{
 	display: flex; 
@@ -106,7 +111,7 @@ String cidsql = "SELECT TOP 1 orderId FROM ordersummary ORDER BY orderId DESC";
 ArrayList<Object> product;
 int qty = 1; 
 String productstring =""; 
-out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1>Thanks for your order! </h1><div class = 'orderid' style='display: flex; border: 2px solid black; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'>");
+out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1>Thanks for your order! </h1><div class = 'orderid' style='display: flex; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'>");
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();)
 	  {
@@ -153,7 +158,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 				ResultSet keys = pst2.getGeneratedKeys();
 				keys.next();
 				int ordId = keys.getInt(1);
-				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 10px;'> OrderID: "+ordId+"</h2></div></div> ");
+				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 10px;'> OrderID #"+ordId+"</h2></div></div> ");
 				keys.close();
 	// out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	// out.println("<th>Price</th><th>Subtotal</th></tr>");
@@ -167,10 +172,12 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			out.println("Expected product with four entries. Got: "+product);
 			continue;
 		}
+		out.println("<div class = 'orderblocks' style='width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;'><div class = 'orderblocks1' style='width: 50%; display: block; padding: 10px;'>");
+		out.println("<div class = 'top'><h2> Order Details: </h2><h4> Order Successfully completed. Will be shipped in 5-8 business days </h4></div>");
 		url = "addcart.jsp?removeId=" + product.get(0);
-		out.print("<tr><td>"+product.get(0)+"</td>");
-		out.print("<td>"+product.get(1)+"</td>");
-		out.print("<td align=\"center\">" + product.get(3)+ "</td>");
+		// out.print("<tr><td>"+product.get(0)+"</td>");
+		// out.print("<td>"+product.get(1)+"</td>");
+		// out.print("<td align=\"center\">" + product.get(3)+ "</td>");
 		Object price = product.get(2);
 		Object itemqty = product.get(3);
 		pr = 0;
@@ -208,6 +215,12 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		pstmt3.setDouble(3, pr); 
 		pstmt3.executeUpdate(); 
 		// out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
+		out.println("<div class = 'bottom'><table><tr><td> Name </td><td>"+rst.getString(2)+" "+rst.getString(3)+"</td> </tr><tr><td> Shipping Address </td><td>"+street+""+city+"<br>"+state+" "+zip+"</td></tr><tr><td> Payment Info </td><td>Card Number: **** **** ****"+cardNumber+"</td> </tr> </table></div></div>");
+		// printing right side
+		out.println("<div class='orderblocks1' style='width: 50%; display: flex; margin: 0 auto; padding: 10px;'><div class='entireorder'><h2>Your Order: </h2><div class='order-items'><div class='image'><img src='img/ba.jpg'></div><div class='info' style='display: flex; justify-content: space-between; margin: 0 auto; flex-direction: column;'><div class='info-name'><h1 style='padding: 0 auto; margin: 0 auto;'>" + product.get(1) + "</h1></div><div class='pricing' style='display: flex; justify-content: space-between; flex-direction: row; '><div class='qty' style='display: flex;'><h2>" + qty + "</h2></div><div class='price' style='display: flex;'><h2>" + (pr * qty) + "</h2></div></div></div></div>");
+		// bottom of right side
+		double totalfr = total + (total*0.12); 
+		out.println("<div class = 'order-items' style='display: block;'><hr><div class = 'summary' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><div class = 'summary1'><h3>Subtotal</h3><h3>Taxes</h3></div><div class = 'summary1' style='text-align: right;'><h4>"+currFormat.format(total)+"</h4><h4>"+currFormat.format(total*0.12)+"</h4></div></div><hr><div class = 'total' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><h3>Total: </h3><h4>"+currFormat.format(totalfr)+"</h4></div></div></div></div></div>");
 	}
 
 	String updateAmount = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
@@ -223,14 +236,13 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	else {
 		// out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
 		// out.println("</table>");
-		out.println("<h1>Order completed. Will be shipped soon...</h1>");
-		out.println("<h1>Shipping to: "+street+" "+city+" "+state+" "+zip+"</h1>");
-		out.println("<h1>Card Number: **** **** **** "+cardNumber+"</h1>");
-		session.setAttribute("productList", null);
-		out.println("<h1>Your order reference number is: "+ (ordId) + "</h1>");
-		out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
+		// out.println("<h1>Order completed. Will be shipped soon...</h1>");
+		// out.println("<h1>Shipping to: "+street+" "+city+" "+state+" "+zip+"</h1>");
+		// out.println("<h1>Card Number: **** **** **** "+cardNumber+"</h1>");
+		// session.setAttribute("productList", null);
+		// out.println("<h1>Your order reference number is: "+ (ordId) + "</h1>");
+		// out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
 		stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
-
 	}
 		
 	if (total == 0.0)
@@ -258,7 +270,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	} catch (SQLException ex) {
 			out.println("SQLException: " + ex);
 		}
-	out.println("</div>");
+	out.println("</div></div></div>");
 	/*
 	// Use retrieval of auto-generated keys.
 	PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
@@ -303,13 +315,13 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	</div>
 	<div class = "orderblocks" style="width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;">
 		<div class = "orderblocks1" style="width: 50%; display: block; padding: 10px;">
-			<div class = "top">
-				<h2> Order Details: </h2>
-				<h4> Order Successfully completed. Will be shipped in 5-8 business days </h4>
-			</div>
+				<div class = "top">
+					<h2> Order Details: </h2>
+					<h4> Order Successfully completed. Will be shipped in 5-8 business days </h4>
+				</div>
 			<div class = "bottom" style="">
 				<table>
-					<tr> 
+					<tr style='padding: 5px;'> 
 						<td> Name </td>
 						<td> Arnold Anderson </td> 
 					</tr>
@@ -323,26 +335,31 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 					</tr> 
 				</table>
 			</div>
-		</div>
+		// </div>
 		<div class = "orderblocks1" style="width: 50%; display: flex; margin: 0 auto; padding: 10px;  ">
 			<div class = "entireorder">
 				<h2>Your Order: </h2> 
 				<div class = "order-items">
 					<div class = "image"><img src = "img/ba.jpg"></div>
-					<div class = "info">
-						<div class = "info-name"><h1>This is a Rock</h1></div> 
-						<div class = "pricing"><h2>1</h2><h2>$1233</h2></div>
+					<div class = "info" style="display: flex; justify-content: space-between; margin: 0 auto; flex-direction: column;">
+						<div class = "info-name"><h1 style="padding: 0 auto; margin: 0 auto;">This is a Rock</h1></div> 
+						<div class = "pricing" style="display: flex; justify-content: space-between; flex-direction: row; "><div class = "qty" style="display: flex; "><h2>1</h2></div><div class = "price" style="display: flex;"><h2>$1233</h2></div></div>
 					</div>
 				</div>
-				<div class = "order-items">
-					<div class = "summary">
-						<h3>Subtotal</h3>
-						<h3>Taxes</h3>
-						<h4>Costs</h4>
-						<h4>Costs2</h4>
+				<div class = "order-items" style="display: block;">
+					<hr>
+					<div class = "summary" style="display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;">
+						<div class = "summary1">
+							<h3>Subtotal</h3>
+							<h3>Taxes</h3>
+						</div>
+						<div class = "summary1" style="text-align: right;">
+							<h4>Taxes</h4>
+							<h4>Costs2</h4>
+						</div>
 					</div>
-					<br> 
-					<div class = "Summary">
+					<hr>
+					<div class = "total" style="display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;">
 						<h3>Total: </h3>
 						<h4>Total Cost</h4>
 					</div>
@@ -351,6 +368,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		</div>
 	</div>
 </div> 
---> 
+-->
+
 </body>
 </html>

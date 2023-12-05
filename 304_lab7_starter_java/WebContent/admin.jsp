@@ -14,6 +14,13 @@ body{
     z-index: -1; 
     object-fit: cover; 
 	margin-top: 100px; 
+	width: 100%; 
+}
+tr, td, th{
+	width: fit-content; 
+	padding: 0 auto; 
+	margin: 0 auto;
+	text-align: left; 
 }
 </style>
 <body>
@@ -82,9 +89,9 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();){
 	PreparedStatement pstmt = con.prepareStatement("SELECT customerId, firstName, lastName, email, phoneNum, address, city, state, postalCode, country, userid FROM customer WHERE userid = ?;");
 	ResultSet rst = stmt.executeQuery("SELECT customerId, firstName, lastName, email, phoneNum, address, city, state, postalCode, country, userid FROM customer;"); 
-	out.println("<table class='table' border='1'><tr><th>Customer ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone Number</th><th>Address</th><th>City</th><th>State</th><th>Postal Code</th><th>Country</th><th>User ID</th>");
+	out.println("<table class='table' border='1'><tr><th>Customer ID</th><th> Name</th><th>Email</th><th>Phone Number</th><th>Address</th><th>City</th><th>State</th><th>Postal Code</th><th>Country</th><th>User ID</th>");
 	while (rst.next()){
-		out.println("<tr><td>" + rst.getString(1) + "</td><td>" + rst.getString(2) + "</td><td>" + rst.getString(3) + "</td><td>" 
+		out.println("<tr><td>" + rst.getString(1) + "</td><td>" + rst.getString(2) + " " + rst.getString(3) + "</td><td>" 
 		+ rst.getString(4) + "</td><td>" + rst.getString(5) + "</td><td>" + rst.getString(6) + "</td><td>" + rst.getString(7) + "</td><td>" 
 		+ rst.getString(8) + "</td><td>" + rst.getString(9) + "</td><td>" + rst.getString(10) + "</td><td>" + rst.getString(11) + "</td></tr>");
 	}
@@ -96,7 +103,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	out.println("SQLException: " + ex);
 }
 %>
-
+<!--
 <h3>Add a Product</h3>
 <form method="post" action="addproduct.jsp">
     <label for="productName">Product Name:</label><br>
@@ -127,10 +134,66 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
     <input type="text" id="productId" name="productId"><br>
     <input type="submit" value="Delete">
 </form>
-
+-->
 <%
 out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
 %>
+<div class = "admin-container" style="width: 100%; display: flex; padding: 10px; background-color: white; height: fit-content; margin: 0 auto; border: 2px solid black;">
+		<div class = "item-70" style="display: block; width: 75%">
+			<div class = "tables" style="display: flex; flex-direction: row; justify-content: space-evenly; width: 100%; ">
+				<div class = "table1" style="width: 20%; display: flex; ">
+					<p>1</p>
+				</div>
+				<div class = "table2" style="width: 80%; display: flex;">
+					<p>2</p>
+				</div>
+			</div>
+			<br>
+			<div class = "graph" style="display: flex; width: 100%; ">
+							<p>1</p>
+
+			</div>
+		</div>
+		<div class = "item-30" style="display: flex; width: 25%">
+			<div class = "product" style="display: flex; flex-direction: column; margin: 0 auto; padding: 0 auto; justify-content: space-between; width: 100%;">
+				<div class = "task">
+					<h3>Add a Product</h3>
+					<form method="post" action="addproduct.jsp">
+						<label for="productName">Product Name:</label><br>
+						<input type="text" id="productName" name="productName"><br>
+						<label for="productPrice">Product Price:</label><br>
+						<input type="text" id="productPrice" name="productPrice"><br>
+						<label for="productDesc">Product Description:</label><br>
+						<textarea id="productDesc" name="productDesc"></textarea><br>
+						<input type="submit" value="Submit">
+					</form>
+				</div>
+				<div class = "task">
+					<h3>Update a Product</h3>
+					<form method="post" action="updateproduct.jsp">
+						<label for="productId">Product ID:</label><br>
+						<input type="text" id="productId" name="productId"><br>
+						<label for="productName">Product Name:</label><br>
+						<input type="text" id="productName" name="productName"><br>
+						<label for="productPrice">Product Price:</label><br>
+						<input type="text" id="productPrice" name="productPrice"><br>
+						<label for="productDesc">Product Description:</label><br>
+						<textarea id="productDesc" name="productDesc"></textarea><br>
+						<input type="submit" value="Update">
+					</form>
+
+				</div>
+				<div class = "task">
+					<h3>Delete a Product</h3>
+					<form method="post" action="deleteproduct.jsp">
+						<label for="productId">Product ID:</label><br>
+						<input type="text" id="productId" name="productId"><br>
+						<input type="submit" value="Delete">
+					</form>
+				</div>
+			</div>
+		</div>
+</div>
 </body>
 </html>
 
