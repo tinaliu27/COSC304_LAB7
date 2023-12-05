@@ -75,6 +75,7 @@ String zip = request.getParameter("zip");
 String cardNumber = request.getParameter("cardNumber");
 String expirationDate = request.getParameter("expirationDate");
 String securityCode = request.getParameter("securityCode");
+double totalfr = 0;
 
 //validate data
 if (street == null || city == null || state == null || zip == null || cardNumber == null || street.equals("") || city.equals("") || state.equals("") || zip.equals("") || street.length() > 50 || city.length() > 50 || state.length() > 50 || zip.length() != 6) {
@@ -164,6 +165,8 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	// out.println("<th>Price</th><th>Subtotal</th></tr>");
 		String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (" + ordId + ", ?, ?, ?)";
 		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+		out.println("<div class = 'top'><h2> Order Details: </h2><h4> Order Successfully completed. Will be shipped in 5-8 business days </h4></div>");
+		out.println("<div class = 'bottom'><table><tr><td> Name </td><td>"+rst.getString(2)+" "+rst.getString(3)+"</td> </tr><tr><td> Shipping Address </td><td>"+street+""+city+"<br>"+state+" "+zip+"</td></tr><tr><td> Payment Info </td><td>Card Number: **** **** ****"+cardNumber+"</td> </tr> </table></div></div>");
 		while (iterator.hasNext()) {	
 		Map.Entry<String, ArrayList<Object>> entry = iterator.next();
 		product = (ArrayList<Object>) entry.getValue();
@@ -173,7 +176,6 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			continue;
 		}
 		out.println("<div class = 'orderblocks' style='width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;'><div class = 'orderblocks1' style='width: 50%; display: block; padding: 10px;'>");
-		out.println("<div class = 'top'><h2> Order Details: </h2><h4> Order Successfully completed. Will be shipped in 5-8 business days </h4></div>");
 		url = "addcart.jsp?removeId=" + product.get(0);
 		// out.print("<tr><td>"+product.get(0)+"</td>");
 		// out.print("<td>"+product.get(1)+"</td>");
@@ -215,14 +217,12 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		pstmt3.setDouble(3, pr); 
 		pstmt3.executeUpdate(); 
 		// out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
-		out.println("<div class = 'bottom'><table><tr><td> Name </td><td>"+rst.getString(2)+" "+rst.getString(3)+"</td> </tr><tr><td> Shipping Address </td><td>"+street+""+city+"<br>"+state+" "+zip+"</td></tr><tr><td> Payment Info </td><td>Card Number: **** **** ****"+cardNumber+"</td> </tr> </table></div></div>");
 		// printing right side
-		out.println("<div class='orderblocks1' style='width: 50%; display: flex; margin: 0 auto; padding: 10px;'><div class='entireorder'><h2>Your Order: </h2><div class='order-items'><div class='image'><img src='img/ba.jpg'></div><div class='info' style='display: flex; justify-content: space-between; margin: 0 auto; flex-direction: column;'><div class='info-name'><h1 style='padding: 0 auto; margin: 0 auto;'>" + product.get(1) + "</h1></div><div class='pricing' style='display: flex; justify-content: space-between; flex-direction: row; '><div class='qty' style='display: flex;'><h2>" + qty + "</h2></div><div class='price' style='display: flex;'><h2>" + (pr * qty) + "</h2></div></div></div></div>");
+		out.println("<div class='orderblocks1' style='width: 50%; display: flex; margin: 0 auto; padding: 10px;'><div class='entireorder'><div class='order-items'><div class='image'><img src='img/ba.jpg'></div><div class='info' style='display: flex; justify-content: space-between; margin: 0 auto; flex-direction: column;'><div class='info-name'><h1 style='padding: 0 auto; margin: 0 auto;'>" + product.get(1) + "</h1></div><div class='pricing' style='display: flex; justify-content: space-between; flex-direction: row; '><div class='qty' style='display: flex;'><h2>" + qty + "</h2></div><div class='price' style='display: flex;'><h2>" + (pr * qty) + "</h2></div></div></div></div>");
 		// bottom of right side
-		double totalfr = total + (total*0.12); 
-		out.println("<div class = 'order-items' style='display: block;'><hr><div class = 'summary' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><div class = 'summary1'><h3>Subtotal</h3><h3>Taxes</h3></div><div class = 'summary1' style='text-align: right;'><h4>"+currFormat.format(total)+"</h4><h4>"+currFormat.format(total*0.12)+"</h4></div></div><hr><div class = 'total' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><h3>Total: </h3><h4>"+currFormat.format(totalfr)+"</h4></div></div></div></div></div>");
+		totalfr = total + (total*0.12); 
 	}
-
+	out.println("<div class = 'order-items' style='display: block;'><hr><div class = 'summary' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><div class = 'summary1'><h3>Subtotal </h3><h3>Taxes</h3></div><div class = 'summary1' style='text-align: right;'><h4>"+currFormat.format(total)+"</h4><h4>"+currFormat.format(total*0.12)+"</h4></div></div><hr><div class = 'total' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><h3>Total: </h3><h4>"+currFormat.format(totalfr)+"</h4></div></div></div></div></div>");
 	String updateAmount = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
 	PreparedStatement pst4 = con.prepareStatement(updateAmount);
 	pst4.setDouble(1, total);
@@ -247,7 +247,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		
 	if (total == 0.0)
 		out.println("--!>");
-				out.println("<h2><a href='index.jsp'>Back to Main Page</a></h2>");
+				out.println("</div></div><h2><a href='index.jsp'>Back to Main Page</a></h2>");
 				++invalid; 
 		}
 		if (invalid==0) {
