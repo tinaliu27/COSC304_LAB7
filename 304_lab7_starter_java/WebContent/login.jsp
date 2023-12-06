@@ -256,7 +256,7 @@ label {
 }
 </style>
 <%@ include file="headertransparent.jsp" %>
-<div id="card" class="entire-card">
+<div id="card" class="entire-card" style="width: fit-content;">
     <div id="card-content">
       <div id="card-title">
         <h2>LOGIN</h2>

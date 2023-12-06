@@ -14,7 +14,7 @@
 <head>
 <title>YOUR NAME Grocery Order Processing</title>
 <style>
-body{
+  body{
 	margin-top: 100px; 
 }
 table {
@@ -30,14 +30,19 @@ tr{
 .entireorder{
 	width: 100%; 
 	height: fit-content; 
-	background-color: #D9D9D9;
+	background-color: #d9d8d7;
 	padding: 10px; 
 	border: 2px; 
 }
 .entireorder .order-items{
 	display: flex; 
 	width: 100%; 
+	margin: 0 auto;
 }
+.entireorder .order-items .info{
+	margin-bottom: 10px; 
+}
+
 .order-items .image{
 	display: flex; 
 	width: 40%; 
@@ -54,6 +59,41 @@ tr{
 	flex-direction: row; 
 	justify-content: space-around;
 }
+.order-blocks{
+	display: inline-block;
+}
+.overblocks-1{
+	width: 100%; 
+	justify-content: space-between; 
+	flex-direction: row; 
+	margin: 0 auto; 
+	padding: 0 auto; 
+	display: flex;
+}
+.overblocks1 {
+	width: 50%; 
+    display: flex;
+	flex-direction: column; 
+	padding: 0 auto; 
+	margin: 0 auto;
+}
+.tableinfo td, th{
+	padding: 10px; 
+	font-size: 20px; 
+}
+.back{
+	margin-left: 40px;
+}
+.back img{
+	width: 70px; 
+	height: 70px; 
+	transition: 1s ease; 
+	margin-bottom: 10px; 
+}
+.back img:hover{
+	transform: scale(1.15); 
+}
+
 </style>
 </head>
 <body>
@@ -133,7 +173,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			throw new IllegalArgumentException();
 		}
 		rst22.close();
-		out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1>Thanks for your order! </h1><div class = 'orderid' style='display: flex; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'>");
+		out.println("<div class = 'order-container'><div class = 'orderblocks' style='width: 100%;'><h1 style='font-size: 40px;'>Thanks for your order!</h1><div class = 'orderid' style='display: flex; align-items: center; text-align: center; width: fit-content;'><img src = 'img/reviewyes.png' style='width: 50px; height: 50px; display: inline-block; margin: 0 auto; padding: 0 auto; background: transparent;'><div class = 'overblocks-1>");
 		// first get customerid 
 		ResultSet cidrst = stmt.executeQuery(cidsql); 
 		
@@ -159,70 +199,73 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 				ResultSet keys = pst2.getGeneratedKeys();
 				keys.next();
 				int ordId = keys.getInt(1);
-				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 10px;'> OrderID #"+ordId+"</h2></div></div> ");
+				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 20px;'> OrderID #"+ordId+"</h2></div></div></div>");
 				keys.close();
 	// out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	// out.println("<th>Price</th><th>Subtotal</th></tr>");
 		String addintoop = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (" + ordId + ", ?, ?, ?)";
 		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
-		out.println("<div class = 'top'><h2> Order Details: </h2><h4> Order Successfully completed. Will be shipped in 5-8 business days </h4></div>");
-		out.println("<div class = 'bottom'><table><tr><td> Name </td><td>"+rst.getString(2)+" "+rst.getString(3)+"</td> </tr><tr><td> Shipping Address </td><td>"+street+""+city+"<br>"+state+" "+zip+"</td></tr><tr><td> Payment Info </td><td>Card Number: **** **** ****"+cardNumber+"</td> </tr> </table></div></div>");
+		out.println("<div class = 'orderblocks' style='width: 100%; display: flex;'><div class = 'overblocks1'><div class = 'top'><h2 style='font-size: 30px;'> Order Details: </h2><h4 style='font-size: 20px;'> Order Successfully completed. Will be shipped in 5-8 business days </h4></div>");
+		out.println("<div class = 'bottom'><table class = 'tableinfo'><tr><td><b> Name </b></td><td>"+rst.getString(2)+" "+rst.getString(3)+"</td> </tr><tr><td><b> Shipping Address </b></td><td>"+street+"<br>"+city+" , "+state+" "+zip+"</td></tr><tr><td><b> Payment Info </b></td><td>Card Number: **** **** ****"+cardNumber+"</td> </tr> </table></div></div>");
+		out.println("<div class='orderblocks1' style='width: 50%; display: flex; margin: 0 auto; padding: 10px;'><div class='entireorder'>");
 		while (iterator.hasNext()) {	
-		Map.Entry<String, ArrayList<Object>> entry = iterator.next();
-		product = (ArrayList<Object>) entry.getValue();
-		if (product.size() < 4)
-		{
-			out.println("Expected product with four entries. Got: "+product);
-			continue;
-		}
-		out.println("<div class = 'orderblocks' style='width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;'><div class = 'orderblocks1' style='width: 50%; display: block; padding: 10px;'>");
-		url = "addcart.jsp?removeId=" + product.get(0);
-		// out.print("<tr><td>"+product.get(0)+"</td>");
-		// out.print("<td>"+product.get(1)+"</td>");
-		// out.print("<td align=\"center\">" + product.get(3)+ "</td>");
-		Object price = product.get(2);
-		Object itemqty = product.get(3);
-		pr = 0;
-		qty = 0;
-		productstring = product.get(0) + "";
-		
-		try
-		{
-			pr = Double.parseDouble(price.toString());
-		}
-		catch (Exception e)
-		{
-			//out.println("Invalid price for product: "+product.get(0)+" price: "+price);
-		}
-		try
-		{
-			qty = Integer.parseInt(itemqty.toString());
-		}
-		catch (Exception e)
-		{
-			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
-		}		
-		// out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		// out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
-		// out.println("</tr>");
-		total = total +pr*qty;
+			Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+			product = (ArrayList<Object>) entry.getValue();
+			if (product.size() < 4)
+			{
+				out.println("Expected product with four entries. Got: "+product);
+				continue;
+			}
+			out.println("<div class = 'orderblocks'><div class = 'orderblocks1' style='width: 100%; display: block; '>");
+			url = "addcart.jsp?removeId=" + product.get(0);
+			// out.print("<tr><td>"+product.get(0)+"</td>");
+			// out.print("<td>"+product.get(1)+"</td>");
+			// out.print("<td align=\"center\">" + product.get(3)+ "</td>");
+			Object price = product.get(2);
+			Object itemqty = product.get(3);
+			Object image = product.get(5);
+			String imageurl = image + ""; 
+			pr = 0;
+			qty = 0;
+			productstring = product.get(0) + "";
+			
+			try
+			{
+				pr = Double.parseDouble(price.toString());
+			}
+			catch (Exception e)
+			{
+				//out.println("Invalid price for product: "+product.get(0)+" price: "+price);
+			}
+			try
+			{
+				qty = Integer.parseInt(itemqty.toString());
+			}
+			catch (Exception e)
+			{
+				out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
+			}		
+			// out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
+			// out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
+			// out.println("</tr>");
+			total = total +pr*qty;
 
-		PreparedStatement pstmt3 = con.prepareStatement(addintoop); 
-		// pstmt3.setInt(1, ordId);
-			// pstmt
-		double doubleValue = Double.parseDouble(productstring);
-		int intValue = (int) doubleValue;
-		pstmt3.setInt(1, intValue);
-		pstmt3.setInt(2, qty); 
-		pstmt3.setDouble(3, pr); 
-		pstmt3.executeUpdate(); 
-		// out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
-		// printing right side
-		out.println("<div class='orderblocks1' style='width: 50%; display: flex; margin: 0 auto; padding: 10px;'><div class='entireorder'><div class='order-items'><div class='image'><img src='img/ba.jpg'></div><div class='info' style='display: flex; justify-content: space-between; margin: 0 auto; flex-direction: column;'><div class='info-name'><h1 style='padding: 0 auto; margin: 0 auto;'>" + product.get(1) + "</h1></div><div class='pricing' style='display: flex; justify-content: space-between; flex-direction: row; '><div class='qty' style='display: flex;'><h2>" + qty + "</h2></div><div class='price' style='display: flex;'><h2>" + (pr * qty) + "</h2></div></div></div></div>");
-		// bottom of right side
-		totalfr = total + (total*0.12); 
-	}
-	out.println("<div class = 'order-items' style='display: block;'><hr><div class = 'summary' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><div class = 'summary1'><h3>Subtotal </h3><h3>Taxes</h3></div><div class = 'summary1' style='text-align: right;'><h4>"+currFormat.format(total)+"</h4><h4>"+currFormat.format(total*0.12)+"</h4></div></div><hr><div class = 'total' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><h3>Total: </h3><h4>"+currFormat.format(totalfr)+"</h4></div></div></div></div></div>");
+			PreparedStatement pstmt3 = con.prepareStatement(addintoop); 
+			// pstmt3.setInt(1, ordId);
+				// pstmt
+			double doubleValue = Double.parseDouble(productstring);
+			int intValue = (int) doubleValue;
+			pstmt3.setInt(1, intValue);
+			pstmt3.setInt(2, qty); 
+			pstmt3.setDouble(3, pr); 
+			pstmt3.executeUpdate(); 
+			// out.println("integer value: " + intValue + " quantity: " + qty + " price: "+ pr); 
+			// printing right side
+			out.println("<div class='order-items'><div class='image'><img src='"+imageurl+"'></div><div class='info' style='display: flex; justify-content: space-between; margin: 0 auto; flex-direction: column; padding-top: 5px; padding-left: 30px;'><div class='info-name'><h1 style='padding: 0 auto; margin: 0 auto;'>" + product.get(1) + "</h1></div><div class='pricing' style='display: flex; justify-content: space-between; flex-direction: row; '><div class='qty' style='display: flex;'><h2>" + qty + "</h2></div><div class='price' style='display: flex;'><h2>" + currFormat.format(pr * qty) + "</h2></div></div></div></div><br></div>");
+			// bottom of right side
+			totalfr = total + (total*0.12); 
+		}
+	out.println("<div class = 'order-items' style='display: block;'><hr><div class = 'summary' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><div class = 'summary1'><h3 style = 'font-size: 25px; margin: 0 auto; margin-bottom: 10px;'>Subtotal </h3><h3 style='font-size: 25px; margin: 0 auto;'>Taxes</h3></div><div class = 'summary1' style='text-align: right;'><h4 style='font-size: 25px; margin: 0 auto; margin-bottom: 10px;'>"+currFormat.format(total)+"</h4><h4 style='font-size: 25px; margin: 0 auto;'>"+currFormat.format(total*0.12)+"</h4></div></div><hr><div class = 'total' style='display: flex; flex-direction: row; justify-content: space-between; margin: 0 auto; padding: 0 auto;'><h3 style='font-size: 30px; margin-bottom: 10px; margin-top: 10px;'>Total: </h3><h4 style='font-size: 30px; margin-bottom: 10px; margin-top: 10px;'>"+currFormat.format(totalfr)+"</h4></div></div></div>");
 	String updateAmount = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
 	PreparedStatement pst4 = con.prepareStatement(updateAmount);
 	pst4.setDouble(1, total);
@@ -240,7 +283,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		// out.println("<h1>Shipping to: "+street+" "+city+" "+state+" "+zip+"</h1>");
 		// out.println("<h1>Card Number: **** **** **** "+cardNumber+"</h1>");
 		// add this back
-		// session.setAttribute("productList", null);
+		session.setAttribute("productList", null);
 		// out.println("<h1>Your order reference number is: "+ (ordId) + "</h1>");
 		// out.println("<h1>Shipping to customer: "+rst.getInt(1)+ " Name: "+rst.getString(2)+" "+rst.getString(3)+"</h1>" );   
 		stmt.executeUpdate("SET IDENTITY_INSERT ordersummary OFF");
@@ -248,19 +291,19 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 		
 	if (total == 0.0)
 		out.println("--!>");
-				out.println("</div></div><h2><a href='index.jsp'>Back to Main Page</a></h2>");
-				++invalid; 
-		}
+    ++invalid; 
+	}
+	out.println("</div></div></div>");
 		if (invalid==0) {
 		out.println("<h1>Invalid customer id. Go back to the previous page and try again.</h1>");
 		}
 		if (invalid == 2)
 			out.println("<h1>Invalid customer id. Go back to the previous page and try again.</h1>");
 
-    
 	stmt.close();
 	con.close(); 
 	rst.close();
+
 	  } catch(NullPointerException e) {
 		out.println("<h1>You cannot check out without any items in your cart.</h1>");
 
@@ -271,7 +314,9 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	} catch (SQLException ex) {
 			out.println("SQLException: " + ex);
 		}
-	out.println("</div></div></div>");
+
+out.println("</div></div><br><a href='index.jsp' class='back'><img src = 'img/back.png'></a>");
+
 	/*
 	// Use retrieval of auto-generated keys.
 	PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
@@ -314,7 +359,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 			<h2 style="display: inline-block; margin: 0 auto; padding-left: 10px; "> OrderID </h2> 
 		</div>
 	</div>
-	<div class = "orderblocks" style="width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;">
+	<div class = "orderblocks " style="width: 100%; justify-content: space-between; flex-direction: row; margin: 0 auto; padding: 0 auto; display: flex;">
 		<div class = "orderblocks1" style="width: 50%; display: block; padding: 10px;">
 				<div class = "top">
 					<h2> Order Details: </h2>

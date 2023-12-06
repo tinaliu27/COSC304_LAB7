@@ -139,7 +139,7 @@ tr{
 	margin-bottom: auto; 
 }
 .card-item .content-left .quantitychange{
-	padding-bottom: 10px; 
+	padding-bottom: 15px; 
 }
 .card-item .content-left form{
 	margin: 0 auto; 
@@ -152,11 +152,12 @@ tr{
 	justify-content: space-between; 
 	align-items: flex-end; 
 	margin: 0 auto;
-	padding:0 auto; 
+	padding: 0 auto ; 
 }
 .card-item .content-right .pricing{
 	display: block;
-	padding-right: 5px; 
+	padding-right: 10px;
+	padding-top: 5px; 
 }
 .card-item .content-right .pricing h2{
 	margin: 0 auto;
@@ -182,8 +183,8 @@ tr{
 	padding: 0 auto;
 }
 .card-item .content-right .trash{
-	padding-right: 5px; 
-	padding-bottom: 5px; 
+	padding-right: 10px; 
+	padding-bottom: 10px; 
 }
 .item-70 .bottom {
 	align-items: right; 
@@ -303,7 +304,7 @@ else
 		// out.print("<td><h5 style='width: 200px'><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></h5></td>");
 		// out.println("</tr>");
 		total = total +pr*qty;
-		out.println("<div class = 'card-item' id = 'card-item' style='margin-bottom: 30px;'><div class = 'image' style='width: 30%; margin: 0 auto; padding: 0 auto;'><img src='"+urlimage+"'></div><div class='content-left' style='width: 70%;'><div class ='all-content'><h1>"+product.get(1)+"</h1><p>"+product.get(4)+"<br><h3>Quantity: "+qty+"</h3></p></div><div class = 'quantitychange'><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></div></div><div class = 'content-right'><div class='pricing'><h2>Subtotal: <b>"+currFormat.format(pr*qty)+"</b></h2><h3 style='margin: 0 auto; padding: 0 auto;'>Price Per item: "+currFormat.format(pr)+"</h3></div><div class = 'trash'><a href='" + url + "'><img src = 'img/trash.png'></a></div></div></div>");
+		out.println("<div class = 'card-item' id = 'card-item' style='margin-bottom: 30px;'><div class = 'image' style='width: 30%; margin: 0 auto; padding: 0 auto;'><img src='"+urlimage+"'></div><div class='content-left' style='width: 70%;'><div class ='all-content'><h1>"+product.get(1)+"</h1><p>"+product.get(4)+"<br><h3>Quantity: "+qty+"</h3></p></div><div class = 'quantitychange'><form action='addcart.jsp' method='get'> <input type='hidden' name='updateId' value='" + product.get(0) + "'>New Quantity: <input type='text' name='newQty'><input type='submit' value='Update Quantity'></form></div></div><div class = 'content-right'><div class='pricing' ><h2>Subtotal: <b>"+currFormat.format(pr*qty)+"</b></h2><h3 style='margin: 0 auto; padding: 0 auto;'>Price Per item: "+currFormat.format(pr)+"</h3></div><div class = 'trash'><a href='" + url + "'><img src = 'img/trash.png'></a></div></div></div>");
 
 		if (product.get(0) == null)
 			out.println("<script> document.getElementById('card-item').remove();</script>");
