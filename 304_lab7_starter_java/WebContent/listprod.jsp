@@ -52,31 +52,38 @@ h4{
 }
 .card-container {
     width: 100%;
+    display: flex;
     margin: 50px auto; 
     padding: 50px auto;
-}
-.card-container:after {
-  content: "";
-  display: table;
-  clear: both;
-
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 100%; 
-  height: 550px;
-  display: block; 
+  min-height: 530px;
   text-align: left; 
-  align-items: center; 
+  margin-top: 0px;
   margin-bottom: 20px; 
   background-color: white;
+  flex: 0 0 32%; 
+  display: block;
 }
 .column {
-  float: left;
-  width: 30%;
-  padding: 0 20px;
+  width: 100%;
+  min-width: 600px;
+  display: flex;
+  flex-wrap: wrap;                     
+  justify-content: space-around;
 }
+.card .everything{
+  display: flex; 
+  text-align: left; 
+  flex-direction: column;
+  padding: 0 auto; 
+  margin: 0px;
+  height: 60%; 
+  justify-content: space-between;
+}
+
 .card .image{
     height: fit-content; 
     width: 100%; 
@@ -87,6 +94,8 @@ h4{
     height: 200px;
     width: 100%; 
     object-fit: cover;
+    margin: 0;
+    padding:0; 
 }
 
 .card:hover {
@@ -94,9 +103,13 @@ h4{
 }
 
 .product-container {
-  padding: 0px 20px; 
+  margin: 10px 25px;
   height: fit-content; 
-  margin: 0 auto; 
+  width: 85%; 
+}
+.product-container p{
+    margin-top: 30px;
+    margin-bottom: 0px;
 }
 .product-container h4{
     font-size: 1.5em; 
@@ -143,6 +156,7 @@ input[type="search"]:focus {
     display: flex; 
     justify-content: center;
     margin: 0 auto; 
+    width: 100%; 
 }
 .searchbar:hover {
     box-shadow: 2px 3px 3px 2px gray; 
@@ -151,7 +165,6 @@ input[type="search"]:focus {
 }
 .searching{
     display: inline-block; 
-    flex: 1;
 }
 .reset {
     background-color: #FFFFFF; 
@@ -266,7 +279,7 @@ input[type="search"]:focus {
     <div class = "top-container">
     <div class = "top">
         <div class = "searchings">
-            <div class="searchbar" style="width: fit-content; height: fit-content; border: 1px solid black;" >
+            <div class="searchbar" style="width: 100%; height: fit-content; border: 1px solid black; margin: 0; padding: 0; display: flex;" >
                 <input type="text" name="productName" size="50" placeholder="Enter Product Name...">
                 <button type="submit" value="Submit">Search</button>
             </div>
@@ -295,6 +308,7 @@ input[type="search"]:focus {
 
 
 <% // Get product name to search for
+NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 String name = request.getParameter("productName");
 String category = request.getParameter("categoryName");
 
@@ -342,7 +356,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
     ResultSet rst = pstmt.executeQuery();
     NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
     // out.println("<table class = 'table1'><tr><th></th><th>Product Name</th><th>Categories</th><th>Price</th></tr>");
-        out.println("<div class = 'card-container'>");
+        out.println("<div class = 'card-container'><div class='column'>");
         while(rst.next()) {
             String pname = rst.getString(1);
             Double price = rst.getDouble(2); 
@@ -357,10 +371,11 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
             String link = "<div class = 'adding'><a href='" + nav + "'><button type='button'>Add to Cart</button></a></div>";
             String product = "<div class = 'product'><a href='" + pnav + "'>Product Info</a></div>";
             // out.println("<tr><td><h5 style='width: 100px; margin: 0 auto; text-align: left'>"+ link + "</h5></td><td><h3 style='width: 600px'>" + product +"</h3></td><td><h4 style='width: 500px'>"+category1+"</h4></td><td><h5>"+ price2 +"</h5></td></tr>");
-            out.println("<div class='column'><div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class='product-container'><h2><b>"+pname+"</b></h2><h4>$"+price+"0</<h4><p>"+pdesc+"</p></div><div class='footer'><p>"+link+"\n"+product+"</p></div></div></div>");
+            out.println("<div class='card'><div class ='image'><img src='"+ imageurl + "'></div><div class = 'everything'><div class='product-container'><h2><b>"+pname+"</b></h2><h4 style='padding-top: 10px;'>"+currFormat.format(price)+"</<h4><p>"+pdesc+"</p></div><div class='footer'><p>"+link+"\n"+product+"</p></div></div></div>");
         }
-        out.println("</div>");
     rst.close();
+    out.println("</div></div>");
+
 
 } catch (SQLException ex) {
     out.println("SQLException: " + ex.getMessage());
@@ -374,7 +389,6 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);
 // Close connection
 
 // Useful code for formatting currency values:
-// NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 // out.println(currFormat.format(5.0)); // Prints $5.00
 %>
 </body>

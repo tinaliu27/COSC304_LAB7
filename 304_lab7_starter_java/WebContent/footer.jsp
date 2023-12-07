@@ -49,6 +49,15 @@ html{
 .items h3{
     margin-bottom: 0;
 }
+#footer .item a{
+    text-decoration: none; 
+    color: black;
+}
+#footer .item a:hover{
+    color: white; 
+}
+
+
 
 </style> 
 <html>
@@ -61,8 +70,8 @@ html{
             </div>
             <div class = "item">
                 <h2 align="justify">About Us</h2>
-                <h4>Mission Statement</h4> 
-                <h4>Executive Summary</h4> 
+                <h4><a href="mission.jsp?" style="text-decoration: none;">Mission Statement</a></h4> 
+                <h4><a href="executive.jsp?">Executive Summary</a></h4> 
                 <a href = "https://github.com/tinaliu27/COSC304_LAB7/tree/Lab10"><h4>Github Link</h4></a>
             </div>
             <div class = "item">

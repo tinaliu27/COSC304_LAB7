@@ -83,6 +83,7 @@ tr{
 }
 .back{
 	margin-left: 40px;
+	width: 100%;
 }
 .back img{
 	width: 70px; 
@@ -199,7 +200,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 				ResultSet keys = pst2.getGeneratedKeys();
 				keys.next();
 				int ordId = keys.getInt(1);
-				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 20px;'> OrderID #"+ordId+"</h2></div></div></div>");
+				out.println("<h2 style='display: inline-block; margin: 0 auto; padding-left: 20px;'><b>OrderID #"+ordId+"</b></h2></div></div></div>");
 				keys.close();
 	// out.print("<table id='table'><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	// out.println("<th>Price</th><th>Subtotal</th></tr>");

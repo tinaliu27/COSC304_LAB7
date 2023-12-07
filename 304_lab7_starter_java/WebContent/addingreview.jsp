@@ -50,7 +50,7 @@ h1{
  .rating label{
     font-size: 1.7em; 
  }
- .dropdown{
+ .form-container .dropdown{
     padding: 10px 30px; 
  }
  textarea{
